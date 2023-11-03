@@ -1,0 +1,482 @@
+{
+    "Unauthenticated": "Unauthenticated",
+    "Unauthenticated.": "Unauthenticated",
+    "This action is unauthorized.": "Hành động này là không được phép",
+    "common": {
+        "list": "Danh sách",
+        "add": "Thêm",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "forceDelete": "Bắt buộc xóa",
+        "trash": "Đã xóa",
+        "decentralize": "Phân quyền",
+        "close": "Đóng",
+        "save": "Lưu",
+        "saving": "Đang lưu",
+        "refresh": "Refresh",
+        "accept": "Chấp nhận",
+        "confirm": "Xác nhận",
+        "update": "Cập nhật",
+        "ok": "Xác nhận",
+        "cancel": "Hủy bỏ",
+        "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
+        "fail-to-load-data": "Không thể tải về dữ liệu",
+        "unknown-error": "Có lỗi xảy ra",
+        "internal-server-error": "Lỗi kết nối",
+        "bad-request": "Yêu cầu không hợp lệ",
+        "forbiden-request": "Thông tin truyền vào không hợp lệ",
+        "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
+        "sum": "Tổng",
+        "date-range-invalid": "Khoảng thời gian không hợp lệ",
+        "login": "Đăng Nhập",
+        "register": "Đăng Ký",
+        "copytoclipboard": "Sao chép vào bộ nhớ tạm",
+        "getotp": "Lấy mã OTP email",
+        "resendotp": "Gửi lại OTP email",
+        "selectall": "Chọn tất cả",
+        "next": "Kế tiếp",
+        "previous": "Trước",
+        "open_menu": "Mở Menu"
+    },
+    "sidebar": {
+        "dashboard": "Quản trị",
+        "admin": "Admin",
+        "home": "Trang Chủ",
+        "users": "Người dùng",
+        "role": "Vai Trò",
+        "permission": "Quyền",
+        "staff": "Nhân viên",
+        "package": "Gói",
+        "product": "Sản phẩm",
+        "setting": "Cài đặt",
+        "filemanager": "Quản lý tập tin",
+        "attribute": "Thuộc tính"
+    },
+    "status": {
+        "active": "Kích hoạt",
+        "disable": "Vô hiệu hóa",
+        "show": "Hiển thị",
+        "notshow": "Không hiển thị",
+        "error": "Lỗi",
+        "success": "Thành công",
+        "warning": "Cảnh báo"
+    },
+    "page": {
+        "register": "Đăng Ký",
+        "login": "Đăng nhập ",
+        "logout": "Đăng xuất",
+        "notfound": "Không tìm thấy trang",
+        "home": "Trang chủ",
+        "back": "Quay lại"
+    },
+    "label": {
+        "enable": "Bật",
+        "active": "Kích hoạt",
+        "disable": "Vô hiệu hóa",
+        "show": "Hiển thị",
+        "notshow": "Không hiển thị",
+        "error": "Lỗi",
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "account": "Tài khoản",
+        "name": "Tên",
+        "username": "Tên người dùng",
+        "email": "Địa chỉ Email",
+        "login": "Đăng Nhập",
+        "register": "register",
+        "password": "Mật khẩu",
+        "password_confirmation": "Xác nhận mật khẩu",
+        "display_name": "Tên hiển thị",
+        "action": "Hành động",
+        "status": "Trạng thái",
+        "created_at": "Thời gian thêm",
+        "updated_at": "Thời gian cập nhật",
+        "deleted_at": "Thời gian xóa",
+        "time": "Thời gian",
+        "2fa": "Xác thực 2 yếu tố",
+        "security_status": "Trạng thái bảo mật",
+        "enable2fa": "Bật xác thực 2 yếu tố",
+        "disable2fa": "Tắt xác thực hai yếu tố",
+        "verify2fa": "Xác minh xác thực hai yếu tố",
+        "scanbarcode": "Quét mã QR",
+        "code": "Code",
+        "secretcode": "Mã bí mật",
+        "confimcode": "Mã xác nhận",
+        "selectpackage": "Chọn gói",
+        "details": "Chi tiết",
+        "security": "Bảo mật",
+        "description": "Mô tả",
+        "price": "Giá",
+        "image": "Hình ảnh",
+        "upload": "Tải lên",
+        "drag-drop": "Kéo và thả tệp của bạn",
+        "readyupload": "Sẵn sàng tải lên",
+        "config": "Cấu hình",
+        "system": "Hệ thống",
+        "storage": "Lưu trữ",
+        "disk_client": "URL dịch vụ lưu trữ",
+        "disk_client_id": "ID Storage Service",
+        "disk_client_secret": "Mã bí mật dịch vụ lưu trữ",
+        "disk_refresh_token": "Refresh Token dịch vụ lưu trữ",
+        "disk": "Disk",
+        "smtp": "SMTP",
+        "smtp_template": "Mẫu smtp",
+        "smtp_host": "Máy chủ smtp",
+        "smtp_port": "Cổng smtp",
+        "smtp_username": "Tên người dùng smtp",
+        "smtp_password": "Mật khẩu smtp",
+        "smtp_encryption": "Mã hóa smtp",
+        "smtp_from_address": "Địa chỉ gửi smtp",
+        "smtp_rate_limit": "Giới hạn smtp",
+        "site": "Trang web",
+        "logo": "Logo",
+        "safe_mode_enable": "Chế độ an toàn",
+        "stop_register": "Dừng đăng ký",
+        "email_verify": "Xác minh email",
+        "app_name": "Tên ứng dụng",
+        "app_url": "Url ứng dụng",
+        "recaptcha": "Recaptcha",
+        "recaptcha_enable": "Recaptcha",
+        "recaptcha_site_key": "Recaptcha key",
+        "recaptcha_secret": "Recaptcha secret",
+        "telegram": "Telegram",
+        "telegram_bot_enable": "Bật Telegram Bot",
+        "telegram_bot_token": "Telegram Bot token",
+        "need_select_item": "Vui lòng chọn 1 mục",
+        "basename": "Tên",
+        "newName": "Tên mới",
+        "preview": "Xem trước",
+        "uploadfile": "Tải tệp lên",
+        "url": "URL",
+        "filesystem": "Tập tin hệ thống",
+        "images": "Hình ảnh",
+        "type": "Kiểu",
+        "checkbox": "Checkbox",
+        "radio": "Radio",
+        "fileSelect": "Tập tin đã chọn",
+        "size": "Kích thước",
+        "date": "Ngày",
+        "view": "Xem trước",
+        "download": "Tải xuống",
+        "copy": "Sao chép",
+        "cut": "Di chuyển",
+        "paste": "Dán",
+        "rename": "Đổi tên",
+        "zip": "Nén",
+        "delete": "Xoá",
+        "properties": "Thuộc tính",
+        "newfolder": "Thư mục mới",
+        "newfile": "File mới",
+        "path": "Đường dẫn",
+        "modified": "Sửa đổi",
+        "geturl": "lấy URL",
+        "open": "Mở",
+        "share": "Chia sẻ",
+        "share_id": "ID chia sẻ",
+        "clipboard": "Đã sao chép vào bộ nhớ tạm",
+        "reload": "Tải lại",
+        "copyUrl": "Sao chép đường dẫn",
+        "removeItem": "Xóa mục đã chọn khỏi bộ nhớ",
+        "clearItem": "Xóa tất cả mục đã chọn khỏi bộ nhớ",
+        "tableView": "Chế độ xem bảng",
+        "gridView": "Chế độ xem lưới",
+        "editAttribute": "Sửa thuộc tính",
+        "right_click": "Nhấp chuột phải để hiển thị menu",
+        "wrong_otp": "Xác minh OTP hai yếu tố Không thành công",
+        "cannot_be_empty": "Xác minh OTP hai yếu tố không được để trống",
+        "unknown": "Một lỗi không rõ đã xảy ra. Vui lòng thử lại",
+        "undefined": "Một lỗi không rõ đã xảy ra. Vui lòng thử lại",
+        "noimage": "Không có hình ảnh cụ thể",
+        "access_denied": "Không có quyền thực hiện",
+        "recaptcha_false": "Xác thực recaptcha thất bại",
+        "forgot_password": "Quên mật khẩu",
+        "unauthorized": "Không được phép",
+        "login_success": "Đăng nhập thành công",
+        "logged_in": "Bạn đã đăng nhập",
+        "logout": "Đăng xuất",
+        "profile": "Hồ sơ",
+        "wallet": "ví",
+        "move_to_trash": "Di chuyển vào thùng rác ?",
+        "forceDelete": "Bạn có chắc chắn xóa vĩnh viễn không, hành động này không thể hoàn tác ?",
+        "page": "Trang",
+        "go_to_page": "Đi tới trang",
+        "of": "trên",
+        "group_action": "Hành động nhóm",
+        "list": "Danh sách",
+        "add": "Thêm",
+        "edit": "Sửa",
+        "deleted": "Đã xóa",
+        "dashboard": "Bảng điều khiển",
+        "trash": "Đã xóa",
+        "role": "Vai trò",
+        "addrole": "Thêm vai trò",
+        "editrole": "Sửa vai trò",
+        "trashRole": "Vai trò đã xóa",
+        "permission": "Quyền",
+        "addpermission": "Thêm quyền",
+        "staff": "Nhân viên",
+        "addstaff": "Thêm nhân viên",
+        "editstaff": "Sửa nhân viên",
+        "trashstaff": "Nhân viên đã xóa",
+        "package": "Gói",
+        "addpackage": "Thêm Gói",
+        "editpackage": "Chỉnh sửa gói",
+        "trashpackage": "Gói đã xóa",
+        "setting": "Cài đặt",
+        "addsetting": "Thêm cài đặt",
+        "editsetting": "Chỉnh sửa cài đặt",
+        "product": "Sản phẩm",
+        "addproduct": "Thêm sản phẩm",
+        "trashproduct": "Sản phẩm đã xóa",
+        "filemanager": "Quản lý tệp",
+        "trashFile": "Tệp đã xóa",
+        "attribute": "Thuộc tính",
+        "addAttribute": "Thêm thuộc tính",
+        "trashAttribute": "Thuộc tính đã xoá",
+        "2fa_twoFactor1": "Quét hình ảnh ở trên bằng ứng dụng xác thực hai yếu tố trên điện thoại của bạn. Hoặc nhập mã bí mật thủ công",
+        "2fa_twoFactor2": "Sau khi quét hình ảnh mã vạch, ứng dụng sẽ hiển thị mã gồm sáu chữ số mà bạn có thể nhập vào bên dưới.",
+        "2fa_twoFactor3": "Nhập mã sáu chữ số từ ứng dụng",
+        "guard_name": "Bảo vệ",
+        "admin": "Quản trị viên",
+        "user": "Người dùng",
+        "api": "API",
+        "select": "Chọn...",
+        "no_data": "Không kết quả",
+        "required": "bắt buộc"
+    },
+    "tooltip": {
+        "disk": "Lựa chọn driver lưu trữ, ví dụ: 'local'",
+        "smtp_template": "Mẫu smtp",
+        "smtp_host": "Máy chủ smtp ví dụ: 'smtp.gmail.com'",
+        "smtp_port": "Cổng smtp ví dụ: '587 or 465'",
+        "smtp_username": "Tên người dùng smtp ví dụ: 'admin@domain.com'",
+        "smtp_password": "Mật khẩu smtp",
+        "smtp_encryption": "Mã hóa smtp",
+        "smtp_from_address": "Địa chỉ gửi smtp ví dụ: 'admin@domain.com'",
+        "smtp_rate_limit": "Giới hạn gửi mail (tính theo giây) ví dụ: '30'",
+        "logo": "Đường dẫn logo",
+        "safe_mode_enable": "Chế độ an toàn ví dụ: 'vô hiệu hóa hoặc bật'",
+        "stop_register": "Ngừng đăng ký người dùng ví dụ: 'vô hiệu hóa hoặc bật'",
+        "email_verify": "Xác thực người dùng qua email ví dụ: 'vô hiệu hóa hoặc bật'",
+        "app_name": "Tên ứng dụng",
+        "app_url": "Đường dẫn ứng dụng",
+        "recaptcha_enable": "Bật Recaptcha ví dụ: 'vô hiệu hóa hoặc bật'",
+        "recaptcha_site_key": "Recaptcha key ví dụ: '6L*****************g'",
+        "recaptcha_secret": "Recaptcha secret ví dụ: '6*****************s'",
+        "telegram_bot_enable": "Bật Telegram Bot ví dụ: 'vô hiệu hóa hoặc bật'",
+        "telegram_bot_token": "Telegram Bot token ví dụ: '5219428453:*****************7E'",
+        "disk_client": "URL dịch vụ lưu trữ",
+        "disk_client_id": "ID dịch vụ lưu trữ",
+        "disk_client_secret": "Mã bí mật dịch vụ lưu trữ",
+        "disk_refresh_token": "Refresh Token dịch vụ lưu trữ",
+        "previous": "Trước",
+        "next": "Kế tiếp",
+        "first": "Đầu tiên",
+        "last": "Cuối cùng"
+    },
+    "ask": {
+        "restore": "Bạn có chắc chắn khôi phục lại nó không ?",
+        "forceDelete": "Bạn có chắc chắn sẽ xóa vĩnh viễn, không thể hoàn tác hành động này ?",
+        "delete": "Bạn có chắc chắn xóa nó không ?",
+        "resetpass": "Đặt lại mật khẩu ?",
+        "disable2fa": "Bạn có chắc chắn tắt xác thực hai yếu tố không ?"
+    },
+    "table": {
+        "columns": "Cột",
+        "no_data": "Không có dữ liệu"
+    },
+    "placeholder": {
+        "username": "Nhập tên người dùng",
+        "name": "Nhập tên",
+        "email": "Nhập địa chỉ Email",
+        "password": "Nhập mật khẩu",
+        "password_confirmation": "Xác nhận mật khẩu",
+        "display_name": "Nhập tên hiển thị",
+        "addmodule": "Thêm Module",
+        "choose_select": "Vui lòng chọn",
+        "code": "Nhập code",
+        "confimcode": "Nhập mã xác nhận",
+        "description": "Nhập Mô tả",
+        "price": "Nhập Giá",
+        "config": "Cấu hình",
+        "guard_name": "Tên bảo vệ",
+
+        "smtp_host": "smtp.gmail.com",
+        "smtp_port": "587 hoặc 465",
+        "smtp_username": "admin@domain.com",
+        "smtp_password": "abc123",
+        "smtp_encryption": "TLS hoặc SSL",
+        "smtp_from_address": "admin@domain.com",
+        "smtp_rate_limit": "With seconds ví dụ: '30'",
+        "logo": "http(s)://domain.com/file.png",
+        "app_name": "App name",
+        "app_url": "http(s)://domain.com",
+        "recaptcha_site_key": "6L*****************g",
+        "recaptcha_secret": "6*****************s",
+        "telegram_bot_token": "5219428453:*****************7E",
+        "disk_client": "http://127.0.0.1:8001/api/storage",
+        "disk_client_id": "QS2RBkNZx5*****************T8bmVHsv1EolY",
+        "disk_client_secret": "QS2RBkNZx5*****************T8bmVHsv1EolY"
+    },
+    "validation": {
+        "recaptcha": "Xác thực Recaptcha"
+    },
+    "res": {
+        "title": {
+            "error": "Lỗi",
+            "success": "Thành Công",
+            "warning": "Cảnh Báo",
+            "info": "Thông Tin",
+            "undefined": "Không xác định"
+        },
+        "serverError": "Lỗi Server",
+        "validation": {
+            "module": {
+                "required": "Module không được trống",
+                "string": "Tên Module"
+            },
+            "action": {
+                "required": "Action không được trống"
+            },
+            "username": {
+                "required": "Tên người dùng không được trống",
+                "unique": "Tên người dùng đã tồn tại"
+            },
+            "name": {
+                "required": "Tên không được trống",
+                "unique": "Tên đã tồn tại",
+                "min": "Độ dài không chính xác"
+            },
+            "email": {
+                "required": "Email không được trống",
+                "unique": "Email đã tồn tại"
+            },
+            "password": {
+                "required": "Mật khẩu không được trống"
+            },
+            "role_id": {
+                "required": "Vai trò không được trống"
+            },
+            "recaptcha": {
+                "required": "Xác thực Recaptcha"
+            },
+            "display_name": {
+                "required": "Tên hiển thị không được trống"
+            },
+            "code": {
+                "required": "Code Không được trống",
+                "min": "Độ dài không chính xác",
+                "numeric": "Yêu cầu số",
+                "between": "Độ dài không chính xác"
+            },
+            "package_id": {
+                "required": "Gói không được trống"
+            },
+            "price": {
+                "required": "Giá không được trống"
+            },
+            "description": {
+                "required": "Mô tả không được trống"
+            },
+            "config": {
+                "required": "Cấu hình không được trống"
+            },
+            "file": {
+                "required": "Tập tin không được trống",
+                "mimes": "Định dạng tập tin không được hỗ trợ"
+            }
+        },
+        "auth": {
+            "token": {
+                "invalid": "Yêu cầu đăng nhập",
+                "expired": "Đăng nhập hết hạn",
+                "notfound": "Người dùng không khả dụng"
+            }
+        },
+        "add": {
+            "alreadyexist": "Đã tồn tại",
+            "fail": "Thêm thất bại",
+            "success": "Thêm thành công"
+        },
+        "update": {
+            "fail": "Cập nhật thất bại",
+            "success": "Cập nhật thành công"
+        },
+        "delete": {
+            "fail": "Xóa thất bại",
+            "success": "Xóa thành công"
+        },
+        "restore": {
+            "fail": "Khôi phục thất bại",
+            "success": "Khôi phục thành công"
+        },
+        "forceDelete": {
+            "fail": "Xóa vĩnh viễn thất bại",
+            "success": "Xóa vĩnh viễn thành công"
+        },
+        "getdata": {
+            "success": "Get data thành công",
+            "fail": "Get data thất bại"
+        },
+        "save": {
+            "file": {
+                "success": "Lưu file thành công",
+                "fail": "Lưu file thất bại"
+            },
+            "success": "Lưu thành công",
+            "fail": "lưu thành công"
+        },
+        "notfound": {
+            "role": "Vai trò không tồn tại",
+            "user": "Người dùng không tồn tại",
+            "staff": "Không tìm thấy nhân viên",
+            "package": "Gói không tồn tại",
+            "product": "Sản phẩm không tồn tại",
+            "setting": "Cài đặt không tồn tại"
+        },
+        "enable": {
+            "success": "Bật 2FA thành công",
+            "fail": "Bật 2FA thất bại"
+        },
+        "disable": {
+            "success": "Tắt thành công",
+            "fail": "Tắt thất bại"
+        },
+        "verify": {
+            "success": "Xác minh thành công",
+            "fail": "Xác minh thất bại"
+        },
+        "twoFactor": {
+            "getqr": {
+                "fail": "Get QR thất bại"
+            }
+        },
+        "copytoclipboard": {
+            "success": "Đã sao chép vào bộ nhớ tạm",
+            "fail": "Sao chép thất bại"
+        },
+
+        "getotp": {
+            "success": "Gửi OTP thành công, vui lòng kiểm tra email (có thể ở thư spam)",
+            "fail": "Gửi OTP thất bại"
+        },
+
+        "random": "Ngẫu nhiên",
+        "password": "Mật khẩu: ",
+        "fail": "Thất bại",
+        "success": "Thành Công",
+
+        "logged": "Bạn đã đăng nhập",
+        "loginsuccess": "Đăng nhập thành công",
+        "loginfail": "Đăng nhập thất bại",
+        "incorrect": "Tên người dùng hoặc mật khẩu sai",
+        "requirelogin": "Bạn chưa đăng nhập hoặc đăng nhập của bạn đã hết hạn",
+
+        "logout": {
+            "needlogin": "Bạn cần đăng nhập",
+            "ask": "Bạn muốn đăng xuất ?",
+            "success": "Đăng xuất thành công",
+            "error": "Đăng xuất thất bại!"
+        }
+    }
+}

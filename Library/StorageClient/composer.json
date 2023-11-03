@@ -1,0 +1,20 @@
+{
+    "name": "min/storage",
+    "description": "Storage drive",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "7.5.x-dev",
+        "league/flysystem": "3.x-dev",
+        "illuminate/filesystem": "10.x-dev"
+    },
+    "license": "Min",
+    "autoload": {
+        "psr-4": {
+            "Min\\StorageClient\\": "src/"
+        }
+    },
+    "authors": [{
+        "name": "Min"
+    }],
+    "minimum-stability": "dev"
+}

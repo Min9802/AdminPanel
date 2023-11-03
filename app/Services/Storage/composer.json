@@ -1,0 +1,21 @@
+{
+    "name": "min/storage",
+    "description": "Storage Service",
+    "type": "library",
+    "require": {
+        "league/oauth2-client": "dev-master"
+    },
+    "license": "Min",
+    "autoload": {
+        "psr-4": {
+            "Min\\Storage\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Min9802",
+            "email": "hieumin9802@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
