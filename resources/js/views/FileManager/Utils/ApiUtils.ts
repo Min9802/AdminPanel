@@ -1,6 +1,9 @@
 import { parseError } from "@/Utils/systemUtil"
 import { FileManagerAPI } from "@/apis/Admin"
-
+/**
+ * init
+ * @returns
+ */
 const initialize = async () => {
     try {
         const response = await FileManagerAPI.initialize();
@@ -11,7 +14,12 @@ const initialize = async () => {
         throw err;
     }
 }
-
+/**
+ * get content
+ * @param disk string
+ * @param path string
+ * @returns
+ */
 const getContent = async (disk: string, path: string) => {
     try {
         const response = await FileManagerAPI.content(disk, path);
@@ -27,7 +35,12 @@ const getContent = async (disk: string, path: string) => {
         throw err;
     }
 }
-
+/**
+ * get tree
+ * @param disk string
+ * @param path string
+ * @returns
+ */
 const getTree = async (disk: string, path: string) => {
     try {
         const response = await FileManagerAPI.tree(disk, path);

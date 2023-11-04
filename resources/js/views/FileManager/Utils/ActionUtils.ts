@@ -5,10 +5,10 @@ import { toast } from "@min98/ui";
 import { checkExtension } from "./FileUtils";
 /**
  * upload file
- * @param disk
- * @param path
- * @param overwrite
- * @param files
+ * @param disk string
+ * @param path string
+ * @param overwrite boolean
+ * @param files File[]
  */
 const upload = async (data: FormData) => {
     try {
@@ -26,9 +26,9 @@ const upload = async (data: FormData) => {
 }
 /**
  * new file
- * @param disk
- * @param name
- * @param path
+ * @param disk string
+ * @param name string
+ * @param path string
  */
 const newFile = async (disk: string, name: string, path: string | null) => {
     try {
@@ -51,9 +51,9 @@ const newFile = async (disk: string, name: string, path: string | null) => {
 }
 /**
  * new Folder
- * @param disk
- * @param name
- * @param path
+ * @param disk string
+ * @param name string
+ * @param path string
  */
 const newFolder = async (disk: string, name: string, path: string | null) => {
     try {
@@ -76,8 +76,8 @@ const newFolder = async (disk: string, name: string, path: string | null) => {
 }
 /**
  * download file
- * @param disk
- * @param data
+ * @param disk string
+ * @param data FileProps
  */
 const download = async (disk: string, data: FileProps) => {
     try {
@@ -94,8 +94,9 @@ const download = async (disk: string, data: FileProps) => {
 }
 /**
  * copy
- * @param disk
- * @param data
+ * @param disk string
+ * @param data Item[]
+ * @param type string
  * @returns
  */
 const Clipboard = async (disk: string, data: Item[], type: string) => {
@@ -112,9 +113,9 @@ const Clipboard = async (disk: string, data: Item[], type: string) => {
 }
 /**
  * paste
- * @param disk
- * @param data
- * @param path
+ * @param disk string
+ * @param data any
+ * @param path string
  * @returns
  */
 const paste = async (disk: string, data: any, path: string) => {
@@ -140,8 +141,8 @@ const paste = async (disk: string, data: any, path: string) => {
 }
 /**
  * delete
- * @param disk
- * @param items
+ * @param disk: string
+ * @param items: any
  * @returns
  */
 const deleting = async (disk: string, items: any) => {
@@ -167,8 +168,8 @@ const deleting = async (disk: string, items: any) => {
 }
 /**
  * rename
- * @param disk
- * @param data
+ * @param disk string
+ * @param data data
  * @returns
  */
 const rename = async (disk: string, data: any) => {
@@ -193,10 +194,10 @@ const rename = async (disk: string, data: any) => {
 }
 /**
  * file to data uri
- * @param blob
+ * @param blob Blob
  * @returns
  */
-const fileToDataUri = (blob: any) => {
+const fileToDataUri = (blob: Blob) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -212,8 +213,8 @@ const fileToDataUri = (blob: any) => {
 };
 /**
  * thumbnail
- * @param disk
- * @param item
+ * @param disk string
+ * @param item any
  * @returns
  */
 const thumbnail = async (disk: string, item: any) => {
@@ -236,9 +237,7 @@ const thumbnail = async (disk: string, item: any) => {
 }
 /**
  * stream file
- * @param dataSubmit
- * @param fileType
- * @param extension
+ * @param dataSubmit FormData
  * @returns
  */
 const streamFile = async (dataSubmit: any) => {
@@ -256,8 +255,8 @@ const streamFile = async (dataSubmit: any) => {
 }
 /**
  * preview data
- * @param disk
- * @param data
+ * @param disk string
+ * @param data FileProps
  * @returns
  */
 const previewData = async (disk: string, data: FileProps) => {
@@ -315,7 +314,7 @@ const previewData = async (disk: string, data: FileProps) => {
 }
 /**
  * edit file
- * @param formData
+ * @param formData FormData
  * @returns
  */
 const edit = async (formData: any) => {
@@ -336,8 +335,8 @@ const edit = async (formData: any) => {
 }
 /**
  * list share
- * @param disk
- * @param data
+ * @param disk string
+ * @param data any
  * @returns
  */
 const listShare = async (disk: string, data: any) => {
@@ -355,8 +354,8 @@ const listShare = async (disk: string, data: any) => {
 }
 /**
  * create share
- * @param disk
- * @param data
+ * @param disk string
+ * @param data any
  * @returns
  */
 const createShare = async (disk: string, data: any) => {
@@ -382,7 +381,7 @@ const createShare = async (disk: string, data: any) => {
 }
 /**
  * unshare
- * @param id
+ * @param id string
  */
 const unShare = async (id: number) => {
     try {

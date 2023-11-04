@@ -56,7 +56,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ disk, setSelectFolder }) => {
     };
     /**
      * render item
-     * @param param0
+     * @param items
      * @returns
      */
     const RenderItem: React.FC<ItemProps> = ({ item }) => {
@@ -89,7 +89,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ disk, setSelectFolder }) => {
     };
     /**
      * render tree children
-     * @param param0
+     * @param items
      * @returns
      */
     const RenderChild: React.FC<ItemProps> = ({ item }) => {
@@ -110,7 +110,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ disk, setSelectFolder }) => {
 
     /**
      * render tree
-     * @param param0
+     * @param items
      * @returns
      */
     const RenderTree: React.FC<TreeProps> = ({ items }) => {

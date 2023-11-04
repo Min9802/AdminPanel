@@ -592,49 +592,6 @@ module.exports = {
             content: {
                 'icon-copy': 'url("../images/icon/icon-copy-alt.svg")',
             },
-            // backgroundColor: {
-            //     "primary-light": "#D6D2F8",
-            //     primary: {
-            //         light: '#D6D2F8',
-            //         DEFAULT: '#3C50E0',
-            //         dark: '#180F69'
-            //     },
-            //     secondary: {
-            //         light: '#ebedef',
-            //         DEFAULT: '#9da5b1',
-            //         dark: '#4b4f55'
-            //     },
-            //     success: {
-            //         light: '#D5F1DE',
-            //         DEFAULT: '#219653',
-            //         dark: '#16582C'
-            //     },
-            //     danger: {
-            //         light: '#FADDDD',
-            //         DEFAULT: '#D34053',
-            //         dark: '#6E2828'
-            //     },
-            //     warning: {
-            //         light: '#FEEFD0',
-            //         DEFAULT: '#FFA70B',
-            //         dark: '#77550A'
-            //     },
-            //     info: {
-            //         light: '#D6EBFF',
-            //         DEFAULT: '#0DCAF0',
-            //         dark: '#194A7A'
-            //     },
-            //     dark: {
-            //         light: '#AEB7C0',
-            //         DEFAULT: '#2f3845',
-            //         dark: '#3f4145'
-            //     },
-            //     light: {
-            //         light: '#fbfbfc',
-            //         DEFAULT: '#ffffff',
-            //         dark: '#717272'
-            //     },
-            // },
             transitionProperty: {
                 width: 'width',
                 stroke: 'stroke',

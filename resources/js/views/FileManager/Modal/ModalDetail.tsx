@@ -34,7 +34,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     }, [item]);
     /**
      * handle copy to clipboard
-     * @param data
+     * @param data any
      */
     const handleCopy = (data: any) => {
         navigator.clipboard.writeText(data);
@@ -47,8 +47,8 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     };
     /**
      * get share link
-     * @param disk
-     * @param data
+     * @param disk string
+     * @param data any
      */
     const getShare = async (disk: string, data: any) => {
         const list = await listShare(disk, data);
@@ -56,8 +56,8 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     };
     /**
      * handle share
-     * @param disk
-     * @param data
+     * @param disk string
+     * @param data any
      */
     const handleShare = async (disk: string, data: any) => {
         await createShare(disk, data);
@@ -65,7 +65,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     };
     /**
      * handle unshare
-     * @param id
+     * @param id number
      */
     const handleUnShare = async (id: number) => {
         await unShare(id);

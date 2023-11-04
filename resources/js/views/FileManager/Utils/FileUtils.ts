@@ -90,7 +90,7 @@ const extensionTypes: extensionType = {
 }
 /**
  * convert bytes to human
- * @param bytes
+ * @param bytes number
  * @returns
  */
 const bytesToHuman = (bytes: number) => {
@@ -105,7 +105,7 @@ const bytesToHuman = (bytes: number) => {
 };
 /**
  * timestamp to date
- * @param timestamp
+ * @param timestamp number
  * @returns
  */
 const timestampToDate = (timestamp: number) => {
@@ -117,7 +117,7 @@ const timestampToDate = (timestamp: number) => {
 };
 /**
  * extension to icon
- * @param extension
+ * @param extension string
  * @returns
  */
 const extensionToIcon = (extension: string) => {
@@ -132,7 +132,7 @@ const extensionToIcon = (extension: string) => {
 };
 /**
  * check extension
- * @param extension
+ * @param extension string
  * @returns
  */
 const checkExtension = (extension: string) => {
@@ -166,7 +166,7 @@ const checkExtension = (extension: string) => {
 };
 /**
  * get type
- * @param extension
+ * @param extension string
  * @returns
  */
 const getType = (extension: string) => {
@@ -215,7 +215,7 @@ const getType = (extension: string) => {
 }
 /**
  * split file name
- * @param fileName
+ * @param fileName string
  * @returns
  */
 const splitFileName = (fileName: string) => {
