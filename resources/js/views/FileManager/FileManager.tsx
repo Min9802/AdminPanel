@@ -7,6 +7,7 @@ import TableView from "./TableView";
 import { getContent, initialize } from "./Utils/ApiUtils";
 import {
     Clipboard,
+    ClipboardProps,
     deleting,
     download,
     edit,
@@ -32,6 +33,7 @@ import ModalDetail from "./Modal/ModalDetail";
 export interface ViewProps {
     disk: string;
     view: string;
+    clipboard?: ClipboardProps;
     current?: Item;
     currents?: Item[];
     directories: FolderProps[];
@@ -108,7 +110,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     const [currentItem, setCurrentItem] = React.useState<Item>();
     const [reload, setReload] = React.useState<boolean>(false);
     const [selectedList, setSelectedList] = React.useState<Item[]>([]);
-    const [clipboard, setClipboard] = React.useState<any>(false);
+    const [clipboard, setClipboard] = React.useState<ClipboardProps>();
 
     const [filesUpload, setFileUpload] = React.useState<File[]>([]);
 
@@ -174,7 +176,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     React.useEffect(() => {
         repeat(() => {
             setSelectFolder(undefined);
-            setClipboard(false);
+            setClipboard(undefined);
             setSelectedList([]);
             setCurrentItem(undefined);
         }, 60000);
@@ -185,6 +187,14 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     React.useCallback(() => {
         callback?.(currentItem);
     }, [currentItem]);
+    React.useEffect(() => {
+        if (currentItem) {
+            console.log("currentItem", currentItem);
+        }
+        if (selectedList) {
+            console.log("selectedList", selectedList);
+        }
+    }, [currentItem, selectedList]);
     /**
      * toggle reload state
      */
@@ -373,15 +383,24 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
         } else if (selectedList.length > 0) {
             const dataCopy = await Clipboard(selectDisk, selectedList, "copy");
             setClipboard(dataCopy);
+        } else if (currentItem) {
+            const dataCopy = await Clipboard(selectDisk, [currentItem], "copy");
+            setClipboard(dataCopy);
         } else {
             const notify = {
-                title: t("label.need_select_item"),
+                title: t("label.error"),
                 description: t("label.need_select_item"),
                 status: "error",
             };
             toast(notify);
         }
         setSelectedList([]);
+        const notify = {
+            title: t("label.success"),
+            description: t("label.can_paste"),
+            status: "success",
+        };
+        toast(notify);
     };
     /**
      * handle cut
@@ -394,27 +413,45 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
         } else if (selectedList.length > 0) {
             const dataCopy = await Clipboard(selectDisk, selectedList, "cut");
             setClipboard(dataCopy);
+        } else if (currentItem) {
+            const dataCopy = await Clipboard(selectDisk, [currentItem], "cut");
+            setClipboard(dataCopy);
         } else {
             const notify = {
-                title: t("label.need_select_item"),
+                title: t("label.success"),
                 description: t("label.need_select_item"),
                 status: "error",
             };
             toast(notify);
         }
         setSelectedList([]);
+        const notify = {
+            title: t("label.success"),
+            description: t("label.can_paste"),
+            status: "success",
+        };
+        toast(notify);
     };
     /**
      * handle paste
      */
     const handlePaste = async () => {
-        if (selectFolder) {
-            await paste(selectDisk, clipboard, selectFolder?.path);
+        if (clipboard) {
+            if (selectFolder) {
+                await paste(selectDisk, clipboard, selectFolder?.path);
+            } else {
+                await paste(selectDisk, clipboard, "/");
+            }
         } else {
-            await paste(selectDisk, clipboard, "/");
+            const notify = {
+                title: t("label.error"),
+                description: t("label.need_select_item"),
+                status: "error",
+            };
+            toast(notify);
         }
         setSelectedList([]);
-        setClipboard(false);
+        setClipboard(undefined);
         setReload(true);
     };
     /**
@@ -435,7 +472,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
             ]);
         } else {
             const notify = {
-                title: t("label.need_select_item"),
+                title: t("label.error"),
                 description: t("label.need_select_item"),
                 status: "error",
             };
@@ -575,6 +612,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 disk={selectDisk}
                                 directories={directories}
                                 files={files}
+                                clipboard={clipboard}
                                 current={currentItem}
                                 currents={selectedList}
                                 setSelectDisk={setSelectDisk}
@@ -597,6 +635,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 disk={selectDisk}
                                 directories={directories}
                                 files={files}
+                                clipboard={clipboard}
                                 current={currentItem}
                                 currents={selectedList}
                                 setSelectDisk={setSelectDisk}

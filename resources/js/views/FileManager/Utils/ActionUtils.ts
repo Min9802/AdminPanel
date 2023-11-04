@@ -99,10 +99,16 @@ const download = async (disk: string, data: FileProps) => {
  * @param type string
  * @returns
  */
+export type ClipboardProps = {
+    type: string,
+    disk: string,
+    directories: string[],
+    files: string[]
+}
 const Clipboard = async (disk: string, data: Item[], type: string) => {
     const files = data.filter((value) => value.type === 'file').map((value) => value.path);
     const directories = data.filter((value) => value.type === 'dir').map((value) => value.path);
-    const clipboard = {
+    const clipboard: ClipboardProps = {
         type: type,
         disk: disk,
         directories: directories,

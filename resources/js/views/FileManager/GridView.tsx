@@ -6,6 +6,7 @@ import MenuContext from "./MenuContext";
 const GridView: React.FC<ViewProps> = ({
     disk,
     view,
+    clipboard,
     current,
     currents,
     directories,
@@ -38,6 +39,7 @@ const GridView: React.FC<ViewProps> = ({
                                 view={view}
                                 disk={disk}
                                 data={item}
+                                clipboard={clipboard}
                                 current={current}
                                 currents={currents}
                                 {...props}

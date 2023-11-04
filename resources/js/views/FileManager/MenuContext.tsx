@@ -10,7 +10,7 @@ import {
 } from "./Utils/FileUtils";
 import { ContextMenu } from "@/components/Form";
 import classNames from "classnames";
-import { thumbnail } from "./Utils/ActionUtils";
+import { ClipboardProps, thumbnail } from "./Utils/ActionUtils";
 import { delay } from "@/Utils/systemUtil";
 import {
     Tooltip,
@@ -39,6 +39,7 @@ interface ViewGridProps {
 interface MenuContextProps {
     disk: string;
     view: string;
+    clipboard?: ClipboardProps;
     current?: Item;
     currents?: Item[];
     data: Item;
@@ -105,6 +106,11 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
     handleMultipleClick,
 }) => {
     // console.log(item);
+    const [dataContent, setDataContent] = React.useState<any>(item);
+    React.useEffect(() => {
+        setDataContent(item);
+    }, [item]);
+
     return (
         <TooltipProvider>
             <Tooltip>
@@ -118,18 +124,12 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
                         )}
                         onClick={handleClick}
                     >
-                        {/* <div className="absolute bottom-3 flex-col items-center hidden mb-6 group-hover:flex animate-slide-up-fade">
-                            <span className="relative rounded-md z-10 p-1 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg dark:bg-white dark:text-dark">
-                                {item.basename}
-                            </span>
-                            <div className="w-3 h-3 -mt-2 rotate-45 bg-black dark:bg-white"></div>
-                        </div> */}
-
-                        {item.type === "file" ? (
+                        {dataContent.type === "file" ? (
                             <>
-                                {checkExtension(item.extension) == "image" ? (
+                                {checkExtension(dataContent.extension) ==
+                                "image" ? (
                                     <RenderPreView
-                                        item={item}
+                                        item={dataContent}
                                         disk={disk}
                                         handleMultipleClick={
                                             handleMultipleClick
@@ -137,12 +137,14 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
                                     />
                                 ) : (
                                     <Icon
-                                        icon={extensionToIcon(item.extension)}
+                                        icon={extensionToIcon(
+                                            dataContent.extension,
+                                        )}
                                         className="text-5xl mr-auto ml-auto"
                                     />
                                 )}
                                 <p className="break-all">
-                                    {splitFileName(item.filename)}
+                                    {splitFileName(dataContent.filename)}
                                 </p>
                             </>
                         ) : (
@@ -152,14 +154,14 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
                                     className="text-5xl mr-auto ml-auto"
                                     color="#FCD34D"
                                 />
-                                <p>{splitFileName(item.basename)}</p>
+                                <p>{splitFileName(dataContent.basename)}</p>
                             </>
                         )}
                     </button>
                 </TooltipTrigger>
                 <TooltipPortal>
                     <TooltipContent>
-                        {item.basename}
+                        {dataContent.basename}
                         <TooltipArrow className="TooltipArrow" />
                     </TooltipContent>
                 </TooltipPortal>
@@ -173,23 +175,39 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
  * @returns
  */
 const RenderPreView: React.FC<ItemProps> = ({ item, disk }) => {
-    const [url, setUrl] = React.useState<any>(null);
+    const [dataContent, setDataContent] = React.useState<any>(item);
+    const [dataUrl, setUrl] = React.useState<any>(null);
+    React.useEffect(() => {
+        setDataContent(item);
+    }, [item]);
     /**
      * hook set url
      */
     React.useEffect(() => {
-        delay(async () => {
-            const url = await thumbnail(disk, item);
-            setUrl(url);
-        }, 50);
-    }, []);
+        if (
+            (dataUrl && dataUrl.path !== dataContent.path) ||
+            dataUrl === null
+        ) {
+            delay(async () => {
+                const url = await thumbnail(disk, dataContent);
+                setUrl({
+                    url,
+                    path: dataContent.path,
+                });
+            }, 50);
+        }
+    }, [dataContent]);
     return (
         <>
-            {url && (
+            {dataUrl && (
                 <img
                     className="mr-auto ml-auto"
-                    src={url}
-                    alt={item.filename}
+                    src={
+                        dataUrl && dataUrl.path === dataContent.path
+                            ? dataUrl.url
+                            : null
+                    }
+                    alt={dataContent.filename}
                 />
             )}
         </>
@@ -198,6 +216,7 @@ const RenderPreView: React.FC<ItemProps> = ({ item, disk }) => {
 const MenuContext: React.FC<MenuContextProps> = ({
     disk,
     view,
+    clipboard,
     current,
     currents = [],
     data,
@@ -206,6 +225,11 @@ const MenuContext: React.FC<MenuContextProps> = ({
     ...props
 }) => {
     const { t } = useTranslation();
+    const [dataContent, setDataContent] = React.useState<any>(data);
+    React.useEffect(() => {
+        setDataContent(data);
+    }, [data]);
+
     /**
      * define actions
      */
@@ -264,6 +288,7 @@ const MenuContext: React.FC<MenuContextProps> = ({
             title: t("label.paste"),
             shortcut: <Icon icon="mdi:content-paste" />,
             action: () => props?.handlePaste(),
+            disabled: clipboard ? false : true,
         },
         {
             title: t("label.download"),
@@ -351,7 +376,7 @@ const MenuContext: React.FC<MenuContextProps> = ({
                     <RenderItemList item={data} handleClick={handleClick} />
                 ) : view == "grid" && data ? (
                     <RenderItemGrid
-                        item={data}
+                        item={dataContent}
                         disk={disk}
                         active={
                             current?.path === data.path
