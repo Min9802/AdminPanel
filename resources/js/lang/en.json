@@ -146,6 +146,7 @@
         "need_select_item": "Please select a item",
         "basename": "Base name",
         "newName": "New name",
+        "detail": "Detail",
         "preview": "Preview",
         "uploadfile": "Upload Files",
         "url": "URL",
@@ -174,7 +175,7 @@
         "open": "Open",
         "share": "Share",
         "share_id": "ID share",
-        "clipboard": "Copy to clipboard",
+        "clipboard": "Copied to clipboard",
         "reload": "Reload",
         "copyUrl": "Copy URL",
         "removeItem": "Remove the select item from memory",
@@ -273,7 +274,10 @@
         "previous": "Previous",
         "next": "Next",
         "first": "First",
-        "last": "Last"
+        "last": "Last",
+        "create_share": "Create share",
+        "unshare": "Unshare",
+        "copy": "Click to copy"
     },
     "ask": {
         "restore": "Are you sure restore this ?",

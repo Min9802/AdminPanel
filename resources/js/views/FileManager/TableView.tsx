@@ -18,7 +18,12 @@ const TableView: React.FC<ViewProps> = ({
 }) => {
     const { t } = useTranslation();
     const { handleMultipleClick } = props;
-
+    const [dataContent, setDataContent] = React.useState<any[]>([]);
+    React.useEffect(() => {
+        if (files && directories) {
+            setDataContent([...directories, ...files]);
+        }
+    }, [files, directories]);
     /**
      * define columns
      */
@@ -138,7 +143,7 @@ const TableView: React.FC<ViewProps> = ({
     ];
     return (
         <DataTable
-            data={[...directories, ...files]}
+            data={dataContent}
             columns={columns}
             search="basename"
             callBack={handleMultipleClick}

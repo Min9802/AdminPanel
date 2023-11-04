@@ -213,4 +213,16 @@ const getType = (extension: string) => {
     };
     return textExtensions[extension.toLowerCase()];
 }
-export { bytesToHuman, timestampToDate, extensionToIcon, checkExtension, getType }
+/**
+ * split file name
+ * @param fileName
+ * @returns
+ */
+const splitFileName = (fileName: string) => {
+    let newName = fileName;
+    if (fileName.length > 10) {
+        newName = fileName.slice(0, 7) + '..' + fileName.slice(-4)
+    }
+    return newName;
+}
+export { splitFileName, bytesToHuman, timestampToDate, extensionToIcon, checkExtension, getType }

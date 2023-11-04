@@ -28,10 +28,12 @@ import ModalPreview from "./Modal/ModalPreview";
 import GridView from "./GridView";
 import { repeat } from "@/Utils/systemUtil";
 import ListDisk from "./ListDisk";
+import ModalDetail from "./Modal/ModalDetail";
 export interface ViewProps {
     disk: string;
     view: string;
     current?: Item;
+    currents?: Item[];
     directories: FolderProps[];
     files: FileProps[];
     setSelectDisk: (disk: string) => void;
@@ -42,6 +44,7 @@ export interface ViewProps {
     handleCopy: (data: any) => void;
     handleCut: (data: any) => void;
     handlePaste: () => void;
+    toggleModalDetail: (data: Item) => void;
     togglePreview: (data: FileProps) => void;
     toggleRename: (data: Item) => void;
     toggleEdit: (data: Item) => void;
@@ -95,7 +98,7 @@ export interface FileManagerProps {
 }
 const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     const { t } = useTranslation();
-    const [view, setView] = React.useState<string>("list");
+    const [view, setView] = React.useState<string>("grid");
     const [config, setConfig] = React.useState<any>(false);
     const [disks, setDisks] = React.useState<string[]>([]);
     const [selectDisk, setSelectDisk] = React.useState<string>("public");
@@ -111,6 +114,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
 
     const [preview, setPreview] = React.useState<PreviewProps>({});
 
+    const [modalDetail, setModalDetail] = React.useState<boolean>(false);
     const [modalUpload, setModalUpload] = React.useState<boolean>(false);
     const [modalPreview, setModalPreview] = React.useState<boolean>(false);
     const [modalRename, setModalRename] = React.useState<boolean>(false);
@@ -178,24 +182,9 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     /**
      * callbacks for parent
      */
-    // React.useCallback(() => {
-    //     callback?.(currentItem);
-    // }, [currentItem]);
-
-    React.useEffect(() => {
-        if (clipboard) {
-            console.log("clipboard", clipboard);
-        }
-        if (selectedList) {
-            console.log("selectedList", selectedList);
-        }
-        if (currentItem) {
-            console.log("currentItem", currentItem);
-        }
-        if (selectFolder) {
-            console.log("selectFolder", selectFolder);
-        }
-    }, [clipboard, selectedList, currentItem, selectFolder]);
+    React.useCallback(() => {
+        callback?.(currentItem);
+    }, [currentItem]);
     /**
      * toggle reload state
      */
@@ -219,6 +208,14 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
      */
     const toggleUpload = () => {
         setModalUpload(!modalUpload);
+    };
+    /**
+     * toggle modal detail
+     * @param data
+     */
+    const toggleModalDetail = (data: Item) => {
+        setModalDetail(!modalDetail);
+        setCurrentItem(data);
     };
     /**
      * toggle modal preview
@@ -268,10 +265,10 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     const handleMultileClick = React.useCallback(
         (data: Item[]) => {
             setSelectedList(data);
-            console.log(data);
         },
         [setSelectedList],
     );
+
     /**
      * handle double click
      * @param data
@@ -467,9 +464,17 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
         setDirectories(directories);
         setFiles(files);
     };
-
     return (
         <Card>
+            <ModalDetail
+                open={modalDetail}
+                onClose={() => {
+                    setModalDetail(false);
+                    setCurrentItem(undefined);
+                }}
+                disk={selectDisk}
+                item={currentItem}
+            />
             <ModalPreview
                 open={modalPreview}
                 onClose={() => {
@@ -570,6 +575,8 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 disk={selectDisk}
                                 directories={directories}
                                 files={files}
+                                current={currentItem}
+                                currents={selectedList}
                                 setSelectDisk={setSelectDisk}
                                 handleMultipleClick={handleMultileClick}
                                 handleOneClick={handleOneClick}
@@ -578,6 +585,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 handleCopy={handleCopy}
                                 handleCut={handleCut}
                                 handlePaste={handlePaste}
+                                toggleModalDetail={toggleModalDetail}
                                 togglePreview={togglePreview}
                                 toggleEdit={toggleEdit}
                                 toggleRename={toggleRename}
@@ -590,6 +598,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 directories={directories}
                                 files={files}
                                 current={currentItem}
+                                currents={selectedList}
                                 setSelectDisk={setSelectDisk}
                                 handleMultipleClick={handleMultileClick}
                                 handleOneClick={handleOneClick}
@@ -598,6 +607,7 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 handleCopy={handleCopy}
                                 handleCut={handleCut}
                                 handlePaste={handlePaste}
+                                toggleModalDetail={toggleModalDetail}
                                 togglePreview={togglePreview}
                                 toggleEdit={toggleEdit}
                                 toggleRename={toggleRename}

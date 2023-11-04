@@ -145,6 +145,7 @@
         "need_select_item": "Vui lòng chọn 1 mục",
         "basename": "Tên",
         "newName": "Tên mới",
+        "detail": "Chi tiết",
         "preview": "Xem trước",
         "uploadfile": "Tải tệp lên",
         "url": "URL",
@@ -272,7 +273,10 @@
         "previous": "Trước",
         "next": "Kế tiếp",
         "first": "Đầu tiên",
-        "last": "Cuối cùng"
+        "last": "Cuối cùng",
+        "create_share": "Tạo chia sẻ",
+        "unshare": "Hủy chia sẻ",
+        "copy": "Bấm để sao chép"
     },
     "ask": {
         "restore": "Bạn có chắc chắn khôi phục lại nó không ?",

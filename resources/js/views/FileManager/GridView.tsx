@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewProps } from "./FileManager";
+import { Item, ViewProps } from "./FileManager";
 import { useTranslation } from "react-i18next";
 import { Col, Flex, Grid } from "@min98/ui";
 import MenuContext from "./MenuContext";
@@ -7,11 +7,19 @@ const GridView: React.FC<ViewProps> = ({
     disk,
     view,
     current,
+    currents,
     directories,
     files,
     ...props
 }) => {
     const { t } = useTranslation();
+    const [dataContent, setDataContent] = React.useState<any[]>([]);
+    /**
+     * init data
+     */
+    React.useEffect(() => {
+        setDataContent([...directories, ...files]);
+    }, [files, directories]);
     return (
         <Col col="1">
             <Flex
@@ -21,28 +29,21 @@ const GridView: React.FC<ViewProps> = ({
                 gap={1}
                 className="mt-2"
             >
-                {directories.map((item: any, k: number) => {
-                    return (
-                        <MenuContext
-                            view={view}
-                            disk={disk}
-                            data={item}
-                            current={current}
-                            {...props}
-                        />
-                    );
-                })}
-                {files.map((item: any, k: number) => {
-                    return (
-                        <MenuContext
-                            view={view}
-                            disk={disk}
-                            data={item}
-                            current={current}
-                            {...props}
-                        />
-                    );
-                })}
+                {dataContent &&
+                    dataContent.length > 0 &&
+                    dataContent.map((item: Item, k: number) => {
+                        return (
+                            <MenuContext
+                                key={k}
+                                view={view}
+                                disk={disk}
+                                data={item}
+                                current={current}
+                                currents={currents}
+                                {...props}
+                            />
+                        );
+                    })}
             </Flex>
         </Col>
     );

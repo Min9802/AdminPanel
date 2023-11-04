@@ -324,7 +324,9 @@ class FileManagerController extends Controller
             $expire = $request->input('expire');
             $data = $this->share->createShare($path, $shareType, $expire);
             return response()->json([
-                'url' => $data['url'],
+                'status' => 'success',
+                'message' => trans('label.shared'),
+                'content' => $data['url'],
             ]);
         } catch (\Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());

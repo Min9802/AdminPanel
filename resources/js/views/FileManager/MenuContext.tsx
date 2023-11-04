@@ -1,17 +1,37 @@
 import React from "react";
-import { FileProps, FolderProps, Item } from "./FileManager";
+import { FileProps, Item } from "./FileManager";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
-import { checkExtension, extensionToIcon, getType } from "./Utils/FileUtils";
+import {
+    checkExtension,
+    extensionToIcon,
+    getType,
+    splitFileName,
+} from "./Utils/FileUtils";
 import { ContextMenu } from "@/components/Form";
 import classNames from "classnames";
 import { thumbnail } from "./Utils/ActionUtils";
 import { delay } from "@/Utils/systemUtil";
-
+interface ViewListProps {
+    item: Item;
+    handleClick: (
+        e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>,
+    ) => void;
+}
+interface ViewGridProps {
+    item: Item;
+    disk: string;
+    active?: boolean;
+    handleClick: (
+        e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>,
+    ) => void;
+    handleMultipleClick: (data: Item[]) => void;
+}
 interface MenuContextProps {
     disk: string;
     view: string;
     current?: Item;
+    currents?: Item[];
     data: Item;
     row?: any;
     table?: any;
@@ -23,6 +43,7 @@ interface MenuContextProps {
     handleCopy: (data: any) => void;
     handleCut: (data: any) => void;
     handlePaste: () => void;
+    toggleModalDetail: (data: Item) => void;
     togglePreview: (data: FileProps) => void;
     toggleRename: (data: Item) => void;
     toggleEdit: (data: Item) => void;
@@ -30,7 +51,7 @@ interface MenuContextProps {
 }
 interface ItemProps {
     item: Item;
-    current?: Item;
+    active?: boolean;
     disk: string;
     handleMultipleClick: (data: Item[]) => void;
     handleClick?: (
@@ -42,7 +63,7 @@ interface ItemProps {
  * @param param0
  * @returns
  */
-const RenderItemList: React.FC<ItemProps> = ({ item, handleClick }) => {
+const RenderItemList: React.FC<ViewListProps> = ({ item, handleClick }) => {
     return (
         <span className="inline-flex" onClick={handleClick}>
             {item.type === "file" ? (
@@ -56,7 +77,7 @@ const RenderItemList: React.FC<ItemProps> = ({ item, handleClick }) => {
             ) : (
                 <>
                     <Icon icon="mdi:folder-open" className="mr-1" />
-                    <p>{item.basename}</p>
+                    <p>{splitFileName(item.basename)}</p>
                 </>
             )}
         </span>
@@ -67,20 +88,21 @@ const RenderItemList: React.FC<ItemProps> = ({ item, handleClick }) => {
  * @param param0
  * @returns
  */
-const RenderItemGrid: React.FC<ItemProps> = ({
+const RenderItemGrid: React.FC<ViewGridProps> = ({
     item,
-    current,
+    active,
     disk,
     handleClick,
     handleMultipleClick,
 }) => {
+    // console.log(item);
     return (
         <button
             type="button"
             className={classNames(
-                "p-2 min-w-[100px] hover:rounded-md hover:shadow-4 justify-center",
+                "p-2 w-[120px] h-[120px] hover:rounded-md hover:shadow-4 justify-center",
                 "active:bg-blue-200 active:rounded-md active:shadow-4",
-                current ? current.path == item.path && "active" : "",
+                active && "active",
             )}
             onClick={handleClick}
         >
@@ -95,19 +117,19 @@ const RenderItemGrid: React.FC<ItemProps> = ({
                     ) : (
                         <Icon
                             icon={extensionToIcon(item.extension)}
-                            className="text-7xl"
+                            className="text-5xl mr-auto ml-auto"
                         />
                     )}
-                    <p>{item.filename}</p>
+                    <p className="break-all">{splitFileName(item.filename)}</p>
                 </>
             ) : (
                 <>
                     <Icon
                         icon="mdi:folder-open"
-                        className="text-7xl"
+                        className="text-5xl mr-auto ml-auto"
                         color="#FCD34D"
                     />
-                    <p>{item.basename}</p>
+                    <p>{splitFileName(item.basename)}</p>
                 </>
             )}
         </button>
@@ -119,53 +141,52 @@ const RenderItemGrid: React.FC<ItemProps> = ({
  * @returns
  */
 const RenderPreView: React.FC<ItemProps> = ({ item, disk }) => {
-    const [url, setUrl] = React.useState<any>();
-    const [loading, setLoading] = React.useState<boolean>(false);
+    const [url, setUrl] = React.useState<any>(null);
     /**
      * hook set url
      */
     React.useEffect(() => {
-        if (!url && !loading && disk) {
-            delay(async () => {
-                const url = await thumbnail(disk, item);
-                setUrl(url);
-            }, 300);
-            setLoading(true);
-        }
-    }, [item]);
-    return <img src={url} />;
+        delay(async () => {
+            const url = await thumbnail(disk, item);
+            setUrl(url);
+        }, 50);
+    }, []);
+    return (
+        <>
+            {url && (
+                <img
+                    className="mr-auto ml-auto"
+                    src={url}
+                    alt={item.filename}
+                />
+            )}
+        </>
+    );
 };
 const MenuContext: React.FC<MenuContextProps> = ({
     disk,
     view,
     current,
+    currents = [],
     data,
     row,
     table,
     ...props
 }) => {
     const { t } = useTranslation();
-    const {
-        handleMultipleClick,
-        handleOneClick,
-        handleDoubleClick,
-        handleDownload,
-        handleCopy,
-        handleCut,
-        handlePaste,
-        togglePreview,
-        toggleRename,
-        toggleEdit,
-        toggleDelete,
-    } = props;
     /**
      * define actions
      */
     const actions = [
         {
+            title: t("label.detail"),
+            shortcut: <Icon icon="mdi:information-outline" />,
+            action: () => props?.toggleModalDetail(data),
+        },
+        {
             title: t("label.preview"),
             shortcut: <Icon icon="mdi:eye" />,
-            action: () => togglePreview(data),
+            action: () => props?.togglePreview(data),
             disabled:
                 data.type == "file" && checkExtension(data.extension)
                     ? false
@@ -174,12 +195,12 @@ const MenuContext: React.FC<MenuContextProps> = ({
         {
             title: t("label.rename"),
             shortcut: <Icon icon="mdi:rename-box" />,
-            action: () => toggleRename(data),
+            action: () => props?.toggleRename(data),
         },
         {
             title: t("label.edit"),
             shortcut: <Icon icon="mdi:pencil" />,
-            action: () => toggleEdit(data),
+            action: () => props?.toggleEdit(data),
             disabled:
                 data.type == "file" && getType(data.extension) ? false : true,
         },
@@ -189,9 +210,9 @@ const MenuContext: React.FC<MenuContextProps> = ({
             action: () => {
                 const count = table?.getFilteredSelectedRowModel().rows.length;
                 if (count > 0) {
-                    handleCopy(null);
+                    props?.handleCopy(null);
                 } else {
-                    handleCopy(data);
+                    props?.handleCopy(data);
                 }
             },
         },
@@ -201,28 +222,28 @@ const MenuContext: React.FC<MenuContextProps> = ({
             action: () => {
                 const count = table?.getFilteredSelectedRowModel().rows.length;
                 if (count > 0) {
-                    handleCut(null);
+                    props?.handleCut(null);
                 } else {
-                    handleCut(data);
+                    props?.handleCut(data);
                 }
             },
         },
         {
             title: t("label.paste"),
             shortcut: <Icon icon="mdi:content-paste" />,
-            action: () => handlePaste(),
+            action: () => props?.handlePaste(),
         },
         {
             title: t("label.download"),
             shortcut: <Icon icon="mdi:download" />,
-            action: () => handleDownload(data),
+            action: () => props?.handleDownload(data),
         },
 
         {
             title: t("label.delete"),
             shortcut: <Icon icon="mdi:delete" color="red" />,
             action: () => {
-                toggleDelete(data);
+                props?.toggleDelete(data);
                 const timeOut = setInterval(() => {
                     table?.resetRowSelection();
                 }, 5000);
@@ -239,21 +260,53 @@ const MenuContext: React.FC<MenuContextProps> = ({
         (e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>) => {
             e.preventDefault();
             const count = e.detail;
+            const isCtrlPressed = e.ctrlKey;
+
             if (count === 1) {
-                if (view == "list") {
-                    row.toggleSelected();
-                } else if (view == "grid") {
-                    handleOneClick(data);
+                if (view === "list") {
+                    if (isCtrlPressed) {
+                        toggleDataInArray(data);
+                    } else {
+                        row.toggleSelected();
+                    }
+                } else if (view === "grid") {
+                    if (isCtrlPressed) {
+                        toggleDataInArray(data);
+                    } else {
+                        props?.handleOneClick(data);
+                        props?.handleMultipleClick([]);
+                    }
                 }
-                // handleOneClick(data);
-            } else if ((count === 2 && data.type) === "dir") {
+            } else if (count === 2 && data.type === "dir") {
                 table?.resetRowSelection();
-                handleDoubleClick(data);
+                props?.handleDoubleClick(data);
             }
         },
-        [handleOneClick, handleDoubleClick],
+        [
+            data,
+            view,
+            row,
+            table,
+            props?.handleOneClick,
+            props?.handleDoubleClick,
+        ],
     );
-
+    /**
+     * toggle data in array
+     * @param data
+     */
+    const toggleDataInArray = (data: Item) => {
+        const updatedArray = [...currents];
+        const dataIndex = updatedArray.findIndex(
+            (item) => item.path === data.path,
+        );
+        if (dataIndex !== -1) {
+            updatedArray.splice(dataIndex, 1);
+        } else {
+            updatedArray.push(data);
+        }
+        props?.handleMultipleClick(updatedArray);
+    };
     return (
         <ContextMenu
             className={classNames(
@@ -263,19 +316,20 @@ const MenuContext: React.FC<MenuContextProps> = ({
             asChild={view == "list" ? false : true}
             title={
                 view == "list" && data ? (
-                    <RenderItemList
-                        item={data}
-                        disk={disk}
-                        handleClick={handleClick}
-                        handleMultipleClick={handleMultipleClick}
-                    />
+                    <RenderItemList item={data} handleClick={handleClick} />
                 ) : view == "grid" && data ? (
                     <RenderItemGrid
                         item={data}
                         disk={disk}
-                        current={current}
+                        active={
+                            current?.path === data.path
+                                ? true
+                                : currents.includes(data)
+                                ? true
+                                : false
+                        }
                         handleClick={handleClick}
-                        handleMultipleClick={handleMultipleClick}
+                        handleMultipleClick={props?.handleMultipleClick}
                     />
                 ) : null
             }

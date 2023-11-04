@@ -334,4 +334,83 @@ const edit = async (formData: any) => {
         return false;
     }
 }
-export { newFile, newFolder, upload, rename, download, Clipboard, paste, deleting, edit, previewData, thumbnail }
+/**
+ * list share
+ * @param disk
+ * @param data
+ * @returns
+ */
+const listShare = async (disk: string, data: any) => {
+    try {
+        const dataSubmit = {
+            path: data.path,
+        };
+        const response = await FileManagerAPI.listshare(dataSubmit);
+        const file = response.data.content;
+        const shares = file.shares;
+        return shares;
+    } catch (err) {
+        parseError(err);
+    }
+}
+/**
+ * create share
+ * @param disk
+ * @param data
+ * @returns
+ */
+const createShare = async (disk: string, data: any) => {
+    try {
+        const dataSubmit = {
+            disk: disk,
+            path: data.path,
+        };
+        const response = await FileManagerAPI.share(dataSubmit);
+        const url = response.data.content;
+        const message = response.data.message;
+        const notify = {
+            title: message,
+            description: message,
+            status: "success",
+        };
+        toast(notify);
+        return url;
+
+    } catch (err) {
+        parseError(err);
+    }
+}
+/**
+ * unshare
+ * @param id
+ */
+const unShare = async (id: number) => {
+    try {
+        const response = await FileManagerAPI.unshare({ id });
+        const message = response.data.message;
+        const notify = {
+            title: message,
+            description: message,
+            status: "success",
+        };
+        toast(notify);
+    } catch (err) {
+        parseError(err);
+    }
+};
+export {
+    listShare,
+    createShare,
+    unShare,
+    newFile,
+    newFolder,
+    upload,
+    rename,
+    download,
+    Clipboard,
+    paste,
+    deleting,
+    edit,
+    previewData,
+    thumbnail
+}
