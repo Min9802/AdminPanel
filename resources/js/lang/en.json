@@ -145,6 +145,7 @@
         "telegram_bot_token": "Telegram Bot token",
         "need_select_item": "Please select a item",
         "basename": "Base name",
+        "dirname": "Directory name",
         "newName": "New name",
         "detail": "Detail",
         "preview": "Preview",
@@ -153,6 +154,7 @@
         "filesystem": "Filesystem",
         "images": "Images",
         "type": "Type",
+        "visibility": "Visibility",
         "checkbox": "Checkbox",
         "radio": "Radio",
         "fileSelect": "File Select",
@@ -243,7 +245,13 @@
         "api": "API",
         "select": "Select...",
         "no_data": "No result",
-        "required": "is required"
+        "required": "is required",
+        "previous": "Previous",
+        "next": "Next",
+        "first": "First",
+        "last": "Last",
+        "create_share": "Create share",
+        "unshare": "Unshare"
     },
 
     "tooltip": {

@@ -77,12 +77,14 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                 <Col col="2">
                     <Col col="1">
                         <Grid col="3">
-                            <h4 className="capitalize font-bold">basename:</h4>
+                            <h4 className="capitalize font-bold">
+                                {t("label.basename")}:
+                            </h4>
                             <span className="break-all">{data.basename}</span>
                             <div className="justify-end">
                                 <Button
                                     size="sm"
-                                    tooltip={t("tooltip.copy")}
+                                    tooltip={t("label.copy")}
                                     onClick={() => handleCopy(data.basename)}
                                 >
                                     <Icon icon="mdi:content-copy" />
@@ -90,12 +92,14 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                             </div>
                         </Grid>
                         <Grid col="3">
-                            <h4 className="capitalize font-bold">dirname:</h4>
+                            <h4 className="capitalize font-bold">
+                                {t("label.dirname")}:
+                            </h4>
                             <span className="break-all">{data.dirname}</span>
                             <div className="justify-end">
                                 <Button
                                     size="sm"
-                                    tooltip={t("tooltip.copy")}
+                                    tooltip={t("label.copy")}
                                     onClick={() => handleCopy(data.dirname)}
                                 >
                                     <Icon icon="mdi:content-copy" />
@@ -103,12 +107,14 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                             </div>
                         </Grid>
                         <Grid col="3">
-                            <h4 className="capitalize font-bold">path:</h4>
+                            <h4 className="capitalize font-bold">
+                                {t("label.path")}:
+                            </h4>
                             <span className="break-all">{data.path}</span>
                             <div className="justify-end">
                                 <Button
                                     size="sm"
-                                    tooltip={t("tooltip.copy")}
+                                    tooltip={t("label.copy")}
                                     onClick={() => handleCopy(data.path)}
                                 >
                                     <Icon icon="mdi:content-copy" />
@@ -116,18 +122,22 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                             </div>
                         </Grid>
                         <Grid col="3">
-                            <h4 className="capitalize font-bold">timestamp:</h4>
+                            <h4 className="capitalize font-bold">
+                                {t("label.time")}:
+                            </h4>
                             <span className="break-all">
                                 {timestampToDate(data.timestamp)}
                             </span>
                         </Grid>
                         <Grid col="3">
-                            <h4 className="capitalize font-bold">type:</h4>
+                            <h4 className="capitalize font-bold">
+                                {t("label.path")}:
+                            </h4>
                             <span>{data.type}</span>
                         </Grid>
                         <Grid col="3">
                             <h4 className="capitalize font-bold">
-                                visibility:
+                                {t("label.visibility")}:
                             </h4>
                             <span>{data.visibility}</span>
                         </Grid>
@@ -140,7 +150,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                                         handleShare(disk as string, data)
                                     }
                                     color="success"
-                                    tooltip={t("tooltip.create_share")}
+                                    tooltip={t("label.create_share")}
                                 >
                                     <Icon icon="mdi:plus-box-multiple" />
                                 </Button>
@@ -160,7 +170,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                                                             <Button
                                                                 size="sm"
                                                                 tooltip={t(
-                                                                    "tooltip.copy",
+                                                                    "label.copy",
                                                                 )}
                                                                 onClick={() =>
                                                                     handleCopy(
@@ -173,7 +183,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                                                             <Button
                                                                 size="sm"
                                                                 tooltip={t(
-                                                                    "tooltip.unshare",
+                                                                    "label.unshare",
                                                                 )}
                                                                 onClick={() =>
                                                                     handleUnShare(

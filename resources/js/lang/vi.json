@@ -144,6 +144,7 @@
         "telegram_bot_token": "Telegram Bot token",
         "need_select_item": "Vui lòng chọn 1 mục",
         "basename": "Tên",
+        "dirname": "Tên thư mục",
         "newName": "Tên mới",
         "detail": "Chi tiết",
         "preview": "Xem trước",
@@ -152,6 +153,7 @@
         "filesystem": "Tập tin hệ thống",
         "images": "Hình ảnh",
         "type": "Kiểu",
+        "visibility": "Hiển thị",
         "checkbox": "Checkbox",
         "radio": "Radio",
         "fileSelect": "Tập tin đã chọn",
@@ -243,7 +245,13 @@
         "api": "API",
         "select": "Chọn...",
         "no_data": "Không kết quả",
-        "required": "bắt buộc"
+        "required": "bắt buộc",
+        "previous": "Trước",
+        "next": "Kế tiếp",
+        "first": "Đầu tiên",
+        "last": "Cuối cùng",
+        "create_share": "Tạo chia sẻ",
+        "unshare": "Hủy chia sẻ"
     },
     "tooltip": {
         "disk": "Lựa chọn driver lưu trữ, ví dụ: 'local'",

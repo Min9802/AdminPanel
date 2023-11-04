@@ -12,6 +12,15 @@ import { ContextMenu } from "@/components/Form";
 import classNames from "classnames";
 import { thumbnail } from "./Utils/ActionUtils";
 import { delay } from "@/Utils/systemUtil";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow,
+    TooltipPortal,
+} from "@min98/ui";
+
 interface ViewListProps {
     item: Item;
     handleClick: (
@@ -97,42 +106,65 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
 }) => {
     // console.log(item);
     return (
-        <button
-            type="button"
-            className={classNames(
-                "p-2 w-[120px] h-[120px] hover:rounded-md hover:shadow-4 justify-center",
-                "active:bg-blue-200 active:rounded-md active:shadow-4",
-                active && "active",
-            )}
-            onClick={handleClick}
-        >
-            {item.type === "file" ? (
-                <>
-                    {checkExtension(item.extension) == "image" ? (
-                        <RenderPreView
-                            item={item}
-                            disk={disk}
-                            handleMultipleClick={handleMultipleClick}
-                        />
-                    ) : (
-                        <Icon
-                            icon={extensionToIcon(item.extension)}
-                            className="text-5xl mr-auto ml-auto"
-                        />
-                    )}
-                    <p className="break-all">{splitFileName(item.filename)}</p>
-                </>
-            ) : (
-                <>
-                    <Icon
-                        icon="mdi:folder-open"
-                        className="text-5xl mr-auto ml-auto"
-                        color="#FCD34D"
-                    />
-                    <p>{splitFileName(item.basename)}</p>
-                </>
-            )}
-        </button>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <button
+                        type="button"
+                        className={classNames(
+                            "group relative p-2 w-[120px] h-[120px] hover:rounded-md hover:shadow-4 justify-center",
+                            "active:bg-blue-200 active:rounded-md active:shadow-4",
+                            active && "active",
+                        )}
+                        onClick={handleClick}
+                    >
+                        {/* <div className="absolute bottom-3 flex-col items-center hidden mb-6 group-hover:flex animate-slide-up-fade">
+                            <span className="relative rounded-md z-10 p-1 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg dark:bg-white dark:text-dark">
+                                {item.basename}
+                            </span>
+                            <div className="w-3 h-3 -mt-2 rotate-45 bg-black dark:bg-white"></div>
+                        </div> */}
+
+                        {item.type === "file" ? (
+                            <>
+                                {checkExtension(item.extension) == "image" ? (
+                                    <RenderPreView
+                                        item={item}
+                                        disk={disk}
+                                        handleMultipleClick={
+                                            handleMultipleClick
+                                        }
+                                    />
+                                ) : (
+                                    <Icon
+                                        icon={extensionToIcon(item.extension)}
+                                        className="text-5xl mr-auto ml-auto"
+                                    />
+                                )}
+                                <p className="break-all">
+                                    {splitFileName(item.filename)}
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <Icon
+                                    icon="mdi:folder-open"
+                                    className="text-5xl mr-auto ml-auto"
+                                    color="#FCD34D"
+                                />
+                                <p>{splitFileName(item.basename)}</p>
+                            </>
+                        )}
+                    </button>
+                </TooltipTrigger>
+                <TooltipPortal>
+                    <TooltipContent>
+                        {item.basename}
+                        <TooltipArrow className="TooltipArrow" />
+                    </TooltipContent>
+                </TooltipPortal>
+            </Tooltip>
+        </TooltipProvider>
     );
 };
 /**
