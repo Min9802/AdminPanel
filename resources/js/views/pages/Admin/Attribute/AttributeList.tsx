@@ -16,36 +16,39 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
+import AdminAttributeApi from "@/apis/Admin/AdminAttributeApi";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
 import { DataTable } from "@/components/Table/Table";
 import Modal from "@/components/Modal/Modal";
+import AttributeEdit from "./AttributeEdit";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";
-import PermissionEdit from "./PermissionEdit";
-import { AdminPermissionApi } from "@/apis/Admin";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
-export type Permission = {
+export type Attribute = {
     id: string;
     name: string;
-    guard_name: string;
+    display_name: string;
+    status: 0 | 1;
     created_at: string;
     updated_at: string;
 };
 
-const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
+const AttributeList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
-    const [list, setList] = React.useState<Permission[]>([]);
+    const [list, setList] = React.useState<Attribute[]>([]);
     const [modalEdit, setModalEdit] = React.useState<boolean>(false);
     const [modalDelete, setModalDelete] = React.useState<boolean>(false);
+    const [modalUpdateStatus, setModalUpdateStatus] =
+        React.useState<boolean>(false);
     const [item, setItem] = React.useState<any>(false);
     /**
      * set page info
      */
     const pageInfo: pageInfoProps = {
-        title: "label.permission",
-        desc: "label.permission",
+        title: "label.attribute",
+        desc: "label.attribute",
     };
     React.useEffect(() => {
         props.setPageInfo(pageInfo);
@@ -57,10 +60,9 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminPermissionApi.get();
-            const Permissions = response.data.content;
-            // setCollection(packageCollect);
-            setList(Permissions);
+            const response = await AdminAttributeApi.get();
+            const Attributes = response.data.content;
+            setList(Attributes);
         } catch (err: any) {
             const error = err.response.data;
             const status: string = error.status;
@@ -74,12 +76,12 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         }
     };
     /**
-     * delete package
+     * delete Attribute
      * @param id
      */
     const handleDelete = async (id: string) => {
         try {
-            const response = await AdminPermissionApi.delete(id);
+            const response = await AdminAttributeApi.delete(id);
             const status: string = response.data.status;
             const message: string = response.data.message;
             const notify = {
@@ -95,13 +97,37 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             parseError(err);
         }
     };
-
+    /**
+     * change status
+     */
+    const handleChangeStatus = async (id: string) => {
+        try {
+            const response = await AdminAttributeApi.updateStatus(id);
+            const status: string = response.data.status;
+            const message: string = response.data.message;
+            const notify = {
+                title: status,
+                description: message,
+                status: "success",
+            };
+            toast(notify);
+            getList();
+            setModalUpdateStatus(false);
+            setItem(false);
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
     /**
      * toggle
      * @param id
      */
     const toggleEdit = (item: any) => {
         setModalEdit(!modalEdit);
+        setItem(item);
+    };
+    const toggleUpdateStatus = (item: any) => {
+        setModalUpdateStatus(!modalUpdateStatus);
         setItem(item);
     };
     const toggleDelete = (item: any) => {
@@ -116,7 +142,7 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define columns
      */
-    const columns: ColumnDef<Permission>[] = [
+    const columns: ColumnDef<Attribute>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -165,12 +191,47 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ),
         },
         {
-            accessorKey: "guard_name",
+            accessorKey: "status",
 
-            header: t("label.guard_name"),
-            cell: ({ row }) => (
-                <div className="capitalize">{row.getValue("guard_name")}</div>
-            ),
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                    >
+                        {t("label.status")}
+                        <Icon
+                            icon="mdi:unfold-more-horizontal"
+                            className="ml-2 h-4 w-4"
+                        />
+                    </Button>
+                );
+            },
+            cell: ({ row }) => {
+                const value = row.getValue("status");
+                const data = row.original;
+                return (
+                    <div className="text-center font-medium">
+                        {value == 1 ? (
+                            <Badge
+                                color="success"
+                                onClick={() => toggleUpdateStatus(data)}
+                            >
+                                {t("label.enable")}
+                            </Badge>
+                        ) : (
+                            <Badge
+                                color="secondary"
+                                onClick={() => toggleUpdateStatus(data)}
+                            >
+                                {t("label.disable")}
+                            </Badge>
+                        )}
+                    </div>
+                );
+            },
         },
         {
             id: "actions",
@@ -179,9 +240,6 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             header: () => (
                 <div className="text-center">{t("label.action")}</div>
             ),
-            meta: {
-                className: "sticky right-0",
-            },
             cell: ({ row }) => {
                 const data = row.original;
                 return (
@@ -206,10 +264,11 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 {t("common.edit")}
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                disabled={data.name === "Admin"}
                                 onClick={() => toggleDelete(data)}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.delete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -220,8 +279,16 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     return (
         <>
             {modalEdit ? (
-                <PermissionEdit item={item} onClose={() => callBackEdit()} />
+                <AttributeEdit item={item} onClose={() => callBackEdit()} />
             ) : null}
+
+            <Modal
+                title={t("common.confirm")}
+                open={modalUpdateStatus}
+                cancel={() => setModalUpdateStatus(false)}
+                action={() => handleChangeStatus(item.id)}
+                message={t("common.confirm-this-task")}
+            ></Modal>
             <Modal
                 title={t("common.confirm")}
                 open={modalDelete}
@@ -252,5 +319,5 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface DispatchProps {
     setPageInfo: (pageInfo: any[]) => void;
 }
-PermissionList.displayName = "PermissionList";
-export default connector(PermissionList);
+AttributeList.displayName = "AttributeList";
+export default connector(AttributeList);

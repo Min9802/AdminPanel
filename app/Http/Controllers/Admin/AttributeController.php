@@ -29,10 +29,10 @@ class AttributeController extends Controller
     public function index()
     {
         try {
-            $attributes = $this->attribute->with('products')->paginate(10);
+            $attributes = $this->attribute->with('products')->get();
             return response()->json([
                 'status' => 'success',
-                'attributes' => $attributes,
+                'content' => $attributes,
             ]);
         } catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
@@ -49,7 +49,7 @@ class AttributeController extends Controller
             $attributes = $this->attribute->where('status',1)->get();
             return response()->json([
                 'status' => 'success',
-                'attributes' => $attributes,
+                'content' => $attributes,
             ]);
         } catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
@@ -79,7 +79,7 @@ class AttributeController extends Controller
             return response()->json([
                 'status' =>'success',
                 'message' => trans('res.add.success'),
-                'attribute' => $attribute_created,
+                'content' => $attribute_created,
             ]);
         } catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
@@ -117,7 +117,7 @@ class AttributeController extends Controller
             return response()->json([
                 'status' =>'success',
                 'message' => trans('res.update.success'),
-                'attribute' => $attribute_update,
+                'content' => $attribute_update,
             ]);
         } catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
@@ -211,11 +211,11 @@ class AttributeController extends Controller
     public function trash()
     {
         try{
-            $trashs = $this->attribute->onlyTrashed()->paginate(10);
+            $trashs = $this->attribute->onlyTrashed()->get();
             return response()->json([
                 'status' => 'success',
                 'message' => trans('res.getdata.success'),
-                'staffs' => $trashs
+                'content' => $trashs
             ]);
         }catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());

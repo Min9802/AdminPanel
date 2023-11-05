@@ -137,6 +137,7 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const callBackEdit = () => {
         setModalEdit(false);
         setItem(false);
+        getList();
     };
     /**
      * define columns
@@ -273,7 +274,9 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                             <DropdownMenuItem
                                 onClick={() => toggleDelete(data)}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.delete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

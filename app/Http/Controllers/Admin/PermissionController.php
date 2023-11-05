@@ -56,10 +56,14 @@ class PermissionController extends Controller
     {
         try{
             DB::beginTransaction();
-            $data = [
-                'name' => $request->name
-            ];
-            $this->permission->create($data);
+            // $data = [
+            //     'name' => $request->name
+            // ];
+            foreach($request->name as $permission){
+                $this->permission->create([
+                    'name' => $permission
+                ]);
+            }
             DB::commit();
             return response()->json([
                 'status' => 'success',

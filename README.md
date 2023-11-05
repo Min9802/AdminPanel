@@ -8,7 +8,7 @@
 </p>
 
 # Admin Panel Laravel 9 reactjs 18
-Admin template build with reactjs 18 & Laravel 9
+Admin template build with react ts 18 & Laravel 10
 ## Require 
 - PHP 8.*+
 - Composer

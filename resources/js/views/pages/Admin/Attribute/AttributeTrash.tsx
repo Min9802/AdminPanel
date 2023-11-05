@@ -1,7 +1,11 @@
-import { RootState } from "@/store/reducers/rootReducer";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { Attribute } from "./AttributeList";
 import { ConnectedProps, connect } from "react-redux";
+import { RootState } from "@/store/reducers/rootReducer";
 import * as actions from "@/store/actions";
+import { parseError } from "@/Utils/systemUtil";
+import AdminAttributeApi from "@/apis/Admin/AdminAttributeApi";
 import {
     Badge,
     Button,
@@ -16,107 +20,49 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
+import { DataTable } from "@/components/Table/Table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
 import Modal from "@/components/Modal/Modal";
-import { useTranslation } from "react-i18next";
-import { parseError } from "@/Utils/systemUtil";
-import PermissionEdit from "./PermissionEdit";
-import { AdminPermissionApi } from "@/apis/Admin";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
-export type Permission = {
-    id: string;
-    name: string;
-    guard_name: string;
-    created_at: string;
-    updated_at: string;
-};
-
-const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
+const AttributeTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
-    const [list, setList] = React.useState<Permission[]>([]);
-    const [modalEdit, setModalEdit] = React.useState<boolean>(false);
-    const [modalDelete, setModalDelete] = React.useState<boolean>(false);
+    const [list, setList] = React.useState<Attribute[]>([]);
     const [item, setItem] = React.useState<any>(false);
+    const [modalRestore, setModalRestore] = React.useState<boolean>(false);
+    const [modalDelete, setModalDelete] = React.useState<boolean>(false);
     /**
      * set page info
      */
     const pageInfo: pageInfoProps = {
-        title: "label.permission",
-        desc: "label.permission",
+        title: "label.trashAttribute",
+        desc: "label.trashAttribute",
     };
     React.useEffect(() => {
         props.setPageInfo(pageInfo);
         getList();
     }, []);
     /**
-     * get list
+     * toggle restore
      * @param data
      */
-    const getList = async () => {
-        try {
-            const response = await AdminPermissionApi.get();
-            const Permissions = response.data.content;
-            // setCollection(packageCollect);
-            setList(Permissions);
-        } catch (err: any) {
-            const error = err.response.data;
-            const status: string = error.status;
-            const message: string = error.message;
-            const notify = {
-                title: status,
-                description: message,
-                status: "error",
-            };
-            toast(notify);
-        }
+    const toggleRestore = async (data: any) => {
+        setModalRestore(true);
+        setItem(data);
     };
     /**
-     * delete package
-     * @param id
+     * toggle delete
+     * @param data
      */
-    const handleDelete = async (id: string) => {
-        try {
-            const response = await AdminPermissionApi.delete(id);
-            const status: string = response.data.status;
-            const message: string = response.data.message;
-            const notify = {
-                title: status,
-                description: message,
-                status: "success",
-            };
-            toast(notify);
-            getList();
-            setModalDelete(false);
-            setItem(false);
-        } catch (err: any) {
-            parseError(err);
-        }
-    };
-
-    /**
-     * toggle
-     * @param id
-     */
-    const toggleEdit = (item: any) => {
-        setModalEdit(!modalEdit);
-        setItem(item);
-    };
-    const toggleDelete = (item: any) => {
-        setModalDelete(!modalDelete);
-        setItem(item);
-    };
-    const callBackEdit = () => {
-        setModalEdit(false);
-        setItem(false);
-        getList();
+    const toggleDelete = async (data: any) => {
+        setModalDelete(true);
+        setItem(data);
     };
     /**
      * define columns
      */
-    const columns: ColumnDef<Permission>[] = [
+    const columns: ColumnDef<Attribute>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -144,33 +90,32 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         {
             accessorKey: "name",
 
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() =>
-                            column.toggleSorting(column.getIsSorted() === "asc")
-                        }
-                    >
-                        {t("label.name")}
-                        <Icon
-                            icon="mdi:unfold-more-horizontal"
-                            className="ml-2 h-4 w-4"
-                        />
-                    </Button>
-                );
-            },
+            header: t("label.name"),
             cell: ({ row }) => (
                 <div className="capitalize">{row.getValue("name")}</div>
             ),
         },
         {
-            accessorKey: "guard_name",
+            accessorKey: "status",
 
-            header: t("label.guard_name"),
-            cell: ({ row }) => (
-                <div className="capitalize">{row.getValue("guard_name")}</div>
+            header: () => (
+                <div className="text-center">{t("label.status")}</div>
             ),
+            cell: ({ row }) => {
+                const value = row.getValue("status");
+                const data = row.original;
+                return (
+                    <div className="text-center font-medium">
+                        {value == 1 ? (
+                            <Badge color="success">{t("label.enable")}</Badge>
+                        ) : (
+                            <Badge color="secondary">
+                                {t("label.disable")}
+                            </Badge>
+                        )}
+                    </div>
+                );
+            },
         },
         {
             id: "actions",
@@ -179,9 +124,6 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             header: () => (
                 <div className="text-center">{t("label.action")}</div>
             ),
-            meta: {
-                className: "sticky right-0",
-            },
             cell: ({ row }) => {
                 const data = row.original;
                 return (
@@ -202,14 +144,19 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 {t("label.action")}
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => toggleEdit(data)}>
-                                {t("common.edit")}
+                            <DropdownMenuItem
+                                onClick={() => toggleRestore(data)}
+                            >
+                                <span className="text-orange-300">
+                                    {t("common.restore")}
+                                </span>
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                                disabled={data.name === "Admin"}
                                 onClick={() => toggleDelete(data)}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.forceDelete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -217,24 +164,83 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             },
         },
     ];
+
+    /**
+     * get the list
+     */
+    const getList = async () => {
+        try {
+            const response = await AdminAttributeApi.trash();
+            const list = response.data.content;
+            setList(list);
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
+    /**
+     * handle restore
+     * @param id
+     */
+    const handleRestore = async (id: string) => {
+        try {
+            const response = await AdminAttributeApi.restore(id);
+            const status = response.data.status;
+            const message = response.data.message;
+            const notify = {
+                title: status,
+                description: message,
+                status: "success",
+            };
+            toast(notify);
+            setModalRestore(false);
+            getList();
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
+    /**
+     * handle delete
+     * @param id
+     */
+    const handleDelete = async (id: string) => {
+        try {
+            const response = await AdminAttributeApi.forceDelete(id);
+            const status = response.data.status;
+            const message = response.data.message;
+            const notify = {
+                title: status,
+                description: message,
+                status: "success",
+            };
+            toast(notify);
+            setModalDelete(false);
+            getList();
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
     return (
-        <>
-            {modalEdit ? (
-                <PermissionEdit item={item} onClose={() => callBackEdit()} />
-            ) : null}
+        <React.Fragment>
+            <Modal
+                title={t("common.confirm")}
+                open={modalRestore}
+                cancel={() => setModalRestore(false)}
+                action={() => handleRestore(item.id)}
+                message={t("ask.restore")}
+            ></Modal>
             <Modal
                 title={t("common.confirm")}
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.move_to_trash")}
+                message={t("ask.forceDelete")}
             ></Modal>
             <Card>
                 <CardContent>
                     <DataTable data={list} columns={columns} search="name" />
                 </CardContent>
             </Card>
-        </>
+        </React.Fragment>
     );
 };
 const mapStateToProps = (state: RootState) => {
@@ -252,5 +258,5 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface DispatchProps {
     setPageInfo: (pageInfo: any[]) => void;
 }
-PermissionList.displayName = "PermissionList";
-export default connector(PermissionList);
+AttributeTrash.displayName = "AttributeTrash";
+export default connector(AttributeTrash);

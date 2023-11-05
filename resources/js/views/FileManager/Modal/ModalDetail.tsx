@@ -28,7 +28,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
 
     React.useEffect(() => {
         setData(item);
-        if (disk == "nextcloud" && item) {
+        if (disk == "nextcloud" && item && open) {
             getShare(disk, item);
         }
     }, [item]);
@@ -160,7 +160,8 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
                                     </h4>
                                     <table>
                                         <tbody>
-                                            {shares.length > 0 &&
+                                            {open &&
+                                                shares.length > 0 &&
                                                 shares.map((item, k) => (
                                                     <tr key={k}>
                                                         <td className="flex flex-row">

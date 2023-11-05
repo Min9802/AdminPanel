@@ -1,6 +1,8 @@
 import SettingApi from "@/apis/Global/SettingApi";
 import { toast } from "@min98/ui";
-import React from "react";
+import axios, { AxiosError } from "axios";
+import { t } from "i18next";
+import { string } from "zod";
 
 export type ResponseProps = {
     status?: string;
@@ -30,15 +32,27 @@ const getConfig = async () => {
  * parse error
  * @param error
  */
-const parseError = (error: any) => {
-    const response = error.response;
-    const statusCode = response.status;
-    const status = response.data.status;
-    const message = response.data.message;
-    const type = typeof message;
-    if (statusCode === 422) {
-        if (type == "object") {
-            Object.keys(message).map((key) =>
+export type ServerError = {
+    status: string,
+    message: string | {
+        [key: string]: string[];
+    };
+};
+const parseError = (error: AxiosError<ServerError>) => {
+    const serverError = error as AxiosError<ServerError>;
+    if (serverError && serverError.response) {
+        const response = serverError.response;
+        const status = response.data.status;
+        const message = response.data.message;
+        if (typeof message == 'string') {
+            const notify = {
+                title: status,
+                description: message,
+                status: "error",
+            };
+            toast(notify);
+        } else {
+            Object.keys(message).map((key: string) =>
                 message[key].map((item: any) => {
                     const notify = {
                         title: status,
@@ -48,18 +62,11 @@ const parseError = (error: any) => {
                     toast(notify);
                 })
             )
-        } else {
-            const notify = {
-                title: status,
-                description: message,
-                status: "error",
-            };
-            toast(notify);
         }
     } else {
         const notify = {
-            title: status,
-            description: message,
+            title: t('label.error'),
+            description: t("common.unknown_error"),
             status: "error",
         };
         toast(notify);

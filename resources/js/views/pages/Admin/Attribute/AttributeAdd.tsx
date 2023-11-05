@@ -23,19 +23,19 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldProps, InputForm } from "@/components/Form";
-import AdminPackageApi from "@/apis/Admin/AdminPackageApi";
+import AdminAttributeApi from "@/apis/Admin/AdminAttributeApi";
 import { parseError } from "@/Utils/systemUtil";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
-const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
+const AttributeAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState<boolean>(false);
     /**
      * set page info
      */
     const pageInfo: pageInfoProps = {
-        title: "label.addproduct",
-        desc: "label.addproduct",
+        title: "label.addAttribute",
+        desc: "label.addAttribute",
     };
     React.useEffect(() => {
         setOpen(true);
@@ -52,14 +52,6 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             iconStart: <Icon icon="mdi:label" />,
             placeholder: t("placeholder.name"),
             description: t("label.name"),
-        },
-        {
-            name: "display_name",
-            label: t("label.display_name"),
-            type: "text",
-            iconStart: <Icon icon="mdi:label" />,
-            placeholder: t("placeholder.display_name"),
-            description: t("label.display_name"),
         },
         // Add more fields as needed
     ];
@@ -92,7 +84,7 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await AdminPackageApi.add(values);
+            const response = await AdminAttributeApi.add(values);
             const status = response.data.status;
             const message = response.data.message;
             const notify = {
@@ -112,13 +104,13 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         <React.Fragment>
             <Button color="success" onClick={() => setOpen(true)}>
                 <Icon icon="mdi:plus" className="w-5 h-5" />
-                {t("label.addproduct")}
+                {t("label.addAttribute")}
             </Button>
             <SheetCustom
                 open={open}
                 cancel={() => processClose()}
-                title={t("label.addproduct")}
-                description={t("label.addproduct")}
+                title={t("label.addAttribute")}
+                description={t("label.addAttribute")}
             >
                 <Form {...form}>
                     <form
@@ -192,5 +184,5 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface DispatchProps {
     setPageInfo: (pageInfo: any[]) => void;
 }
-ProductAdd.displayName = "ProductAdd";
-export default connector(ProductAdd);
+AttributeAdd.displayName = "AttributeAdd";
+export default connector(AttributeAdd);

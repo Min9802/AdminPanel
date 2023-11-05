@@ -182,7 +182,9 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 onClick={() => toggleDelete(data)}
                                 disabled={data.username == "Admin"}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.delete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
