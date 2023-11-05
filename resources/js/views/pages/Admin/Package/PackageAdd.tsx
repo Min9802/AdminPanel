@@ -143,7 +143,7 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 onValueChange={(value) => {
                                     form.setValue("status", value);
                                 }}
-                                value={form.getValues("status")}
+                                defaultValue={form.getValues("status")}
                             >
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue

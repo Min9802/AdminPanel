@@ -13,7 +13,6 @@ interface ModalPreviewProps {
 
 const ModalPreview: React.FC<ModalPreviewProps> = ({ open, onClose, item }) => {
     const { t } = useTranslation();
-
     return (
         <DialogModal
             open={open}
@@ -43,7 +42,6 @@ const ModalPreview: React.FC<ModalPreviewProps> = ({ open, onClose, item }) => {
                         ]}
                         controls={true}
                         muted={true}
-                        onReady={() => console.log("onReady")}
                     />
                 </div>
             ) : // <Plyr

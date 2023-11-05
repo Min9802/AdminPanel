@@ -6,6 +6,10 @@ import { RootState } from "@/store/reducers/rootReducer";
 import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 const ProductList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
+    const [image, setImage] = React.useState<any>(null);
+    React.useEffect(() => {
+        console.log("image", image);
+    }, [image]);
     /**
      * set page info
      */
@@ -16,7 +20,7 @@ const ProductList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     React.useEffect(() => {
         props.setPageInfo(pageInfo);
     }, []);
-    return <FileManager />;
+    return <FileManager callback={setImage} />;
 };
 const mapStateToProps = (state: RootState) => {
     return {};

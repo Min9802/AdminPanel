@@ -184,17 +184,9 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     /**
      * callbacks for parent
      */
-    React.useCallback(() => {
+    React.useEffect(() => {
         callback?.(currentItem);
     }, [currentItem]);
-    React.useEffect(() => {
-        if (currentItem) {
-            console.log("currentItem", currentItem);
-        }
-        if (selectedList) {
-            console.log("selectedList", selectedList);
-        }
-    }, [currentItem, selectedList]);
     /**
      * toggle reload state
      */
@@ -263,21 +255,15 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
      * handle one click
      * @param data
      */
-    const handleOneClick = React.useCallback(
-        (data: Item) => {
-            setCurrentItem(data);
-        },
-        [setCurrentItem],
-    );
+    const handleOneClick = (data: Item) => {
+        setCurrentItem(data);
+    };
     /**
      * handle multile click
      */
-    const handleMultileClick = React.useCallback(
-        (data: Item[]) => {
-            setSelectedList(data);
-        },
-        [setSelectedList],
-    );
+    const handleMultileClick = (data: Item[]) => {
+        setSelectedList(data);
+    };
 
     /**
      * handle double click
