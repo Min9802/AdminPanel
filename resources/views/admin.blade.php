@@ -35,9 +35,8 @@
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet" />
     <!-- Manifest -->
-    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}" /> --}}
-    {{-- <link rel="manifest" href="/mix-manifest.json"> --}}
 
+    {{-- <link rel="manifest" href="/mix-manifest.json"> --}}
 
     @vite(['resources/sass/app.scss', 'resources/js/main.tsx'])
 
@@ -97,13 +96,7 @@
     </div>
 
     <!-- Scripts -->
-    {{-- <script>
-            document.getElementById('initial-content').style.display = 'block';
-        </script> --}}
-
-    {{-- <script src="{{ asset('js/vendor.js') }}" defer></script> --}}
-    {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
-    {{-- <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script> --}}
+    <!-- Scripts -->
 </body>
 
 </html>

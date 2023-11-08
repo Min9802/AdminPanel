@@ -38,8 +38,8 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
+    Switch,
 } from "@min98/ui";
-import { Switch } from "@/min";
 import InputForm from "@/components/Form/InputForm";
 import Dropdown from "@/components/dropdown/Dropdown";
 

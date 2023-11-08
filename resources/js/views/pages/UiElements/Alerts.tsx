@@ -1,4 +1,4 @@
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Icon } from "@iconify/react";
 const Alerts = () => {
     return (

@@ -2,8 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "watch": "vite build --watch"
+        "build": "vite build"
     },
     "dependencies": {
         "@codemirror/language": "^6.9.1",
@@ -97,7 +96,6 @@
         "prettier": "^3.0.3",
         "prettier-plugin-tailwindcss": "^0.5.4",
         "react-refresh": "^0.14.0",
-        "resolve-url-loader": "^5.0.0",
         "sass": "^1.68.0",
         "tailwindcss": "^3.3.3",
         "tailwindcss-interaction-variants": "^5.0.0",

@@ -35,9 +35,10 @@
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet" />
     <!-- Manifest -->
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}" /> --}}
     {{-- <link rel="manifest" href="/mix-manifest.json"> --}}
+
     @vite(['resources/sass/app.scss', 'resources/js/main.tsx'])
+
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo/logo.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo/favicon.ico') }}">

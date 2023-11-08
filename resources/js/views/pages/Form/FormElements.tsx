@@ -1,14 +1,14 @@
 import { ChangeEvent } from "react";
-import Breadcrumb from "../../components/Breadcrumb";
-import CheckboxFive from "../Example/CheckBox/CheckboxFive";
-import CheckboxFour from "../Example/CheckBox/CheckboxFour";
-import CheckboxOne from "../Example/CheckBox/CheckboxOne";
-import CheckboxThree from "../Example/CheckBox/CheckboxThree";
-import CheckboxTwo from "../Example/CheckBox/CheckboxTwo";
-import SwitcherFour from "../Example/Switch/SwitcherFour";
-import SwitcherOne from "../Example/Switch/SwitcherOne";
-import SwitcherThree from "../Example/Switch/SwitcherThree";
-import SwitcherTwo from "../Example/Switch/SwitcherTwo";
+import Breadcrumb from "@/components/Breadcrumb";
+import CheckboxFive from "@/views/pages/Example/CheckBox/CheckboxFive";
+import CheckboxFour from "@/views/pages/Example/CheckBox/CheckboxFour";
+import CheckboxOne from "@/views/pages/Example/CheckBox/CheckboxOne";
+import CheckboxThree from "@/views/pages/Example/CheckBox/CheckboxThree";
+import CheckboxTwo from "@/views/pages/Example/CheckBox/CheckboxTwo";
+import SwitcherFour from "@/views/pages/Example/Switch/SwitcherFour";
+import SwitcherOne from "@/views/pages/Example/Switch/SwitcherOne";
+import SwitcherThree from "@/views/pages/Example/Switch/SwitcherThree";
+import SwitcherTwo from "@/views/pages/Example/Switch/SwitcherTwo";
 
 const FormElements = () => {
     const Onchange = (e) => {

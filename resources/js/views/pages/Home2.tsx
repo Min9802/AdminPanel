@@ -1,4 +1,4 @@
-import { Card, CardContent, DateTimePicker, DatePickerRange } from "@/min";
+import { Card, CardContent, DateTimePicker, DatePickerRange } from "@min98/ui";
 import React from "react";
 // import { TimePicker, DateTimePicker } from "@/min";
 

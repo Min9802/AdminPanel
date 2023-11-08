@@ -35,39 +35,31 @@ export default defineConfig({
             },
         },
         minify: true,
-        // outDir: 'public/assets', // Change this to the desired output directory
-        // assetsDir: '', // Set to an empty string to prevent Vite from creating subdirectories
-        // chunkFileNames: 'js/[name].[hash].js',
-        // chunkFileNames: 'js/[name].js',
+        outDir: 'public/build', // Change this to the desired output directory
+        assetsDir: '', // Set to an empty string to prevent Vite from creating subdirectories
         cssCodeSplit: true, // Combine all CSS into a single file
         modulePreload: true,
     },
     plugins: [
         laravel({
             input: ['resources/js/main.tsx', 'resources/sass/app.scss'],
-            refresh: true
+            refresh: true,
+            // @ts-ignore
+            postcss: {
+                plugins: [
+                    require('tailwindcss'),
+                    require('autoprefixer'),
+                ],
+            },
         }),
-        viteSingleFile(),
         tailwindcss('./tailwind.config.ts'),
+        viteSingleFile(),
         // react(),
-        // {
-        //     name: 'blade',
-        //     handleHotUpdate({ file, server }) {
-        //         if (file.endsWith('.blade.php')) {
-        //             server.ws.send({
-        //                 type: 'full-reload',
-        //                 path: '*',
-        //             });
-        //         }
-        //     },
-        // }
+
     ],
     css: {
-        postcss: {
-            plugins: [
-                require('tailwindcss'),
-                require('autoprefixer'),
-            ],
+        preprocessorOptions: {
+            scss: {},
         },
     }
 });
