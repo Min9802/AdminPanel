@@ -256,7 +256,7 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.forceDelete")}
+                message={t("ask.forceDelete")}
             ></Modal>
             <Card>
                 <CardContent>

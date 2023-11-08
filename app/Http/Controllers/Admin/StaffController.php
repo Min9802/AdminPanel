@@ -126,8 +126,9 @@ class StaffController extends Controller
             $res = [
                 'status' => 'success',
                 'message' => [
-                    trans('res.update.success'),
+                    trans('res.update.success') .' - ' .
                     trans('res.password') . $request->password
+
                 ],
             ];
         } else {
@@ -192,6 +193,39 @@ class StaffController extends Controller
         }
     }
     /**
+     * change status banned
+     * @method delete
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status($id)
+    {
+        $staff = $this->admin->find($id);
+        if (!$staff) {
+            return response()->json([
+                'status' => 'error',
+                'message' => trans('res.notfound'),
+            ], 404);
+        }
+        try {
+            DB::beginTransaction();
+            $staff->banned = !$staff->banned;
+            $staff->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => trans('res.update.success'),
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
+            return response()->json([
+                'status' => 'error',
+                'message' => trans('res.update.fail'),
+            ], 500);
+        }
+    }
+    /**
      * trash Package.
      * @method get
      * @param  \Illuminate\Http\Request  $request
@@ -200,11 +234,11 @@ class StaffController extends Controller
     public function trash()
     {
         try{
-            $trashs = $this->admin->onlyTrashed()->get();
+            $trashs = $this->admin->with('roles')->onlyTrashed()->get();
             return response()->json([
                 'status' => 'success',
                 'message' => trans('res.getdata.success'),
-                'staffs' => $trashs
+                'content' => $trashs
             ]);
         }catch (Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());

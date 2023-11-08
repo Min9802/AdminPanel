@@ -287,14 +287,14 @@ const AttributeList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 open={modalUpdateStatus}
                 cancel={() => setModalUpdateStatus(false)}
                 action={() => handleChangeStatus(item.id)}
-                message={t("common.confirm-this-task")}
+                message={t("ask.change")}
             ></Modal>
             <Modal
                 title={t("common.confirm")}
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.move_to_trash")}
+                message={t("ask.move_to_trash")}
             ></Modal>
             <Card>
                 <CardContent>

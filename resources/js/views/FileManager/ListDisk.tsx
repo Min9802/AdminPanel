@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Badge, Button } from "@min98/ui";
 import React from "react";
 import { FolderProps } from "./FileManager";
+import classNames from "classnames";
 
 interface ListDiskProps {
     disks: string[];
@@ -52,7 +53,10 @@ const ListDisk: React.FC<ListDiskProps> = ({
                         <Badge
                             key={k}
                             color="secondary-light"
-                            className="cursor-pointer"
+                            className={classNames(
+                                "cursor-pointer",
+                                disk === selectDisk && "bg-dark/40",
+                            )}
                             onClick={() => setSelectDisk(disk)}
                         >
                             <Icon

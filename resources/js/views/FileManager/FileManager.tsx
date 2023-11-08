@@ -2,7 +2,6 @@ import React, { MouseEvent } from "react";
 import Header from "./Header";
 import { Card, CardContent, CardHeader, toast } from "@min98/ui";
 import LeftContent from "./LeftContent";
-import { Col, Grid } from "@/components/Grid";
 import TableView from "./TableView";
 import { getContent, initialize } from "./Utils/ApiUtils";
 import {
@@ -11,6 +10,7 @@ import {
     deleting,
     download,
     edit,
+    info,
     newFile,
     newFolder,
     paste,
@@ -185,8 +185,18 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
      * callbacks for parent
      */
     React.useEffect(() => {
-        callback?.(currentItem);
+        currentItem && currentItem.type == "file" && getInfo(currentItem);
     }, [currentItem]);
+    /**
+     * info file
+     * @param item
+     */
+    const getInfo = async (item: any) => {
+        const infoFile = await info(selectDisk, item.path);
+        if (infoFile) {
+            callback?.(infoFile);
+        }
+    };
     /**
      * toggle reload state
      */
@@ -577,14 +587,14 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                 />
             </CardHeader>
             <CardContent>
-                <Grid col="8">
-                    <Col col="2" className="border-r-2 border-dark h-full">
+                <div className="grid lg:grid-cols-8 sm:grid-cols-6">
+                    <div className="border-r-2 border-dark h-full lg:col-span-2 sm:col-span-6">
                         <LeftContent
                             selectDisk={selectDisk}
                             setSelectFolder={setSelectFolder}
                         />
-                    </Col>
-                    <Col col="6">
+                    </div>
+                    <div className="col-span-6">
                         <ListDisk
                             disks={disks}
                             selectDisk={selectDisk}
@@ -639,8 +649,8 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                                 toggleDelete={toggleDelete}
                             />
                         )}
-                    </Col>
-                </Grid>
+                    </div>
+                </div>
             </CardContent>
         </Card>
     );

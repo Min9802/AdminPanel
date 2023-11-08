@@ -8,7 +8,7 @@ use App\Models\Admin\Attribute;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Str;
 class AttributeController extends Controller
 {
     /**
@@ -71,7 +71,7 @@ class AttributeController extends Controller
         try {
             DB::beginTransaction();
             $data = [
-                'name' => $request->name,
+                'name' => Str::lower($request->name),
                 'status' => $request->status,
             ];
             $attribute_created = $this->attribute->create($data);
@@ -109,7 +109,7 @@ class AttributeController extends Controller
             }
             DB::beginTransaction();
             $data = [
-                'name' => $request->name,
+                'name' => Str::lower($request->name),
                 'status' => $request->status,
             ];
             $attribute_update = $this->attribute->find($id)->update($data);
@@ -142,18 +142,11 @@ class AttributeController extends Controller
             if(!$attribute){
                 return response()->json([
                    'status' => 'error',
-                   'message' => trans('res.getdata.fail'),
-                ], 500);
+                   'message' => trans('res.notfound'),
+                ], 404);
             }
             DB::beginTransaction();
-            switch($attribute->status){
-                case 0:
-                    $attribute->status = 1;
-                    break;
-                case 1:
-                    $attribute->status = 0;
-                    break;
-            }
+            $attribute->status = !$attribute->status;
             $attribute->save();
             DB::commit();
             return response()->json([

@@ -129,20 +129,10 @@ class PackageController extends Controller
                 'message' => trans('res.notfound')
             ],404);
         }
-        $status = $package->status;
-        switch ($status){
-            case 1:
-                $statusUpdate = 0;
-                break;
-            case 0:
-                $statusUpdate = 1;
-                break;
-        }
         try {
             DB::beginTransaction();
-            $package->update([
-                'status' => $statusUpdate,
-            ]);
+            $package->status = !$package->status;
+            $package->save();
             DB::commit();
             return response()->json([
                 'status' => 'success',

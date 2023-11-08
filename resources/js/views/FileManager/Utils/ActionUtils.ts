@@ -1,6 +1,6 @@
 import { FileManagerAPI } from "@/apis/Admin";
 import { FileProps, Item, PreviewProps } from "../FileManager"
-import { parseError } from "@/Utils/systemUtil";
+import { ServerErrorProps, parseError } from "@/Utils/systemUtil";
 import { toast } from "@min98/ui";
 import { checkExtension } from "./FileUtils";
 /**
@@ -20,7 +20,7 @@ const upload = async (data: FormData) => {
             status: "success",
         };
         toast(notify);
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 }
@@ -45,7 +45,7 @@ const newFile = async (disk: string, name: string, path: string | null) => {
             status: "success",
         };
         toast(notify);
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 }
@@ -70,7 +70,7 @@ const newFolder = async (disk: string, name: string, path: string | null) => {
             status: "success",
         };
         toast(notify);
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 }
@@ -87,7 +87,7 @@ const download = async (disk: string, data: FileProps) => {
         };
         const response = await FileManagerAPI.download(dataSubmit);
         return response;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         return false;
     }
@@ -140,7 +140,7 @@ const paste = async (disk: string, data: any, path: string) => {
         };
         toast(notify);
         return true;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         return false;
     }
@@ -167,7 +167,7 @@ const deleting = async (disk: string, items: any) => {
         };
         toast(notify);
         return true;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         return false;
     }
@@ -193,7 +193,7 @@ const rename = async (disk: string, data: any) => {
         };
         toast(notify);
         return true;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         return false;
     }
@@ -236,7 +236,7 @@ const thumbnail = async (disk: string, item: any) => {
         const blob = new Blob([response.data], { type: mimeType });
         const blobUrl = await fileToDataUri(blob);
         return blobUrl;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         return "";
     }
@@ -254,8 +254,7 @@ const streamFile = async (dataSubmit: any) => {
         const blob = new Blob([response.data], { type: mimeType });
         const blobUrl = fileToDataUri(blob);
         return blobUrl;
-    } catch (err) {
-        console.log(err);
+    } catch (err: any) {
         return "";
     }
 }
@@ -311,10 +310,8 @@ const previewData = async (disk: string, data: FileProps) => {
                 break;
         }
         return DataPreview;
-    } catch (err) {
-        // parseError(err);
-        console.log(err);
-
+    } catch (err: any) {
+        parseError(err);
         return DataPreview;
     }
 }
@@ -334,7 +331,23 @@ const edit = async (formData: any) => {
         };
         toast(notify);
         return true;
-    } catch (err) {
+    } catch (err: any) {
+        parseError(err);
+        return false;
+    }
+}
+/**
+ * get info file
+ * @param disk
+ * @param path
+ * @returns
+ */
+const info = async (disk: string, path: string) => {
+    try {
+        const response = await FileManagerAPI.info(disk, path);
+        const info = response.data.content;
+        return info;
+    } catch (err: any) {
         parseError(err);
         return false;
     }
@@ -354,7 +367,7 @@ const listShare = async (disk: string, data: any) => {
         const file = response.data.content;
         const shares = file.shares;
         return shares;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 }
@@ -381,7 +394,7 @@ const createShare = async (disk: string, data: any) => {
         toast(notify);
         return url;
 
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 }
@@ -399,7 +412,7 @@ const unShare = async (id: number) => {
             status: "success",
         };
         toast(notify);
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
     }
 };
@@ -417,5 +430,6 @@ export {
     deleting,
     edit,
     previewData,
-    thumbnail
+    thumbnail,
+    info
 }

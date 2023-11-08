@@ -10,6 +10,9 @@ class AdminStaffApi {
     static update = (id: string, data: any) => {
         return axios.patch(`${base}/update/${id}`, data);
     };
+    static status = (id: string) => {
+        return axios.patch(`${base}/status/${id}`);
+    };
     static delete = (id: string) => {
         return axios.delete(`${base}/destroy/${id}`);
     };

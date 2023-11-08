@@ -102,11 +102,11 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         const result = [];
         const { name, group_action } = obj;
 
-        result.push(name); // Add "Medium" as the first element
+        result.push(name.toLowerCase()); // Add "Medium" as the first element
 
         if (Array.isArray(group_action)) {
             for (let i = 0; i < group_action.length; i++) {
-                result.push(`${name}-${group_action[i]}`);
+                result.push(`${name.toLowerCase()}-${group_action[i]}`);
             }
         }
 

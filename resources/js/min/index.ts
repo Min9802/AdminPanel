@@ -179,6 +179,13 @@ export {
 } from "./ui/toast";
 export { Toaster } from "./ui/toaster";
 export { Toggle, toggleVariants } from "./ui/toggle";
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/tooltip";
+export {
+    Tooltip,
+    TooltipTrigger,
+    TooltipPortal,
+    TooltipContent,
+    TooltipArrow,
+    TooltipProvider,
+} from "./ui/tooltip";
 export { useToast, toast } from "./ui/use-toast";
 export { cn } from "./lib/utils"

@@ -183,20 +183,10 @@ class ProductController extends Controller
                 'message' => trans('res.notfound')
             ],404);
         }
-        $status = $product->status;
-        switch ($status){
-            case 1:
-                $statusUpdate = 0;
-                break;
-            case 0:
-                $statusUpdate = 1;
-                break;
-        }
         try {
             DB::beginTransaction();
-            $product->update([
-                'status' => $statusUpdate,
-            ]);
+            $product->status = !$product->status;
+            $product->save();
             DB::commit();
             return response()->json([
                 'status' => 'success',

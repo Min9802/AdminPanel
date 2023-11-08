@@ -7,9 +7,13 @@ import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 const ProductList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const [image, setImage] = React.useState<any>(null);
+    const [modal, setModal] = React.useState<boolean>(false);
     React.useEffect(() => {
         console.log("image", image);
     }, [image]);
+    React.useEffect(() => {
+        setModal(true);
+    }, []);
     /**
      * set page info
      */

@@ -194,7 +194,7 @@ const RenderPreView: React.FC<ItemProps> = ({ item, disk }) => {
                     url,
                     path: dataContent.path,
                 });
-            }, 50);
+            }, 700);
         }
     }, [dataContent]);
     return (

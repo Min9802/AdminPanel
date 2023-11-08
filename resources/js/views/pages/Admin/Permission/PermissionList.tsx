@@ -227,7 +227,7 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.move_to_trash")}
+                message={t("ask.delete")}
             ></Modal>
             <Card>
                 <CardContent>

@@ -126,12 +126,8 @@ const RoleAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                         {formFields.map((field, key) => (
                             <InputForm
                                 key={key}
-                                label={field?.label}
-                                name={field?.name}
-                                iconStart={field?.iconStart}
-                                type={field?.type}
-                                description={field?.description}
                                 control={form.control}
+                                {...field}
                             />
                         ))}
                         <div className="space-y-1">

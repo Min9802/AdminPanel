@@ -22,7 +22,7 @@
         "cancel": "Cancel",
         "confirm-this-task": "Are you sure to process this task?",
         "fail-to-load-data": "Fail to load data",
-        "unknown_error": "There was an error",
+        "unknown_error": "An unknown error",
         "internal-server-error": "Internal server error",
         "bad-request": "Bad request",
         "forbiden-request": "Invalid input data",
@@ -39,21 +39,6 @@
         "previous": "Previous",
         "open_menu": "Open menu"
     },
-    "sidebar": {
-        "dashboard": "Dashboard",
-        "admin": "Admin",
-        "home": "Home",
-        "users": "Users",
-        "role": "Roles",
-        "permission": "Permission",
-        "staff": "Staffs",
-        "package": "Packages",
-        "product": "Products",
-        "setting": "Settings",
-        "filemanager": "File Manager",
-        "uploadfile": "Upload Files",
-        "attribute": "Attributes"
-    },
     "status": {
         "active": "Active",
         "disable": "Disabled",
@@ -62,14 +47,6 @@
         "error": "Error",
         "success": "Success",
         "warning": "Warning"
-    },
-    "page": {
-        "register": "Register",
-        "login": "Login",
-        "logout": "Logout",
-        "notfound": "Page Not found",
-        "home": "Home",
-        "back": "Back"
     },
     "label": {
         "enable": "Enable",
@@ -91,6 +68,8 @@
         "display_name": "Display Name",
         "action": "Action",
         "status": "Status",
+        "banned": "Banned",
+        "permitted": "Permitted",
         "created_at": "Time create",
         "updated_at": "Time update",
         "deleted_at": "Time deleted",
@@ -203,7 +182,8 @@
         "logout": "Log out",
         "profile": "Profile",
         "wallet": "Wallet",
-        "move_to_trash": "Move to Trash ?",
+        "change": "Are you sure change it ?",
+        "move_to_trash": "Are you sure move to Trash ?",
         "forceDelete": "Are you sure permanently delete, this action can't be undo ?",
         "page": "Page",
         "go_to_page": "Go to page",
@@ -237,6 +217,8 @@
         "filemanager": "File manager",
         "trashFile": "File deleted",
         "attribute": "Attribute",
+        "value": "Value",
+        "add_price": "Add Price",
         "addAttribute": "Add Attribute",
         "trashAttribute": "Trash Attribute",
         "2fa_twoFactor1": "Scan the image above with the two-factor authentication app on your phone. Or enter the secret code manually",
@@ -254,7 +236,12 @@
         "first": "First",
         "last": "Last",
         "create_share": "Create share",
-        "unshare": "Unshare"
+        "unshare": "Unshare",
+        "resetpass": "Reset Password ?",
+        "resetpass_desc": "Reset Password for user",
+        "random": "Random",
+        "random_desc": "Random value",
+        "invalid_type": "Invalid type"
     },
 
     "tooltip": {
@@ -288,12 +275,16 @@
         "last": "Last",
         "create_share": "Create share",
         "unshare": "Unshare",
-        "copy": "Click to copy"
+        "copy": "Click to copy",
+        "remove": "Click to remove",
+        "add": "Click to add"
     },
     "ask": {
+        "change": "Are you sure change it ?",
         "restore": "Are you sure restore this ?",
-        "forceDelete": "Are you sure permanently delete, this action can't be undone ?",
-        "delete": "Are you sure delete this ?",
+        "forceDelete": "Are you sure permanently delete, this action can't be undo ?",
+        "move_to_trash": "Are you sure move to Trash ?",
+        "delete": "Are you sure delete this, this action can't be undo ?",
         "resetpass": "Reset Password ?",
         "disable2fa": "Are you sure disable Two-factor authentication ?"
     },
@@ -333,110 +324,5 @@
         "disk_client": "http://127.0.0.1:8001/api/storage",
         "disk_client_id": "QS2RBkNZx5*****************T8bmVHsv1EolY",
         "disk_client_secret": "QS2RBkNZx5*****************T8bmVHsv1EolY"
-    },
-    "validation": {
-        "recaptcha": "Validate Recaptcha"
-    },
-    "res": {
-        "title": {
-            "error": "Error",
-            "success": "Success",
-            "warning": "Warning",
-            "info": "Info",
-            "undefined": "Undefined"
-        },
-        "serverError": "Server Error",
-
-        "auth": {
-            "token": {
-                "invalid": "Login required",
-                "expired": "Login expired",
-                "notfound": "User Not Found"
-            }
-        },
-        "add": {
-            "alreadyexist": "Already exist",
-            "fail": "Add failed",
-            "success": "Add success"
-        },
-        "update": {
-            "fail": "Update failed",
-            "success": "Update Success"
-        },
-        "delete": {
-            "fail": "Delete failed",
-            "success": "Delete Success"
-        },
-        "restore": {
-            "fail": "Restore failed",
-            "success": "Restore Success"
-        },
-        "forceDelete": {
-            "fail": "Delete permanently failed",
-            "success": "Delete permanently Success"
-        },
-        "getdata": {
-            "success": "Get data success",
-            "fail": "Get data failed"
-        },
-        "save": {
-            "file": {
-                "success": "Save file success",
-                "fail": "Save file failed"
-            },
-            "success": "Save Success",
-            "fail": "Save failed"
-        },
-        "notfound": {
-            "role": "NotFound Role",
-            "user": "User Not Found",
-            "staff": "Staff Not Found",
-            "package": "Package Not Found",
-            "product": "Product Not Found",
-            "setting": "Setting Not Found"
-        },
-        "enable": {
-            "success": "Enable Success",
-            "fail": "Enable Failed"
-        },
-        "disable": {
-            "success": "Disable Success",
-            "fail": "Disable Failed"
-        },
-        "verify": {
-            "success": "Verify Success",
-            "fail": "Verify Failed"
-        },
-        "twoFactor": {
-            "getqr": {
-                "fail": "Get QR Failed"
-            }
-        },
-        "copytoclipboard": {
-            "success": "Copied to clipboard",
-            "fail": "Copy Failed"
-        },
-        "getotp": {
-            "success": "OTP sent successful, please check your email (maybe in spam mail)",
-            "fail": "OTP sending failed"
-        },
-
-        "random": "Random",
-        "password": "Password: ",
-        "fail": "Failed",
-        "success": "Successful",
-
-        "logged": "You logged",
-        "loginsuccess": "Login Success",
-        "loginfail": "Login fail",
-        "incorrect": "User name or password incorrect",
-        "requirelogin": "You are not logged in or your login is expired",
-
-        "logout": {
-            "needlogin": "You need login",
-            "ask": "Do you wan logout ?",
-            "success": "Logout successful",
-            "error": "Logout failed!"
-        }
     }
 }

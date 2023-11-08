@@ -163,27 +163,17 @@ export const MultipleSelect = forwardRef<
          * render selected
          * @returns
          */
-        const RenderSelected = () => {
+        const RenderSelected: React.FC = () => {
             return (
-                <div className="space-x-1 space-y-1">
+                <div className="flex flex-wrap gap-1">
                     {getTextForSelectedValues(options, selected).map(
                         (option: any, key: number) => {
                             return (
-                                // <span
-                                //     className="m-0.5 px-2 py-0.5 bg-gray-300 rounded-md border border-gray-200"
-                                //     key={key}
-                                // >
-                                //     {option.text}
-                                //     <span
-                                //         aria-hidden="true"
-                                //         onClick={() => {
-                                //             handleClick(option.value, "remove");
-                                //         }}
-                                //     >
-                                //         ×
-                                //     </span>
-                                // </span>
-                                <Badge key={key} color="secondary">
+                                <Badge
+                                    key={key}
+                                    color="secondary"
+                                    className="justify-center items-center"
+                                >
                                     {option.text}
                                     <span
                                         aria-hidden="true"
@@ -216,13 +206,16 @@ export const MultipleSelect = forwardRef<
                             t("label.select")
                         )}
                         {selected.length > 0 ? (
-                            <span onClick={() => setSelected([])}>
+                            <span
+                                onClick={() => setSelected([])}
+                                className="pl-2 pr-1"
+                            >
                                 <Icon icon="tabler:x" color="red" />
                             </span>
                         ) : null}
                         <Icon
                             icon="carbon:chevron-sort"
-                            className="ml-2 h-4 w-4 shrink-0 opacity-50"
+                            className="h-4 w-4 shrink-0 opacity-50"
                         />
                     </Button>
                 </PopoverTrigger>

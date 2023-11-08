@@ -9,7 +9,7 @@ Route::group([
     'middleware' => ['api', 'auth:admin', 'role:SuperAdmin'],
     'prefix' => 'attribute',
 ], function () {
-    Route::get('index', [AttributeController::class, 'index'])->middleware("can:attribute-list");
+    Route::get('/', [AttributeController::class, 'index'])->middleware("can:attribute-list");
     Route::get('get', [AttributeController::class, 'get'])->middleware("can:attribute-list");
     Route::post('store', [AttributeController::class, 'store'])->middleware("can:attribute-add");
     Route::patch('update/{id}', [AttributeController::class, 'update'])->middleware("can:attribute-edit");

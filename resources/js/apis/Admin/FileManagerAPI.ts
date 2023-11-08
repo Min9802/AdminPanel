@@ -65,9 +65,12 @@ class FileManagerAPI {
             params: data,
         });
     };
-    static info = (data: any) => {
+    static info = (disk: string, path: string) => {
         return axios.get(`${base}/info`, {
-            params: data,
+            params: {
+                disk,
+                path
+            },
         });
     };
     static listshare = (data: any) => {

@@ -48,7 +48,7 @@ const DialogModal: React.FC<DialogModalProps> = ({
             <DialogContent
                 size={size}
                 className={classNames(
-                    "bg-white dark:bg-dark overflow-y-scroll",
+                    "bg-white max-h-[100vh] dark:bg-dark overflow-y-scroll",
                     className,
                 )}
             >

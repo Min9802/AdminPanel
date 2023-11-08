@@ -22,7 +22,7 @@
         "cancel": "Hủy bỏ",
         "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
         "fail-to-load-data": "Không thể tải về dữ liệu",
-        "unknown_error": "Có lỗi xảy ra",
+        "unknown_error": "Lỗi không xác định",
         "internal-server-error": "Lỗi kết nối",
         "bad-request": "Yêu cầu không hợp lệ",
         "forbiden-request": "Thông tin truyền vào không hợp lệ",
@@ -39,20 +39,6 @@
         "previous": "Trước",
         "open_menu": "Mở Menu"
     },
-    "sidebar": {
-        "dashboard": "Quản trị",
-        "admin": "Admin",
-        "home": "Trang Chủ",
-        "users": "Người dùng",
-        "role": "Vai Trò",
-        "permission": "Quyền",
-        "staff": "Nhân viên",
-        "package": "Gói",
-        "product": "Sản phẩm",
-        "setting": "Cài đặt",
-        "filemanager": "Quản lý tập tin",
-        "attribute": "Thuộc tính"
-    },
     "status": {
         "active": "Kích hoạt",
         "disable": "Vô hiệu hóa",
@@ -61,14 +47,6 @@
         "error": "Lỗi",
         "success": "Thành công",
         "warning": "Cảnh báo"
-    },
-    "page": {
-        "register": "Đăng Ký",
-        "login": "Đăng nhập ",
-        "logout": "Đăng xuất",
-        "notfound": "Không tìm thấy trang",
-        "home": "Trang chủ",
-        "back": "Quay lại"
     },
     "label": {
         "enable": "Bật",
@@ -90,6 +68,8 @@
         "display_name": "Tên hiển thị",
         "action": "Hành động",
         "status": "Trạng thái",
+        "banned": "Bị cấm",
+        "permitted": "Được phép",
         "created_at": "Thời gian thêm",
         "updated_at": "Thời gian cập nhật",
         "deleted_at": "Thời gian xóa",
@@ -202,7 +182,8 @@
         "logout": "Đăng xuất",
         "profile": "Hồ sơ",
         "wallet": "ví",
-        "move_to_trash": "Di chuyển vào thùng rác ?",
+        "change": "Bạn có chắc chắn thay đổi nó không ?",
+        "move_to_trash": "Bạn có chắc chắn chuyển đến thùng rác không ?",
         "forceDelete": "Bạn có chắc chắn xóa vĩnh viễn không, hành động này không thể hoàn tác ?",
         "page": "Trang",
         "go_to_page": "Đi tới trang",
@@ -237,6 +218,8 @@
         "filemanager": "Quản lý tệp",
         "trashFile": "Tệp đã xóa",
         "attribute": "Thuộc tính",
+        "value": "Giá trị",
+        "add_price": "Thêm giá",
         "addAttribute": "Thêm thuộc tính",
         "trashAttribute": "Thuộc tính đã xoá",
         "2fa_twoFactor1": "Quét hình ảnh ở trên bằng ứng dụng xác thực hai yếu tố trên điện thoại của bạn. Hoặc nhập mã bí mật thủ công",
@@ -254,7 +237,12 @@
         "first": "Đầu tiên",
         "last": "Cuối cùng",
         "create_share": "Tạo chia sẻ",
-        "unshare": "Hủy chia sẻ"
+        "unshare": "Hủy chia sẻ",
+        "resetpass": "Đặt lại mật khẩu ?",
+        "resetpass_desc": "Đặt lại mật khẩu cho người dùng",
+        "random": "Ngẫu nhiên",
+        "random_desc": "Giá trị ngẫu nhiên",
+        "invalid_type": "Loại không hợp lệ"
     },
     "tooltip": {
         "disk": "Lựa chọn driver lưu trữ, ví dụ: 'local'",
@@ -287,12 +275,16 @@
         "last": "Cuối cùng",
         "create_share": "Tạo chia sẻ",
         "unshare": "Hủy chia sẻ",
-        "copy": "Bấm để sao chép"
+        "copy": "Bấm để sao chép",
+        "remove": "Bấm để xóa",
+        "add": "Bấm để thêm"
     },
     "ask": {
+        "change": "Bạn có chắc chắn thay đổi nó không ?",
         "restore": "Bạn có chắc chắn khôi phục lại nó không ?",
-        "forceDelete": "Bạn có chắc chắn sẽ xóa vĩnh viễn, không thể hoàn tác hành động này ?",
-        "delete": "Bạn có chắc chắn xóa nó không ?",
+        "forceDelete": "Bạn có chắc chắn sẽ xóa vĩnh viễn, hành động này không thể hoàn tác ?",
+        "move_to_trash": "Bạn có chắc chắn chuyển đến thùng rác không ?",
+        "delete": "Bạn có chắc chắn xóa nó không, hành động này không thể hoàn tác ?",
         "resetpass": "Đặt lại mật khẩu ?",
         "disable2fa": "Bạn có chắc chắn tắt xác thực hai yếu tố không ?"
     },
@@ -332,166 +324,5 @@
         "disk_client": "http://127.0.0.1:8001/api/storage",
         "disk_client_id": "QS2RBkNZx5*****************T8bmVHsv1EolY",
         "disk_client_secret": "QS2RBkNZx5*****************T8bmVHsv1EolY"
-    },
-    "validation": {
-        "recaptcha": "Xác thực Recaptcha"
-    },
-    "res": {
-        "title": {
-            "error": "Lỗi",
-            "success": "Thành Công",
-            "warning": "Cảnh Báo",
-            "info": "Thông Tin",
-            "undefined": "Không xác định"
-        },
-        "serverError": "Lỗi Server",
-        "validation": {
-            "module": {
-                "required": "Module không được trống",
-                "string": "Tên Module"
-            },
-            "action": {
-                "required": "Action không được trống"
-            },
-            "username": {
-                "required": "Tên người dùng không được trống",
-                "unique": "Tên người dùng đã tồn tại"
-            },
-            "name": {
-                "required": "Tên không được trống",
-                "unique": "Tên đã tồn tại",
-                "min": "Độ dài không chính xác"
-            },
-            "email": {
-                "required": "Email không được trống",
-                "unique": "Email đã tồn tại"
-            },
-            "password": {
-                "required": "Mật khẩu không được trống"
-            },
-            "role_id": {
-                "required": "Vai trò không được trống"
-            },
-            "recaptcha": {
-                "required": "Xác thực Recaptcha"
-            },
-            "display_name": {
-                "required": "Tên hiển thị không được trống"
-            },
-            "code": {
-                "required": "Code Không được trống",
-                "min": "Độ dài không chính xác",
-                "numeric": "Yêu cầu số",
-                "between": "Độ dài không chính xác"
-            },
-            "package_id": {
-                "required": "Gói không được trống"
-            },
-            "price": {
-                "required": "Giá không được trống"
-            },
-            "description": {
-                "required": "Mô tả không được trống"
-            },
-            "config": {
-                "required": "Cấu hình không được trống"
-            },
-            "file": {
-                "required": "Tập tin không được trống",
-                "mimes": "Định dạng tập tin không được hỗ trợ"
-            }
-        },
-        "auth": {
-            "token": {
-                "invalid": "Yêu cầu đăng nhập",
-                "expired": "Đăng nhập hết hạn",
-                "notfound": "Người dùng không khả dụng"
-            }
-        },
-        "add": {
-            "alreadyexist": "Đã tồn tại",
-            "fail": "Thêm thất bại",
-            "success": "Thêm thành công"
-        },
-        "update": {
-            "fail": "Cập nhật thất bại",
-            "success": "Cập nhật thành công"
-        },
-        "delete": {
-            "fail": "Xóa thất bại",
-            "success": "Xóa thành công"
-        },
-        "restore": {
-            "fail": "Khôi phục thất bại",
-            "success": "Khôi phục thành công"
-        },
-        "forceDelete": {
-            "fail": "Xóa vĩnh viễn thất bại",
-            "success": "Xóa vĩnh viễn thành công"
-        },
-        "getdata": {
-            "success": "Get data thành công",
-            "fail": "Get data thất bại"
-        },
-        "save": {
-            "file": {
-                "success": "Lưu file thành công",
-                "fail": "Lưu file thất bại"
-            },
-            "success": "Lưu thành công",
-            "fail": "lưu thành công"
-        },
-        "notfound": {
-            "role": "Vai trò không tồn tại",
-            "user": "Người dùng không tồn tại",
-            "staff": "Không tìm thấy nhân viên",
-            "package": "Gói không tồn tại",
-            "product": "Sản phẩm không tồn tại",
-            "setting": "Cài đặt không tồn tại"
-        },
-        "enable": {
-            "success": "Bật 2FA thành công",
-            "fail": "Bật 2FA thất bại"
-        },
-        "disable": {
-            "success": "Tắt thành công",
-            "fail": "Tắt thất bại"
-        },
-        "verify": {
-            "success": "Xác minh thành công",
-            "fail": "Xác minh thất bại"
-        },
-        "twoFactor": {
-            "getqr": {
-                "fail": "Get QR thất bại"
-            }
-        },
-        "copytoclipboard": {
-            "success": "Đã sao chép vào bộ nhớ tạm",
-            "fail": "Sao chép thất bại"
-        },
-
-        "getotp": {
-            "success": "Gửi OTP thành công, vui lòng kiểm tra email (có thể ở thư spam)",
-            "fail": "Gửi OTP thất bại"
-        },
-
-        "random": "Ngẫu nhiên",
-        "password": "Mật khẩu: ",
-        "fail": "Thất bại",
-        "success": "Thành Công",
-
-        "logged": "Bạn đã đăng nhập",
-        "loginsuccess": "Đăng nhập thành công",
-        "loginfail": "Đăng nhập thất bại",
-        "incorrect": "Tên người dùng hoặc mật khẩu sai",
-        "requirelogin": "Bạn chưa đăng nhập hoặc đăng nhập của bạn đã hết hạn",
-
-        "logout": {
-            "needlogin": "Bạn cần đăng nhập",
-            "ask": "Bạn muốn đăng xuất ?",
-            "success": "Đăng xuất thành công",
-            "error": "Đăng xuất thất bại!"
-        }
     }
 }

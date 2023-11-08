@@ -49,6 +49,7 @@ class RolePermissionSeeder extends Seeder
             'edit',
             'delete',
             'trash',
+            'restore',
             'forceDelete',
         ];
         foreach ($permissions as $permission) {

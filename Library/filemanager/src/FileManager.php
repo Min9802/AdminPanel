@@ -416,7 +416,7 @@ class FileManager
                 'status'  => 'success',
                 'message' => null,
             ],
-            'info'    => $info,
+            'content'    => $info,
         ];
     }
 

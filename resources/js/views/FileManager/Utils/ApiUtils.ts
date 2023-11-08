@@ -9,7 +9,7 @@ const initialize = async () => {
         const response = await FileManagerAPI.initialize();
         const config = response.data.config;
         return config;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err)
         throw err;
     }
@@ -29,7 +29,7 @@ const getContent = async (disk: string, path: string) => {
             directories,
             files,
         };
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         // You may want to handle errors appropriately here
         throw err;
@@ -46,7 +46,7 @@ const getTree = async (disk: string, path: string) => {
         const response = await FileManagerAPI.tree(disk, path);
         const directories = response.data.directories;
         return directories;
-    } catch (err) {
+    } catch (err: any) {
         parseError(err);
         // You may want to handle errors appropriately here
         throw err;

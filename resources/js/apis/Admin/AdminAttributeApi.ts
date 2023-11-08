@@ -1,7 +1,7 @@
 import axios from "../index";
 class AdminAttributeApi {
     static get = () => {
-        return axios.get(`${base}/index`);
+        return axios.get(`${base}`);
     };
     static add = (data: any) => {
         return axios.post(`${base}/store`, data);
