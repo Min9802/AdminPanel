@@ -43,23 +43,29 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/main.tsx', 'resources/sass/app.scss'],
-            refresh: true,
-            // @ts-ignore
-            postcss: {
-                plugins: [
-                    require('tailwindcss'),
-                    require('autoprefixer'),
-                ],
-            },
+            refresh: true
         }),
-        tailwindcss('./tailwind.config.ts'),
         viteSingleFile(),
+        tailwindcss('./tailwind.config.ts'),
         // react(),
-
+        {
+            name: 'blade',
+            handleHotUpdate({ file, server }) {
+                if (file.endsWith('.blade.php')) {
+                    server.ws.send({
+                        type: 'full-reload',
+                        path: '*',
+                    });
+                }
+            },
+        }
     ],
     css: {
-        preprocessorOptions: {
-            scss: {},
+        postcss: {
+            plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+            ],
         },
     }
 });
