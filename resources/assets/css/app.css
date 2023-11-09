@@ -1,0 +1,19 @@
+
+@import "./index.css";
+@import './satoshi.css';
+
+:is(.lang .lang\:block){
+  display: block;
+}
+:is(.lang .lang\:inline-block){
+  display: inline-block;
+}
+:is(.lang .lang\:hidden){
+  display: none;
+}
+.card-hidden{
+    display: none;
+}
+.card-remove{
+    display: none;
+}

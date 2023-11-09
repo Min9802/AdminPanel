@@ -2,9 +2,11 @@ import Default from "@/assets/images/files/BlankFile.png";
 import CSS from "@/assets/images/files/CssFile.png";
 import PDF from "@/assets/images/files/PdfFile.png";
 import PNG from "@/assets/images/files/PngFile.png";
-const { APP_ENV, APP_URL, APP_URL_LOCAL } = process.env;
+const env = import.meta.env;
+const { VITE_APP_ENV, VITE_APP_URL, VITE_APP_URL_LOCAL } = env;
 export const API_SERVER =
-    APP_ENV == "production" ? `${APP_URL}/api/v1/` : `${APP_URL_LOCAL}/api/v1/`;
+    VITE_APP_ENV == "production" ? `${VITE_APP_URL}/api/v1/` : `${VITE_APP_URL_LOCAL}/api/v1/`;
+
 export const USER_ROLE = {
     ADMIN: "1",
     USER: "0",

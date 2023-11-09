@@ -38,7 +38,9 @@
 
     {{-- <link rel="manifest" href="/mix-manifest.json"> --}}
 
-    @vite(['resources/sass/app.scss', 'resources/js/main.tsx'])
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/main.tsx']) --}}
+    @viteReactRefresh
+    @vite("resources/js/main.tsx")
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo/logo.png') }}" />

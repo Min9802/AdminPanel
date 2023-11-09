@@ -11,13 +11,15 @@ const Home2 = () => {
         console.log(date);
     }, [date]);
     return (
-        <Card>
-            <CardContent>
-                <DateTimePicker date={new Date()} setDate={setData} />
-                <DatePickerRange setDate={setData} />
-                {/* <DateTimePicker /> */}
-            </CardContent>
-        </Card>
+        <>
+            <DateTimePicker date={new Date()} setDate={setData} />
+            <DatePickerRange setDate={setData} />
+            <Card>
+                <CardContent>
+                    <h4>aaa</h4>
+                </CardContent>
+            </Card>
+        </>
     );
 };
 

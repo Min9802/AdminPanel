@@ -12,20 +12,12 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-    Checkbox,
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
     Label,
     Input,
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
     Button,
     Form,
     FormMessage,
@@ -41,13 +33,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { InputForm } from "@/components/Form";
-import { getConfig } from "@/Utils/systemUtil";
+import { getConfig, parseError } from "@/Utils/systemUtil";
 import ReCAPTCHA from "react-google-recaptcha";
 import OauthApi from "@/apis/Global/OauthApi";
 import { Info } from "@/services/AuthServices";
 import TwoFactor from "./TwoFactor";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+const env = import.meta.env;
 const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
     const [type, setType] = React.useState("password");
@@ -84,14 +78,7 @@ const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 clearAuth();
             }
         } catch (err: any) {
-            const error = err.response.data;
-            const message: string = error.message;
-            const notify = {
-                title: t("label.unauthorized"),
-                description: message,
-                status: "error",
-            };
-            toast(notify);
+            parseError(err);
             clearAuth();
         }
     };
@@ -185,26 +172,20 @@ const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             return;
         }
         try {
-            const { CLIENT_ADMIN, SECRET_ADMIN } = process.env;
+            const { VITE_CLIENT_ADMIN, VITE_SECRET_ADMIN } = env;
             const data = {
                 grant_type: "password",
-                client_id: CLIENT_ADMIN,
-                client_secret: SECRET_ADMIN,
+                client_id: VITE_CLIENT_ADMIN,
+                client_secret: VITE_SECRET_ADMIN,
                 username: values.username,
                 password: values.password,
             };
             const response = await OauthApi.Token(data);
             return setAdmin(response);
         } catch (err: any) {
-            const error = err.response.data;
-            const message: string = error.message;
-            const notify = {
-                title: t("label.unauthorized"),
-                description: message,
-                status: "error",
-            };
+            console.log(err);
 
-            toast(notify);
+            parseError(err);
         }
     };
     /**

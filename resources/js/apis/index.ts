@@ -2,7 +2,6 @@ import Axios from "axios";
 import { API_SERVER } from "@/configs/constant";
 import reduxStore from "@/store/reducers/redux";
 import { RootState } from "@/store/reducers/rootReducer";
-
 reduxStore.subscribe(listener);
 
 const select = (state: RootState) => {
