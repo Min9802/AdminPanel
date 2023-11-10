@@ -140,7 +140,7 @@ const checkExtension = (extension: string) => {
     const imageExtensions = ["png", "jpg", "jpeg", "gif", "webp"];
 
     // Image extensions for cropping
-    const cropExtensions = ["png", "jpg", "jpeg", "webp"];
+    // const cropExtensions = ["png", "jpg", "jpeg", "webp"];
 
     // audio extensions for play
     const audioExtensions = ["ogg", "mp3", "aac", "wav"];

@@ -18,7 +18,7 @@ import {
 } from "@min98/ui";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";
 import AdminStaffApi from "@/apis/Admin/AdminStaffApi";
@@ -313,7 +313,9 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

@@ -8,7 +8,6 @@ import Toastify from "./Toastify";
 const Notify: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const [notify, setNotify] = useState<any>(false);
     const [loading, setLoading] = useState<boolean>(true);
-    const duration = 7000;
     /**
      * set notify from redux
      */

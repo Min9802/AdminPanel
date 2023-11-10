@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
-import Logo from "@/assets/images/logo/Logo-sm.png";
+import Logo from "@root/assets/images/logo/Logo-sm.png";
 import DarkModeSwitcher from "../ActionChange/DarkModeSwitcher";
-import DropdownMessage from "@/views/pages/Example/Dropdown/DropdownMessage";
-import DropdownNotification from "@/views/pages/Example/Dropdown/DropdownNotification";
 import Dropdown, { DropdownProps } from "@/components/dropdown/Dropdown";
 import { Icon } from "@iconify/react";
 
 import ChangeLang from "../ActionChange/ChangeLang";
 import { t } from "i18next";
-import { signOut } from "@/services/AuthServices";
 const Header = (props: {
     sidebarOpen: string | boolean | undefined;
     setSidebarOpen: (arg0: boolean) => void;
@@ -121,11 +118,11 @@ const Header = (props: {
                         {/* <!-- Dark Mode Toggler --> */}
 
                         {/* <!-- Notification Menu Area --> */}
-                        <DropdownNotification />
+                        {/* <DropdownNotification /> */}
                         {/* <!-- Notification Menu Area --> */}
 
                         {/* <!-- Chat Notification Area --> */}
-                        <DropdownMessage />
+                        {/* <DropdownMessage /> */}
                         {/* <!-- Chat Notification Area --> */}
                     </ul>
 

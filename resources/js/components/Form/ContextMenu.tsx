@@ -86,6 +86,7 @@ const ContextMenu = React.forwardRef<HTMLButtonElement, ContextMenuProps>(
                         tooltip={t("label.right_click")}
                         variant="ghost"
                         {...props}
+                        ref={ref}
                     >
                         {title}
                     </Comp>

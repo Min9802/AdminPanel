@@ -5,7 +5,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, toast } from "@min98/ui";
 import { InputForm } from "@/components/Form";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { TwoFactoryAuth } from "@/apis/Global";
 import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";

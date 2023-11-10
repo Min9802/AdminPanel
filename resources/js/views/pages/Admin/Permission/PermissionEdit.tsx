@@ -7,16 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Checkbox,
     Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
     FormMessage,
     Label,
     Select,
@@ -39,7 +30,6 @@ interface PermissionEditProps {
 const PermissionEdit: React.FC<PermissionEditProps> = ({ item, onClose }) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState<boolean>(false);
-    const [permissions, setPermissions] = React.useState<any[]>([]);
     /**
      * define form properties
      */

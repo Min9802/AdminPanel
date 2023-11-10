@@ -1,5 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
 import { Persistor } from "redux-persist";
 import Loader from "@/common/Loader";
 
@@ -32,13 +31,13 @@ export type RouteRenderProps = {
     route: RouteProps;
 };
 const App: React.FC<AppProps> = () => {
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = React.useState<boolean>(true);
     const pathName = window.location.pathname;
     const dispatch = useAppDispatch();
     /**
      * Set loading
      */
-    useEffect(() => {
+    React.useEffect(() => {
         const timer = setInterval(() => {
             setLoading(false);
         }, 1000);
@@ -49,7 +48,7 @@ const App: React.FC<AppProps> = () => {
     /**
      * set loading redux
      */
-    useMemo(() => {
+    React.useMemo(() => {
         dispatch(actions.setLoading(true));
         if (loading) {
             dispatch(actions.setLoading(false));
@@ -139,7 +138,7 @@ const App: React.FC<AppProps> = () => {
     return loading ? (
         <Loader />
     ) : (
-        <>
+        <React.Fragment>
             <Toaster />
             <GuardProvider fallback={<Suspense fallback={<Loader />} />}>
                 <GuardedRoutes>
@@ -157,7 +156,7 @@ const App: React.FC<AppProps> = () => {
                     />
                 </GuardedRoutes>
             </GuardProvider>
-        </>
+        </React.Fragment>
     );
 };
 

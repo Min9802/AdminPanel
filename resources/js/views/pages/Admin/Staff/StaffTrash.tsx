@@ -4,7 +4,7 @@ import { Staff } from "./StaffList";
 import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import * as actions from "@/store/actions";
-import { dateTime, parseError, timestampToDate } from "@/Utils/systemUtil";
+import { dateTime, parseError } from "@/Utils/systemUtil";
 import AdminStaffApi from "@/apis/Admin/AdminStaffApi";
 import {
     Badge,
@@ -20,7 +20,7 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
 import Modal from "@/components/Modal/Modal";
@@ -137,7 +137,7 @@ const StaffTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 <div className="text-center">{t("label.deleted_at")}</div>
             ),
             cell: ({ row }) => {
-                const value = row.getValue("deleted_at");
+                // const value = row.getValue("deleted_at");
                 const data = row.original;
                 return (
                     <div className="text-center font-medium">
@@ -273,7 +273,9 @@ const StaffTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

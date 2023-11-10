@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import * as actions from "@/store/actions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
-import LogoDark from "@/assets/images/logo/Logo-sm.png";
-import Logo from "@/assets/images/logo/Logo-sm.png";
+import Logo from "@root/assets/images/logo/Logo-sm.png";
 import { Grid } from "@/components/Grid";
 import {
     Card,
@@ -31,7 +30,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { InputForm } from "@/components/Form";
 import { getConfig, parseError } from "@/Utils/systemUtil";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -321,7 +320,7 @@ const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                                 <FormField
                                                     control={form.control}
                                                     name="recaptcha"
-                                                    render={({ field }) => (
+                                                    render={() => (
                                                         <FormItem>
                                                             <FormLabel>
                                                                 {t(

@@ -7,10 +7,7 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-    SheetTrigger,
     Button,
-    Input,
-    Label,
 } from "@min98/ui";
 import { useTranslation } from "react-i18next";
 
@@ -30,7 +27,6 @@ const SheetCustom: React.FC<PackageEditProps> = ({
     title,
     description,
     children,
-    action,
     cancel,
 }) => {
     const { t } = useTranslation();

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useLocalStorage from "./useLocalStorage";
 import { useAppDispatch } from "@/store/reducers/redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";

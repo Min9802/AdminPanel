@@ -13,14 +13,14 @@ interface TabProps {
     id?: any;
 }
 
-const Tab = ({
+const Tab: React.FC<TabProps> = ({
     children,
     activeTab,
     currentTab,
     setActiveTab,
     setSize,
     setOffset,
-}: TabProps) => {
+}) => {
     const ref = useRef<any>(null);
     const setTab = (currentTab: any) => {
         typeof setActiveTab == "function" ? setActiveTab(currentTab) : null;

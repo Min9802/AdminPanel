@@ -9,7 +9,6 @@ import {
     Form,
     FormMessage,
     Label,
-    ScrollArea,
     Select,
     SelectContent,
     SelectGroup,
@@ -25,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldProps, InputForm } from "@/components/Form";
 import { parseError } from "@/Utils/systemUtil";
 import { pageInfoProps } from "@/store/reducers/appReducer";
-import { AdminAttributeApi, FileManagerAPI } from "@/apis/Admin";
+import { AdminAttributeApi } from "@/apis/Admin";
 import Attributes from "./Attributes";
 import { FileManager } from "@/views/FileManager";
 import DialogModal from "@/components/Modal/DialogModal";
@@ -57,7 +56,8 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     }, []);
     React.useEffect(() => {
         console.log(images);
-    }, [images]);
+        console.log(attributes);
+    }, [images, attributes]);
     /**
      * define form field
      */
@@ -134,6 +134,8 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      * @param values
      */
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        console.log(values);
+
         // try {
         //     const response = await AdminPackageApi.add(values);
         //     const status = response.data.status;
@@ -244,7 +246,9 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

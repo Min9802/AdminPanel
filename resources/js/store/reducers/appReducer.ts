@@ -1,12 +1,6 @@
 import { Reducer } from "redux";
 import actionTypes from "../actions/actionTypes"; // Make sure to import your actionTypes and AppAction types
 
-interface ContentOfConfirmModal {
-    isOpen: boolean;
-    messageId: string;
-    handleFunc: (() => void) | null;
-    dataFunc: (() => void) | null;
-}
 export type pageInfoProps = {
     title?: string;
     desc?: string;
@@ -24,15 +18,9 @@ export type AppState = {
     notice: any[] | boolean;
     language: string;
     pageInfo: pageInfoProps[] | boolean; // Replace 'any' with the appropriate type for your pageInfo
-    // contentOfConfirmModal: ContentOfConfirmModal;
 }
 
-const initContentOfConfirmModal: ContentOfConfirmModal = {
-    isOpen: false,
-    messageId: "",
-    handleFunc: null,
-    dataFunc: null,
-};
+
 const Locale = navigator.language;
 
 const initialState: AppState = {
@@ -43,7 +31,6 @@ const initialState: AppState = {
     notice: false,
     language: Locale,
     pageInfo: false,
-    // contentOfConfirmModal: { ...initContentOfConfirmModal },
 };
 
 const appReducer: Reducer = (state = initialState, action) => {

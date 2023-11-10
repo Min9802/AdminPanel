@@ -6,7 +6,7 @@ import AdminRoutes from "@/routes/AdminRoutes";
 import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import * as actions from "@/store/actions";
-import Notify from "@/components/Notice/Notify";
+// import Notify from "@/components/Notice/Notify";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
@@ -85,7 +85,7 @@ const AdminLayout: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                     <main>
                         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                             {/* start  Notice Alert */}
-                            <Notify />
+                            {/* <Notify /> */}
                             <Breadcrumb
                                 pageName={
                                     props?.pageInfo

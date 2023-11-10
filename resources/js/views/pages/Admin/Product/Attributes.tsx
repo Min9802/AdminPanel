@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Badge,
     Button,
     Card,
     CardContent,
@@ -10,7 +9,6 @@ import {
     Grid,
     Input,
     Label,
-    toast,
 } from "@min98/ui";
 import { AttrProps } from "./ProductAdd";
 import { z } from "zod";
@@ -153,7 +151,7 @@ const Attributes: React.FC<AttributesProps> = ({ data, callback }) => {
         } catch (err) {
             if (err instanceof z.ZodError) {
                 const error = err.flatten().formErrors[0];
-                newFieldData = newFieldData.map((item, i) => ({
+                newFieldData = newFieldData.map((item) => ({
                     ...item,
                     error: item.id === index ? error : item.error,
                 }));

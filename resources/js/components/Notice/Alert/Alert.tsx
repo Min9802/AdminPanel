@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Icon } from "@iconify/react";
@@ -36,10 +36,15 @@ const Alert: React.FC<AlertProps> = ({
     onClose,
     callback,
 }) => {
-    const [open, setOpen] = useState(isOpen);
+    const [open, setOpen] = React.useState(isOpen);
     const { t } = useTranslation();
     const BLOCK_SCROLL_CLASS = "block-scroll";
-    useEffect(() => {
+
+    React.useEffect(() => {
+        setOpen(isOpen);
+    }, [isOpen]);
+
+    React.useEffect(() => {
         // Add or remove the block-scroll class to body based on modal visibility
         if (open) {
             document.body.classList.add(BLOCK_SCROLL_CLASS);

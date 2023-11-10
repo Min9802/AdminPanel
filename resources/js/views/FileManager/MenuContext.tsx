@@ -21,13 +21,13 @@ import {
     TooltipPortal,
 } from "@min98/ui";
 
-interface ViewListProps {
+type ViewListProps = {
     item: Item;
     handleClick: (
         e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>,
     ) => void;
-}
-interface ViewGridProps {
+};
+type ViewGridProps = {
     item: Item;
     disk: string;
     active?: boolean;
@@ -35,8 +35,8 @@ interface ViewGridProps {
         e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>,
     ) => void;
     handleMultipleClick: (data: Item[]) => void;
-}
-interface MenuContextProps {
+};
+type MenuContextProps = {
     disk: string;
     view: string;
     clipboard?: ClipboardProps;
@@ -58,8 +58,8 @@ interface MenuContextProps {
     toggleRename: (data: Item) => void;
     toggleEdit: (data: Item) => void;
     toggleDelete: (data: Item) => void;
-}
-interface ItemProps {
+};
+type ItemProps = {
     item: Item;
     active?: boolean;
     disk: string;
@@ -67,7 +67,7 @@ interface ItemProps {
     handleClick?: (
         e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>,
     ) => void;
-}
+};
 /**
  * render item list
  * @param param0
@@ -98,14 +98,10 @@ const RenderItemList: React.FC<ViewListProps> = ({ item, handleClick }) => {
  * @param param0
  * @returns
  */
-const RenderItemGrid: React.FC<ViewGridProps> = ({
-    item,
-    active,
-    disk,
-    handleClick,
-    handleMultipleClick,
-}) => {
-    // console.log(item);
+const RenderItemGrid = React.forwardRef<
+    React.ElementRef<typeof TooltipTrigger>,
+    React.ComponentPropsWithoutRef<typeof TooltipTrigger> & ViewGridProps
+>(({ item, active, disk, handleClick, handleMultipleClick, ...props }, ref) => {
     const [dataContent, setDataContent] = React.useState<any>(item);
     React.useEffect(() => {
         setDataContent(item);
@@ -117,6 +113,8 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
                 <TooltipTrigger asChild>
                     <button
                         type="button"
+                        {...props}
+                        ref={ref}
                         className={classNames(
                             "group relative p-2 w-[120px] h-[120px] hover:rounded-md hover:shadow-4 justify-center",
                             "active:bg-blue-200 active:rounded-md active:shadow-4",
@@ -168,7 +166,7 @@ const RenderItemGrid: React.FC<ViewGridProps> = ({
             </Tooltip>
         </TooltipProvider>
     );
-};
+});
 /**
  * render preview
  * @param param0
@@ -315,7 +313,7 @@ const MenuContext: React.FC<MenuContextProps> = ({
      */
     const handleClick = React.useCallback(
         (e: React.MouseEvent<HTMLSpanElement | HTMLButtonElement>) => {
-            e.preventDefault();
+            // e.preventDefault();
             const count = e.detail;
             const isCtrlPressed = e.ctrlKey;
 

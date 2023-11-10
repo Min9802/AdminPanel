@@ -31,6 +31,8 @@ export type ServerError = {
 };
 export type ServerErrorProps = AxiosError<ServerError>
 const parseError = (error: ServerErrorProps) => {
+    console.log(error);
+
     if (error && error.response) {
         const response = error.response;
         const status = response.data.status;
@@ -71,7 +73,7 @@ type Callback = () => void;
  */
 const delay = (callback: Callback, delay: number): Promise<void> => {
     return new Promise<void>((resolve) => {
-        const timeoutId = setTimeout(() => {
+        setTimeout(() => {
             callback();
             resolve();
         }, delay);

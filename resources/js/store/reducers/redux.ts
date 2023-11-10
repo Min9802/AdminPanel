@@ -1,5 +1,5 @@
-import { configureStore, applyMiddleware, compose } from "@reduxjs/toolkit";
-import { logger } from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
+// import { logger } from "redux-logger";
 import { useDispatch } from "react-redux";
 import { createStateSyncMiddleware } from "redux-state-sync";
 
@@ -7,7 +7,7 @@ import rootReducer from "./rootReducer";
 import ActionTypes from "../actions/actionTypes";
 import { persistStore } from "redux-persist";
 const env = import.meta.env;
-const isDevelopment = env.VITE_APP_ENV == "local" ? true : false;
+// const isDevelopment = env.VITE_APP_ENV == "local" ? true : false;
 
 const config: any = {
     whitelist: [ActionTypes.APP_START_UP_COMPLETE, ActionTypes.CHANGE_LANGUAGE],

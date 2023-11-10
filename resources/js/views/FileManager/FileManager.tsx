@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import Header from "./Header";
 import { Card, CardContent, CardHeader, toast } from "@min98/ui";
 import LeftContent from "./LeftContent";
@@ -100,7 +100,7 @@ export interface FileManagerProps {
 }
 const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
     const { t } = useTranslation();
-    const [view, setView] = React.useState<string>("grid");
+    const [view, setView] = React.useState<string>("list");
     const [config, setConfig] = React.useState<any>(false);
     const [disks, setDisks] = React.useState<string[]>([]);
     const [selectDisk, setSelectDisk] = React.useState<string>("public");

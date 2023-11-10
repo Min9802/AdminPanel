@@ -1,7 +1,6 @@
 import React from "react";
 import { Item, ViewProps } from "./FileManager";
-import { useTranslation } from "react-i18next";
-import { Col, Flex, Grid, ScrollArea } from "@min98/ui";
+import { Col, Flex, ScrollArea } from "@min98/ui";
 import MenuContext from "./MenuContext";
 const GridView: React.FC<ViewProps> = ({
     disk,
@@ -13,7 +12,6 @@ const GridView: React.FC<ViewProps> = ({
     files,
     ...props
 }) => {
-    const { t } = useTranslation();
     const [dataContent, setDataContent] = React.useState<any[]>([]);
     /**
      * init data

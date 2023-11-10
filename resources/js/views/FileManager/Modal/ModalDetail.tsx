@@ -19,7 +19,6 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     open,
     disk,
     item,
-    actions,
     onClose,
 }) => {
     const { t } = useTranslation();
@@ -29,7 +28,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
     React.useEffect(() => {
         setData(item);
         if (disk == "nextcloud" && item && open) {
-            getShare(disk, item);
+            getShare(item);
         }
     }, [item]);
     /**
@@ -50,8 +49,8 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
      * @param disk string
      * @param data any
      */
-    const getShare = async (disk: string, data: any) => {
-        const list = await listShare(disk, data);
+    const getShare = async (data: Item) => {
+        const list = await listShare(data);
         setShares(list);
     };
     /**
@@ -61,7 +60,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
      */
     const handleShare = async (disk: string, data: any) => {
         await createShare(disk, data);
-        await getShare(disk, data);
+        await getShare(data);
     };
     /**
      * handle unshare
@@ -69,7 +68,7 @@ const ModalDetail: React.FC<ModalDetailProps> = ({
      */
     const handleUnShare = async (id: number) => {
         await unShare(id);
-        await getShare(disk, data);
+        await getShare(data);
     };
     return (
         <Modal open={open} cancel={onClose} title={t("label.detail")}>

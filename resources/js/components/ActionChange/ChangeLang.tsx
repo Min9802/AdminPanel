@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 
 import { RootState } from "@/store/reducers/rootReducer";
@@ -7,10 +7,10 @@ import useChangeLang from "@/hooks/useChangeLang";
 // Import Redux action
 import * as actions from "@/store/actions";
 
-import EN from "@/assets/images/icon/icon-lang-en.svg";
-import VI from "@/assets/images/icon/icon-lang-vi.svg";
+import EN from "@root/assets/images/icon/icon-lang-en.svg";
+import VI from "@root/assets/images/icon/icon-lang-vi.svg";
 
-const ChangeLang: React.FC<PropsFromRedux & DispatchProps> = (props) => {
+const ChangeLang: React.FC<PropsFromRedux & DispatchProps> = () => {
     const [language, setLanguage] = useChangeLang();
     // const language = props.language;
     // const handleChangeLanguage = (lang: string) => {

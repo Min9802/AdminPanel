@@ -20,7 +20,7 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
 import Modal from "@/components/Modal/Modal";
@@ -126,7 +126,6 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ),
             cell: ({ row }) => {
                 const value = row.getValue("status");
-                const data = row.original;
                 return (
                     <div className="text-center font-medium">
                         {value == 1 ? (
@@ -267,7 +266,9 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

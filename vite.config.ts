@@ -44,18 +44,12 @@ export default defineConfig(config => {
         },
         plugins: [
             laravel({
-                input: ['resources/js/main.tsx', 'resources/assets/css/app.css'],
+                input: ['resources/sass/app.scss', 'resources/js/main.tsx'],
                 refresh: true,
-                // @ts-ignore
-                postcss: {
-                    plugins: [
-                        tailwindcss('./tailwind.config.cjs'),
-                        autoprefixer(),
-                    ],
-                },
+
             }),
             viteSingleFile(),
-            react(),
+            // react(),
             {
                 name: 'blade',
                 handleHotUpdate({ file, server }) {
@@ -73,8 +67,15 @@ export default defineConfig(config => {
                 scss: {},
             },
         },
+        postcss: {
+            plugins: [
+                tailwindcss('./tailwind.config.cjs'),
+                autoprefixer(),
+            ],
+        },
         resolve: {
             alias: {
+                '@root': path.resolve(__dirname, 'resources'),
                 '@': path.resolve(__dirname, 'resources/js'),
             },
         },

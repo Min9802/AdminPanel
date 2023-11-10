@@ -8,7 +8,6 @@ import reduxStore, { persistor } from "./store/reducers/redux.js";
 import App from "./App";
 import LangProvider from "./Utils/LangProvider.js";
 import { GuardConfigProvider } from "react-router-guarded-routes";
-import "../assets/css/app.css";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     // <React.StrictMode>
     <HelmetProvider>

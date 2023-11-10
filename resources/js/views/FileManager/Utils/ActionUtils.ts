@@ -1,6 +1,6 @@
 import { FileManagerAPI } from "@/apis/Admin";
 import { FileProps, Item, PreviewProps } from "../FileManager"
-import { ServerErrorProps, parseError } from "@/Utils/systemUtil";
+import { parseError } from "@/Utils/systemUtil";
 import { toast } from "@min98/ui";
 import { checkExtension } from "./FileUtils";
 /**
@@ -358,7 +358,7 @@ const info = async (disk: string, path: string) => {
  * @param data any
  * @returns
  */
-const listShare = async (disk: string, data: any) => {
+const listShare = async (data: any) => {
     try {
         const dataSubmit = {
             path: data.path,

@@ -174,7 +174,9 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

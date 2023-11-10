@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { Badge, Button } from "@min98/ui";
 import React from "react";
 import { FolderProps } from "./FileManager";

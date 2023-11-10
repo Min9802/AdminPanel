@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@min98/ui";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { bytesToHuman, timestampToDate } from "./Utils/FileUtils";
 
 import MenuContext from "./MenuContext";
