@@ -29,8 +29,8 @@ return [
         "success" => "Xóa vĩnh viễn thành công",
     ],
     "getdata" => [
-        "success" => "Lấy dữ liệu thành công",
-        "fail" => "Lấy dữ liệu thất bại",
+        "success" => "Get data thành công",
+        "fail" => "Get data thất bại",
     ],
     "save" => [
         "file" => [

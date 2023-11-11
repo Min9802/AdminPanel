@@ -5,11 +5,12 @@ import Dropdown, { DropdownProps } from "@/components/dropdown/Dropdown";
 import { Icon } from "@iconify/react";
 
 import ChangeLang from "../ActionChange/ChangeLang";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 const Header = (props: {
     sidebarOpen: string | boolean | undefined;
     setSidebarOpen: (arg0: boolean) => void;
 }) => {
+    const { t } = useTranslation();
     const listDropdown: DropdownProps[] = [
         {
             icon: <Icon icon="mdi:account" />,

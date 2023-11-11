@@ -10,12 +10,12 @@ import {
 } from "@min98/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "@min98/ui";
 import { Icon } from "@iconify/react";
-export type Option = {
+type Option = {
     disabled?: boolean;
     label?: string;
     value?: string | number;
 };
-export interface ComboBoxProps {
+interface ComboBoxProps {
     options?: Option[] | any;
     callback?: (agr: any) => void;
 }

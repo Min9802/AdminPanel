@@ -1,5 +1,4 @@
-import React, { ReactElement } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import classNames from "classnames";
 import { Icon } from "@iconify/react";
 
@@ -7,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@min98/ui";
 interface AlertProps {
     isOpen: any;
-    icon?: ReactElement;
+    icon?: React.ReactElement;
     status?: string;
     position?:
         | "top-left"
@@ -37,13 +36,11 @@ const Alert: React.FC<AlertProps> = ({
     callback,
 }) => {
     const [open, setOpen] = React.useState(isOpen);
-    const { t } = useTranslation();
-    const BLOCK_SCROLL_CLASS = "block-scroll";
-
     React.useEffect(() => {
         setOpen(isOpen);
-    }, [isOpen]);
-
+    }, [open]);
+    const { t } = useTranslation();
+    const BLOCK_SCROLL_CLASS = "block-scroll";
     React.useEffect(() => {
         // Add or remove the block-scroll class to body based on modal visibility
         if (open) {
@@ -202,21 +199,4 @@ const Alert: React.FC<AlertProps> = ({
         </div>
     );
 };
-
-Alert.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    message: PropTypes.node,
-    btnFooter: PropTypes.string,
-    position: PropTypes.oneOf([
-        "top-left",
-        "top-right",
-        "top-center",
-        "bottom-left",
-        "bottom-right",
-        "center",
-    ]),
-    size: PropTypes.oneOf(["sm", "md", "lg"]),
-};
-
 export default Alert;

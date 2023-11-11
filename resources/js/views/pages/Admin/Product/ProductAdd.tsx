@@ -155,6 +155,13 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     };
     return (
         <React.Fragment>
+            <DialogModal
+                open={modalImage}
+                size="4xl"
+                cancel={() => setModalImage(false)}
+            >
+                <FileManager callback={setImages} />
+            </DialogModal>
             <Button color="success" onClick={() => setOpen(true)}>
                 <Icon icon="mdi:plus" className="w-5 h-5" />
                 {t("label.addproduct")}
@@ -166,13 +173,6 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 description={t("label.addproduct")}
                 className="w-[400px] sm:w-[540px]"
             >
-                <DialogModal
-                    open={modalImage}
-                    size="4xl"
-                    cancel={() => setModalImage(false)}
-                >
-                    <FileManager callback={setImages} />
-                </DialogModal>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}

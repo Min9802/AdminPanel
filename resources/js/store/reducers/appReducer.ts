@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
 import actionTypes from "../actions/actionTypes"; // Make sure to import your actionTypes and AppAction types
-
 export type pageInfoProps = {
     title?: string;
     desc?: string;
@@ -18,8 +17,8 @@ export type AppState = {
     notice: any[] | boolean;
     language: string;
     pageInfo: pageInfoProps[] | boolean; // Replace 'any' with the appropriate type for your pageInfo
+    // contentOfConfirmModal: ContentOfConfirmModal;
 }
-
 
 const Locale = navigator.language;
 

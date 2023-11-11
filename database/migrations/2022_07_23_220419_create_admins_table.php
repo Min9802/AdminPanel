@@ -24,7 +24,6 @@ class CreateAdminsTable extends Migration
             $table->string('secret_code')->nullable();
             $table->string('two_factor_recovery_codes')->nullable();
             $table->boolean('status_2fa')->default(false);
-            $table->boolean('banned')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

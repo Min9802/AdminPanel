@@ -61,7 +61,6 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
      */
     visible?: boolean;
 }
-// const duration = 4000;
 const Toastify = React.forwardRef<
     HTMLDivElement,
     ToastProps & VariantProps<typeof alertVariants>

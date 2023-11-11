@@ -17,7 +17,6 @@ interface PackageEditProps {
     title?: string;
     description?: string;
     children?: React.ReactNode;
-    action?: () => void;
     cancel: () => void;
 }
 

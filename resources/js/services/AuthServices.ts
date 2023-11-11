@@ -35,7 +35,7 @@ const checkAuth = async (token: any) => {
     } else {
         return false;
     }
-};
+}
 const refreshToken = async (access_token: string) => {
     const dispatch = useAppDispatch();
 
@@ -44,7 +44,9 @@ const refreshToken = async (access_token: string) => {
         const user = { ...response.data };
         user.access_token = response.data.access_token;
         const expires = new Date();
-        expires.setTime(expires.getTime() + user.expires_in * 1000);
+        expires.setTime(
+            expires.getTime() + user.expires_in * 1000
+        );
         const admin = {
             access_token: user.access_token,
             expires: expires,
@@ -64,7 +66,7 @@ const refreshToken = async (access_token: string) => {
         toast(notify);
         return false;
     }
-};
+}
 const Info = async (access_token = null) => {
     try {
         const response = await AdminAuthApi.Info(access_token);
@@ -81,7 +83,7 @@ const Info = async (access_token = null) => {
         toast(notify);
         return false;
     }
-};
+}
 const signOut = async () => {
     try {
         const response = await AdminAuthApi.Logout();
@@ -106,5 +108,5 @@ const signOut = async () => {
         toast(notify);
         return false;
     }
-};
+}
 export { checkAuth, refreshToken, Info, signOut };

@@ -1,5 +1,5 @@
-import CoverOne from "../assets/images/cover/cover-01.png";
-import userSix from "../assets/images/user/user-06.png";
+import CoverOne from "@root/assets/images/cover/cover-01.png";
+import userSix from "@root/assets/images/user/user-06.png";
 const Profile = () => {
     return (
         <>
