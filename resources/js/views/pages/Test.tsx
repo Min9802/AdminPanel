@@ -1,7 +1,9 @@
 const Test = () => {
     return (
-        <div className="optional">
-            <button className="optional:bg-red-500">aaa</button>
+        <div className="outlined">
+            <button className="outlined outlined:bg-white outlined:text-black">
+                aaa
+            </button>
         </div>
     );
 };

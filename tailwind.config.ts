@@ -1,13 +1,13 @@
 import { addCleanIconSelectors, addDynamicIconSelectors } from '@iconify/tailwind';
 import type { Config } from 'tailwindcss'
 import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
-import { PluginAPI } from 'tailwindcss/types/config';
-
+import * as tailwindcssAnimate from "tailwindcss-animate";
+import * as tailwindcssVariants from "tailwindcss-interaction-variants";
 export default {
     content: [
         "./resources/**/*.blade.php",
-        './resources/js/**/*.{js,ts,jsx,tsx}'
+        './resources/js/**/*.{js,ts,jsx,tsx}',
+
     ],
     darkMode: 'class',
     variantOrder: [
@@ -22,38 +22,46 @@ export default {
         }
     },
     plugins: [
-        require('tailwindcss-animate'),
-        require('tailwindcss-interaction-variants'),
+        tailwindcssAnimate,
+        tailwindcssVariants,
         addCleanIconSelectors([]),
         addDynamicIconSelectors(),
         addDynamicIconSelectors({
             prefix: "icon-hover",
             overrideOnly: true,
         }),
-
-        plugin(({ addVariant, matchVariant, matchUtilities, e, config, theme }) => {
-            addVariant('optional', '&:optional')
-            // addVariant("outlined", ({
-            //     modifySelectors,
-            //     separator
-            // }) => {
-            //     modifySelectors(({
-            //         className
-            //     }) => {
-            //         const newClass = e(`outlined${separator}${className}`);
-            //         return `:is(.outlined.${newClass})`;
-            //     });
-            // });
-            // matchVariant(
-            //     'outlined',
-            //     (value) => {
-            //         console.log(value);
-
-            //         return `:is(.outlined.outlined:${value} avc)`;
-            //     }
-            // );
-        })
-
+        ({ addVariant, e }) => {
+            addVariant('outlined', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    const newClass = e(`outlined${separator}${className}`);
+                    return `:is(.outlined.${newClass})`;
+                });
+            });
+        },
+        ({ addVariant, e }) => {
+            addVariant('icon', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    const newClass = e(`icon${separator}${className}`);
+                    return `:is(.icon.${newClass})`;
+                });
+            });
+        },
+        ({ addVariant, e }) => {
+            addVariant('open', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    const newClass = e(`open${separator}${className}`);
+                    return `:is(.open.${newClass})`;
+                });
+            });
+        },
+        ({ addVariant, e }) => {
+            addVariant('active', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    const newClass = e(`active${separator}${className}`);
+                    return `:is(.active.${newClass})`;
+                });
+            });
+        },
 
     ],
     safelist: [{
