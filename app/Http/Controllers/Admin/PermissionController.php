@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class PermissionController extends Controller
 {
@@ -56,10 +57,14 @@ class PermissionController extends Controller
     {
         try{
             DB::beginTransaction();
-            $data = [
-                'name' => $request->name
-            ];
-            $this->permission->create($data);
+            // $data = [
+            //     'name' => $request->name
+            // ];
+            foreach($request->name as $permission){
+                $this->permission->create([
+                    'name' => Str::lower($permission)
+                ]);
+            }
             DB::commit();
             return response()->json([
                 'status' => 'success',
@@ -94,7 +99,7 @@ class PermissionController extends Controller
                 ], 404);
             }
             $permission->update([
-                'name' => $request->name
+                'name' => Str::lower($request->name)
             ]);
             DB::commit();
             return response()->json([

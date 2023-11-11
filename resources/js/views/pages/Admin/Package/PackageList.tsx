@@ -19,7 +19,7 @@ import {
 import AdminPackageApi from "@/apis/Admin/AdminPackageApi";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import Modal from "@/components/Modal/Modal";
 import PackageEdit from "./PackageEdit";
 import { useTranslation } from "react-i18next";
@@ -137,6 +137,7 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const callBackEdit = () => {
         setModalEdit(false);
         setItem(false);
+        getList();
     };
     /**
      * define columns
@@ -273,7 +274,9 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                             <DropdownMenuItem
                                 onClick={() => toggleDelete(data)}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.delete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -292,14 +295,14 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 open={modalUpdateStatus}
                 cancel={() => setModalUpdateStatus(false)}
                 action={() => handleChangeStatus(item.id)}
-                message={t("common.confirm-this-task")}
+                message={t("ask.change")}
             ></Modal>
             <Modal
                 title={t("common.confirm")}
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.move_to_trash")}
+                message={t("ask.move_to_trash")}
             ></Modal>
             <Card>
                 <CardContent>
@@ -310,7 +313,9 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

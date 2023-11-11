@@ -11,6 +11,7 @@ Route::group([
         Route::get('/', 'index')->middleware("can:package-list");
         Route::post('store', 'store')->middleware("can:package-add");
         Route::patch('update/{id}', 'update')->middleware("can:package-edit");
+        Route::patch('status/{id}', 'status')->middleware("can:package-edit");
         Route::delete('destroy/{id}', 'destroy')->middleware("can:package-delete");
 
         Route::get('trash', 'trash')->middleware("can:package-trash");

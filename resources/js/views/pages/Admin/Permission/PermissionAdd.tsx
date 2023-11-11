@@ -6,7 +6,12 @@ import { useTranslation } from "react-i18next";
 import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
+    Checkbox,
     Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
     FormMessage,
     Label,
     Select,
@@ -63,6 +68,7 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ]),
         ),
         guard_name: z.string(),
+        group_action: z.array(z.string()),
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -70,9 +76,21 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         defaultValues: {
             ...Object.fromEntries(formFields.map((field) => [field.name, ""])),
             guard_name: "admin",
+            group_action: [],
         },
     });
-
+    const Actions = [
+        "list",
+        "add",
+        "edit",
+        "delete",
+        "trash",
+        "restore",
+        "forceDelete",
+    ];
+    /**
+     * process close
+     */
     const processClose = () => {
         setOpen(false);
     };
@@ -80,11 +98,31 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      * on submit form
      * @param values
      */
+    const mergeName = (obj: any) => {
+        const result = [];
+        const { name, group_action } = obj;
+
+        result.push(name.toLowerCase()); // Add "Medium" as the first element
+
+        if (Array.isArray(group_action)) {
+            for (let i = 0; i < group_action.length; i++) {
+                result.push(`${name.toLowerCase()}-${group_action[i]}`);
+            }
+        }
+
+        return result.reduce((acc, val, index) => {
+            acc[index] = val;
+            return acc;
+        }, {});
+    };
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const NameMerge = mergeName(values);
+        const data = {
+            name: NameMerge,
+            guard_name: values.guard_name,
+        };
         try {
-            const response = await AdminPermissionApi.add({
-                ...values,
-            });
+            const response = await AdminPermissionApi.add(data);
             const status = response.data.status;
             const message = response.data.message;
             const notify = {
@@ -129,6 +167,88 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 control={form.control}
                             />
                         ))}
+                        <div className="space-y-1">
+                            <FormField
+                                control={form.control}
+                                name="group_action"
+                                render={({ field }) => {
+                                    return (
+                                        <>
+                                            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                                <FormControl>
+                                                    <Checkbox
+                                                        checked={field.value.some(
+                                                            (item) =>
+                                                                Actions.includes(
+                                                                    item,
+                                                                ),
+                                                        )}
+                                                        onCheckedChange={(
+                                                            checked,
+                                                        ) => {
+                                                            return checked
+                                                                ? field.onChange(
+                                                                      [
+                                                                          ...Actions,
+                                                                      ],
+                                                                  )
+                                                                : field.onChange(
+                                                                      [],
+                                                                  );
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                                <FormLabel className="text-sm font-semibold">
+                                                    Select all
+                                                </FormLabel>
+                                            </FormItem>
+                                            {Actions.map((action, key) => (
+                                                <FormItem
+                                                    className="items-start space-x-3 space-y-0"
+                                                    key={key}
+                                                >
+                                                    <div className="mb-4">
+                                                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                                            <FormControl>
+                                                                <Checkbox
+                                                                    checked={field.value?.includes(
+                                                                        action,
+                                                                    )}
+                                                                    onCheckedChange={(
+                                                                        checked,
+                                                                    ) => {
+                                                                        return checked
+                                                                            ? field.onChange(
+                                                                                  [
+                                                                                      ...field.value,
+                                                                                      action,
+                                                                                  ],
+                                                                              )
+                                                                            : field.onChange(
+                                                                                  field.value?.filter(
+                                                                                      (
+                                                                                          value,
+                                                                                      ) =>
+                                                                                          value !==
+                                                                                          action,
+                                                                                  ),
+                                                                              );
+                                                                    }}
+                                                                />
+                                                            </FormControl>
+                                                            <FormLabel className="text-sm font-semibold">
+                                                                {action}
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                    </div>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            ))}
+                                        </>
+                                    );
+                                }}
+                            />
+                        </div>
                         <div className="space-y-1">
                             <Label htmlFor="status">
                                 {t("label.guard_name")}
@@ -176,7 +296,9 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

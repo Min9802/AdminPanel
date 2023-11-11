@@ -16,10 +16,9 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
-import AdminPackageApi from "@/apis/Admin/AdminPackageApi";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";
 import AdminStaffApi from "@/apis/Admin/AdminStaffApi";
@@ -28,7 +27,7 @@ import StaffEdit from "./StaffEdit";
 import Modal from "@/components/Modal/Modal";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
-export type User = {
+export type Staff = {
     id: string;
     username: string;
     name: string;
@@ -37,13 +36,16 @@ export type User = {
     status_2fa: string;
     created_at: string;
     updated_at: string;
+    deleted_at: string;
 };
 const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
-    const [list, setList] = React.useState<User[]>([]);
+    const [list, setList] = React.useState<Staff[]>([]);
     const [item, setItem] = React.useState<any>(false);
     const [modalDelete, setModalDelete] = React.useState<boolean>(false);
     const [modalEdit, setModalEdit] = React.useState<boolean>(false);
+    const [modalUpdateStatus, setModalUpdateStatus] =
+        React.useState<boolean>(false);
     /**
      * set page info
      */
@@ -58,7 +60,7 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define columns
      */
-    const columns: ColumnDef<User>[] = [
+    const columns: ColumnDef<Staff>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -127,21 +129,29 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             },
         },
         {
-            accessorKey: "status",
+            accessorKey: "banned",
 
             header: () => (
                 <div className="text-center">{t("label.status")}</div>
             ),
             cell: ({ row }) => {
-                const value = row.getValue("status");
+                const value = row.getValue("banned");
                 const data = row.original;
                 return (
                     <div className="text-center font-medium">
                         {value == 1 ? (
-                            <Badge color="success">{t("label.enable")}</Badge>
+                            <Badge
+                                color="danger"
+                                onClick={() => toggleUpdateStatus(data)}
+                            >
+                                {t("label.banned")}
+                            </Badge>
                         ) : (
-                            <Badge color="secondary">
-                                {t("label.disable")}
+                            <Badge
+                                color="success"
+                                onClick={() => toggleUpdateStatus(data)}
+                            >
+                                {t("label.permitted")}
                             </Badge>
                         )}
                     </div>
@@ -182,7 +192,9 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 onClick={() => toggleDelete(data)}
                                 disabled={data.username == "Admin"}
                             >
-                                {t("common.delete")}
+                                <span className="text-red-500">
+                                    {t("common.delete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -194,7 +206,7 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * get the list
      */
-    const getList = async (data = null) => {
+    const getList = async () => {
         try {
             const response = await AdminStaffApi.get();
             const list = response.data.content;
@@ -211,6 +223,10 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         setModalEdit(!modalEdit);
         setItem(item);
     };
+    const toggleUpdateStatus = (item: any) => {
+        setModalUpdateStatus(!modalUpdateStatus);
+        setItem(item);
+    };
     const toggleDelete = (item: any) => {
         setModalDelete(!modalDelete);
         setItem(item);
@@ -223,9 +239,34 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         setItem(false);
         getList();
     };
+    /**
+     * change status
+     */
+    const handleChangeStatus = async (id: string) => {
+        try {
+            const response = await AdminStaffApi.status(id);
+            const status: string = response.data.status;
+            const message: string = response.data.message;
+            const notify = {
+                title: status,
+                description: message,
+                status: "success",
+            };
+            toast(notify);
+            getList();
+            setModalUpdateStatus(false);
+            setItem(false);
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
+    /**
+     * handle delete
+     * @param id
+     */
     const handleDelete = async (id: string) => {
         try {
-            const response = await AdminPackageApi.delete(id);
+            const response = await AdminStaffApi.delete(id);
             const status = response.data.status;
             const message = response.data.message;
             const notify = {
@@ -247,10 +288,17 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ) : null}
             <Modal
                 title={t("common.confirm")}
+                open={modalUpdateStatus}
+                cancel={() => setModalUpdateStatus(false)}
+                action={() => handleChangeStatus(item.id)}
+                message={t("ask.change")}
+            ></Modal>
+            <Modal
+                title={t("common.confirm")}
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.move_to_trash")}
+                message={t("ask.move_to_trash")}
             ></Modal>
             <Card>
                 <CardContent>
@@ -265,7 +313,9 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

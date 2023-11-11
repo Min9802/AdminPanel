@@ -117,12 +117,8 @@ const PackageEdit: React.FC<PackageEditProps> = ({ item, onClose }) => {
                     {formFields.map((field, key) => (
                         <InputForm
                             key={key}
-                            label={field?.label}
-                            name={field?.name}
-                            iconStart={field?.iconStart}
-                            type={field?.type}
-                            description={field?.description}
                             control={form.control}
+                            {...field}
                         />
                     ))}
                     <Button type="submit" color="success">

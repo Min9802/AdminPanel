@@ -5,10 +5,20 @@ import SheetCustom from "@/components/Sheet/SheetCustom";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Form, toast } from "@min98/ui";
+import {
+    Button,
+    Checkbox,
+    Form,
+    FormControl,
+    FormDescription,
+    FormItem,
+    FormLabel,
+    ToastAction,
+    toast,
+} from "@min98/ui";
 import { InputForm } from "@/components/Form";
 import { Icon } from "@iconify/react";
-import { parseError } from "@/Utils/systemUtil";
+import { Copy, Random, parseError } from "@/Utils/systemUtil";
 import { AdminStaffApi } from "@/apis/Admin";
 import SelectRole from "./SelectRole";
 interface StaffEditProps {
@@ -19,6 +29,22 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState<boolean>(false);
     const [roles, setRoles] = React.useState<any[]>([]);
+    const [resetPass, setResetPass] = React.useState<boolean>(false);
+    const [random, setRandom] = React.useState<boolean>(false);
+    const [showPass, setShowPass] = React.useState<boolean>(false);
+    const [typeInput, setTypeInput] = React.useState<string>("password");
+    /**
+     * handle Show Pass
+     */
+    const handleShowPass = () => {
+        setShowPass(true);
+    };
+    /**
+     * handle Show Pass
+     */
+    const handleHidePass = () => {
+        setShowPass(false);
+    };
     /**
      * define form properties
      */
@@ -30,6 +56,7 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
             iconStart: <Icon icon="mdi:label" />,
             placeholder: t("placeholder.username"),
             description: t("label.username"),
+            required: true,
         },
         {
             name: "name",
@@ -38,6 +65,22 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
             iconStart: <Icon icon="mdi:label" />,
             placeholder: t("placeholder.name"),
             description: t("label.name"),
+            required: true,
+        },
+        {
+            name: "password",
+            label: t("label.password"),
+            type: typeInput ?? "password",
+            iconStart: <Icon icon="mdi:lock" />,
+            iconEnd: showPass ? (
+                <Icon icon="mdi:eye" />
+            ) : (
+                <Icon icon="mdi:eye-off" />
+            ),
+            placeholder: t("placeholder.password"),
+            description: t("label.password"),
+            disabled: !resetPass,
+            handleFunc: showPass ? handleHidePass : handleShowPass,
         },
         {
             name: "email",
@@ -46,13 +89,18 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
             iconStart: <Icon icon="mdi:at" />,
             placeholder: t("placeholder.email"),
             description: t("label.email"),
+            required: true,
         },
     ];
     const formSchema = z.object({
         ...Object.fromEntries(
             formFields.map((field) => [
                 field.name,
-                z.string().nonempty(`${field.label} ${t("label.required")}`),
+                field.required
+                    ? z
+                          .string()
+                          .nonempty(`${field.label} ${t("label.required")}`)
+                    : z.string(),
             ]),
         ),
     });
@@ -72,6 +120,51 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
         }
     }, [item]);
     /**
+     * random password
+     */
+    React.useEffect(() => {
+        if (random) {
+            const randomPass = Random(1, 8);
+            form.setValue("password", randomPass);
+        }
+    }, [random]);
+    /**
+     * show password
+     */
+    React.useEffect(() => {
+        showPass ? setTypeInput("text") : setTypeInput("password");
+    }, [showPass]);
+    /**
+     * handle copy
+     * @param value
+     */
+    const handleCopy = (value: any) => {
+        Copy(value);
+    };
+    /**
+     * set reset password
+     * @param checked
+     */
+    const resetPassword = (checked: boolean) => {
+        if (checked) {
+            setResetPass(true);
+        } else {
+            setResetPass(false);
+            form.setValue("password", "");
+        }
+    };
+    /**
+     * random password
+     * @param checked
+     */
+    const setRandomPassword = (checked: boolean) => {
+        if (checked) {
+            setRandom(true);
+        } else {
+            setRandom(false);
+        }
+    };
+    /**
      * on submit
      * @param values
      */
@@ -84,17 +177,35 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
             });
             const status = response.data.status;
             const message = response.data.message;
-            const notify = {
-                title: status,
-                description: message,
-                status: "success",
-            };
-            toast(notify);
+            if (form.getValues("password") !== "") {
+                const password = form.getValues("password");
+                const notify = {
+                    title: status,
+                    description: message,
+                    action: (
+                        <ToastAction
+                            altText="Copy to clipboard"
+                            onClick={() => handleCopy(password)}
+                        >
+                            {t("label.copy")}
+                        </ToastAction>
+                    ),
+                    status: "success",
+                };
+                console.log(notify);
+
+                toast(notify);
+            } else {
+                const notify = {
+                    title: status,
+                    description: message,
+                    status: "success",
+                };
+                toast(notify);
+            }
             processClose();
-            form.reset();
         } catch (err: any) {
             parseError(err);
-            processClose();
         }
     };
     /**
@@ -103,6 +214,7 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
     const processClose = () => {
         setOpen(false);
         onClose();
+        form.reset();
     };
     /**
      * set value form
@@ -131,14 +243,40 @@ const StaffEdit: React.FC<StaffEditProps> = ({ item, onClose }) => {
                     {formFields.map((field, key) => (
                         <InputForm
                             key={key}
-                            label={field?.label}
-                            name={field?.name}
-                            iconStart={field?.iconStart}
-                            type={field?.type}
-                            description={field?.description}
                             control={form.control}
+                            {...field}
                         />
                     ))}
+                    {resetPass && (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                            <FormControl>
+                                <Checkbox
+                                    checked={random}
+                                    onCheckedChange={setRandomPassword}
+                                />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                                <FormLabel>{t("label.random")}</FormLabel>
+                                <FormDescription>
+                                    {t("label.random_desc")}
+                                </FormDescription>
+                            </div>
+                        </FormItem>
+                    )}
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                            <Checkbox
+                                checked={resetPass}
+                                onCheckedChange={resetPassword}
+                            />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                            <FormLabel>{t("label.resetpass")}</FormLabel>
+                            <FormDescription>
+                                {t("label.resetpass_desc")}
+                            </FormDescription>
+                        </div>
+                    </FormItem>
                     <Button type="submit" color="success">
                         {t("common.save")}
                     </Button>

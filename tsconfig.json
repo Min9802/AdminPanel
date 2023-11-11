@@ -6,9 +6,9 @@
         "skipLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@root/*": ["./*"],
             "@/*": ["./resources/js/*"],
             "@min98/*": ["./node_modules/@min98/ui/lib"],
-            "@iconify": ["./node_modules/@iconify/react/dist/iconify.js"]
         },
 
         /* Bundler mode */

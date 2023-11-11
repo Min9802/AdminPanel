@@ -27,7 +27,7 @@ class AddPermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:permissions,name,' . $this->id . 'id',
+            'name' => 'required|array|unique:permissions,name,' . $this->id . 'id',
         ];
     }
     public function failedValidation(Validator $validator)

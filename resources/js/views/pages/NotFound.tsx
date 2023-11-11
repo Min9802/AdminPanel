@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@min98/ui";
-type Props = {};
 
-const NotFound = (props: Props) => {
+const NotFound: React.FC = () => {
     const history = useNavigate();
     const { t } = useTranslation();
     return (

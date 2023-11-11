@@ -1,18 +1,6 @@
 import { lazy } from "react";
 import { Icon } from "@iconify/react";
 import { AdminAuth } from "@/middlewares/AdminGuard";
-const Calendar = lazy(() => import("@/views/pages/Calendar"));
-const Chart = lazy(() => import("@/views/pages/Chart"));
-const FormElements = lazy(() => import("@/views/pages/Form/FormElements"));
-const FormLayout = lazy(() => import("@/views/pages/Form/FormLayout"));
-const Profile = lazy(() => import("@/views/pages/Admin/Auth/Profile"));
-const Settings = lazy(() => import("@/views/pages/Settings"));
-const Tables = lazy(() => import("@/views/pages/Tables"));
-const Alerts = lazy(() => import("@/views/pages/UiElements/Alerts"));
-const Buttons = lazy(() => import("@/views/pages/UiElements/Buttons"));
-const ECommerce = lazy(() => import("@/views/pages/Dashboard/ECommerce"));
-const Home = lazy(() => import("@/views/pages/Home"));
-const Home2 = lazy(() => import("@/views/pages/Home2"));
 
 const StaffList = lazy(() => import("@/views/pages/Admin/Staff/StaffList"));
 const StaffAdd = lazy(() => import("@/views/pages/Admin/Staff/StaffAdd"));
@@ -34,17 +22,34 @@ const PackageAdd = lazy(() => import("@/views/pages/Admin/Package/PackageAdd"));
 const PackageTrash = lazy(
     () => import("@/views/pages/Admin/Package/PackageTrash"),
 );
+const AttributeList = lazy(
+    () => import("@/views/pages/Admin/Attribute/AttributeList"),
+);
+const AttributeAdd = lazy(
+    () => import("@/views/pages/Admin/Attribute/AttributeAdd"),
+);
+const AttributeTrash = lazy(
+    () => import("@/views/pages/Admin/Attribute/AttributeTrash"),
+);
 const ProductList = lazy(
     () => import("@/views/pages/Admin/Product/ProductList"),
 );
 const ProductAdd = lazy(() => import("@/views/pages/Admin/Product/ProductAdd"));
+const Test = lazy(() => import("@/views/pages/Test"));
 const guards = [AdminAuth];
 const AdminRoutes = [
+    {
+        path: "/",
+        title: "label.role",
+        icon: <Icon icon="mdi:shield-account-outline" fontSize={24} />,
+        component: <Test />,
+        guards: guards,
+    },
     {
         path: "role",
         title: "label.role",
         icon: <Icon icon="mdi:shield-account-outline" fontSize={24} />,
-        // component: <PackageList />,
+        component: <PackageList />,
         guards: guards,
         child: [
             {
@@ -67,7 +72,7 @@ const AdminRoutes = [
         path: "permission",
         title: "label.permission",
         icon: <Icon icon="mdi:shield-account-outline" fontSize={24} />,
-        // component: <PackageList />,
+        component: <PermissionList />,
         guards: guards,
         child: [
             {
@@ -144,6 +149,37 @@ const AdminRoutes = [
             },
         ],
     },
+
+    {
+        path: "attribute",
+        title: "label.attribute",
+        icon: <Icon icon="lucide:table-properties" fontSize={24} />,
+        // component: <PackageList />,
+        guards: guards,
+        child: [
+            {
+                path: "list",
+                title: "label.list",
+                icon: <Icon icon="mdi:format-list-bulleted" fontSize={24} />,
+                component: <AttributeList />,
+                guards: guards,
+            },
+            {
+                path: "add",
+                title: "label.add",
+                icon: <Icon icon="mdi:plus-box-multiple" fontSize={24} />,
+                component: <AttributeAdd />,
+                guards: guards,
+            },
+            {
+                path: "trash",
+                title: "label.deleted",
+                icon: <Icon icon="mdi:delete-circle-outline" fontSize={24} />,
+                component: <AttributeTrash />,
+                guards: guards,
+            },
+        ],
+    },
     {
         path: "package",
         title: "label.package",
@@ -199,110 +235,6 @@ const AdminRoutes = [
                 title: "label.deleted",
                 icon: <Icon icon="mdi:delete-circle-outline" fontSize={24} />,
                 component: <PackageTrash />,
-                guards: guards,
-            },
-        ],
-    },
-    {
-        path: "home",
-        title: "Home",
-        icon: <Icon icon="tabler:home" color="red" fontSize={24} />,
-        component: <Home />,
-        guards: guards,
-    },
-    {
-        path: "test",
-        title: "Home2",
-        icon: <Icon icon="tabler:home" color="red" fontSize={24} />,
-        component: <Home2 />,
-        guards: guards,
-    },
-    {
-        path: "dashboard",
-        title: "Dashboard",
-        icon: <Icon icon="tabler:user" color="red" fontSize={24} />,
-        component: <ECommerce />,
-        guards: guards,
-    },
-    {
-        path: "profile",
-        title: "Profile",
-        icon: <Icon icon="tabler:user-circle" fontSize={24} />,
-        component: <Profile />,
-        guards: guards,
-    },
-    {
-        path: "calendar",
-        title: "Calender",
-        icon: <Icon icon="tabler:calendar" fontSize={24} />,
-        component: <Calendar />,
-        guards: guards,
-    },
-
-    {
-        path: "forms",
-        title: "Forms Elements",
-        icon: <Icon icon="tabler:forms" fontSize={24} />,
-        component: <FormElements />,
-        guards: guards,
-        child: [
-            {
-                path: "elements",
-                title: "Forms Elements",
-                icon: <Icon icon="tabler:forms" fontSize={24} />,
-                component: <FormElements />,
-                guards: guards,
-            },
-            {
-                path: "layout",
-                icon: <Icon icon="tabler:forms" fontSize={24} />,
-                title: "Form Layouts",
-                component: <FormLayout />,
-                guards: guards,
-            },
-        ],
-    },
-
-    {
-        path: "tables",
-        title: "Tables",
-        icon: <Icon icon="tabler:table" fontSize={24} />,
-        component: <Tables />,
-        guards: guards,
-    },
-    {
-        path: "settings",
-        title: "Settings",
-        icon: <Icon icon="tabler:settings" fontSize={24} />,
-        component: <Settings />,
-        guards: guards,
-    },
-    {
-        path: "chart",
-        title: "Chart",
-        icon: <Icon icon="tabler:chart-histogram" fontSize={24} />,
-        component: <Chart />,
-        guards: guards,
-    },
-    {
-        path: "ui",
-        title: "ui",
-        icon: <Icon icon="tabler:alert-triangle" fontSize={24} />,
-        component: <Alerts />,
-        guards: guards,
-        child: [
-            {
-                path: "ui/alerts",
-                title: "Alerts",
-                icon: <Icon icon="tabler:alert-triangle" fontSize={24} />,
-                component: <Alerts />,
-                guards: guards,
-            },
-            {
-                path: "ui/buttons",
-                title: "Buttons",
-                icon: <Icon icon="tabler:layout-board-split" fontSize={24} />,
-                component: <Buttons />,
                 guards: guards,
             },
         ],

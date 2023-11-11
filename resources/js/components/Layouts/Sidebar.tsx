@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import Logo from "@/assets/images/logo/Logo-sm.png";
+import Logo from "@root/assets/images/logo/Logo-sm.png";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";

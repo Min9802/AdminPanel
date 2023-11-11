@@ -128,12 +128,8 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                         {formFields.map((field, key) => (
                             <InputForm
                                 key={key}
-                                label={field?.label}
-                                name={field?.name}
-                                iconStart={field?.iconStart}
-                                type={field?.type}
-                                description={field?.description}
                                 control={form.control}
+                                {...field}
                             />
                         ))}
                         <div className="space-y-1">
@@ -143,7 +139,7 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                 onValueChange={(value) => {
                                     form.setValue("status", value);
                                 }}
-                                value={form.getValues("status")}
+                                defaultValue={form.getValues("status")}
                             >
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue
@@ -178,7 +174,9 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

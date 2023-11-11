@@ -7,16 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Checkbox,
     Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
     FormMessage,
     Label,
     Select,
@@ -139,12 +130,8 @@ const RoleEdit: React.FC<RoleEditProps> = ({ item, onClose }) => {
                     {formFields.map((field, key) => (
                         <InputForm
                             key={key}
-                            label={field?.label}
-                            name={field?.name}
-                            iconStart={field?.iconStart}
-                            type={field?.type}
-                            description={field?.description}
                             control={form.control}
+                            {...field}
                         />
                     ))}
                     <div className="space-y-1">

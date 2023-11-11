@@ -5,33 +5,11 @@ import SheetCustom from "@/components/Sheet/SheetCustom";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Checkbox,
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    Label,
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-    toast,
-} from "@min98/ui";
+import { Button, Form, toast } from "@min98/ui";
 import { InputForm } from "@/components/Form";
 import { Icon } from "@iconify/react";
 import { parseError } from "@/Utils/systemUtil";
-import { AdminRoleApi, AdminStaffApi } from "@/apis/Admin";
+import { AdminStaffApi } from "@/apis/Admin";
 import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import * as actions from "@/store/actions";
@@ -115,10 +93,8 @@ const StaffAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             };
             toast(notify);
             processClose();
-            form.reset();
         } catch (err: any) {
             parseError(err);
-            processClose();
         }
     };
 
@@ -127,6 +103,7 @@ const StaffAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const processClose = () => {
         setOpen(false);
+        form.reset();
     };
     /**
      * return view
@@ -152,12 +129,8 @@ const StaffAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                         {formFields.map((field, key) => (
                             <InputForm
                                 key={key}
-                                label={field?.label}
-                                name={field?.name}
-                                iconStart={field?.iconStart}
-                                type={field?.type}
-                                description={field?.description}
                                 control={form.control}
+                                {...field}
                             />
                         ))}
 
@@ -172,7 +145,9 @@ const StaffAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

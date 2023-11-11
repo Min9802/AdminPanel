@@ -68,7 +68,7 @@ const ModalEdit: React.FC<PropsFromRedux & DispatchProps & ModalEditProps> = ({
     /**
      * onchange
      */
-    const onChange = React.useCallback((val: any, viewUpdate: any) => {
+    const onChange = React.useCallback((val: any) => {
         setValue(val);
     }, []);
     /**
@@ -105,7 +105,9 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-    return {};
+    return {
+        setPageInfo: (pageInfo: any) => dispatch(actions.SetInfoPage(pageInfo)),
+    };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -113,6 +115,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 // Define the additional props from mapDispatchToProps
-interface DispatchProps {}
+interface DispatchProps {
+    setPageInfo: (pageInfo: any[]) => void;
+}
 
 export default connector(ModalEdit);

@@ -8,15 +8,6 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-    Label,
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-    toast,
 } from "@min98/ui";
 import z from "zod";
 import { useForm } from "react-hook-form";
@@ -101,7 +92,7 @@ const SelectRole: React.FC<SelectRoleProps> = ({ item, callback }) => {
                                         <FormField
                                             control={form.control}
                                             name="roles"
-                                            render={({ field }) => (
+                                            render={() => (
                                                 <MultipleSelect
                                                     options={list}
                                                     callback={(value: any) => {

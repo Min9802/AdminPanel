@@ -14,16 +14,12 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-    toast,
 } from "@min98/ui";
-import AdminPackageApi from "@/apis/Admin/AdminPackageApi";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/Table";
-import Modal from "@/components/Modal/Modal";
+import { DataTable } from "@/components/Table/DataTable";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";
-import AdminStaffApi from "@/apis/Admin/AdminStaffApi";
 import AdminUserApi from "@/apis/Admin/AdminUserApi";
 export type User = {
     id: string;
@@ -39,6 +35,9 @@ const UserList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const [list, setList] = React.useState<User[]>([]);
     const [item, setItem] = React.useState<any>(false);
     const [modalDelete, setModalDelete] = React.useState<boolean>(false);
+    React.useEffect(() => {
+        console.log(modalDelete);
+    }, [item]);
     /**
      * toggle delete
      * @param data
@@ -168,7 +167,7 @@ const UserList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             },
             cell: ({ row }) => {
                 const value = row.getValue("status_2fa");
-                const data = row.original;
+                // const data = row.original;
                 return (
                     <div className="text-center font-medium">
                         {value == 1 ? (
@@ -242,23 +241,23 @@ const UserList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             parseError(err);
         }
     };
-    const handleDelete = async (id: string) => {
-        try {
-            const response = await AdminPackageApi.forceDelete(id);
-            const status = response.data.status;
-            const message = response.data.message;
-            const notify = {
-                title: status,
-                description: message,
-                status: "success",
-            };
-            toast(notify);
-            setModalDelete(false);
-            getList();
-        } catch (err: any) {
-            parseError(err);
-        }
-    };
+    // const handleDelete = async (id: string) => {
+    //     try {
+    //         const response = await AdminPackageApi.forceDelete(id);
+    //         const status = response.data.status;
+    //         const message = response.data.message;
+    //         const notify = {
+    //             title: status,
+    //             description: message,
+    //             status: "success",
+    //         };
+    //         toast(notify);
+    //         setModalDelete(false);
+    //         getList();
+    //     } catch (err: any) {
+    //         parseError(err);
+    //     }
+    // };
     const GroupDelete = (items: any[]) => {
         console.log(items);
     };
@@ -276,7 +275,9 @@ const UserList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

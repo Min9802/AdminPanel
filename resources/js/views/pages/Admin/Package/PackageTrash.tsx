@@ -20,7 +20,7 @@ import {
     DropdownMenuTrigger,
     toast,
 } from "@min98/ui";
-import { DataTable } from "@/components/Table/Table";
+import { DataTable } from "@/components/Table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
 import Modal from "@/components/Modal/Modal";
@@ -30,6 +30,7 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
     const [list, setList] = React.useState<Package[]>([]);
     const [item, setItem] = React.useState<any>(false);
+    const [modalRestore, setModalRestore] = React.useState<boolean>(false);
     const [modalDelete, setModalDelete] = React.useState<boolean>(false);
     /**
      * set page info
@@ -42,6 +43,14 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         props.setPageInfo(pageInfo);
         getList();
     }, []);
+    /**
+     * toggle restore
+     * @param data
+     */
+    const toggleRestore = async (data: any) => {
+        setModalRestore(true);
+        setItem(data);
+    };
     /**
      * toggle delete
      * @param data
@@ -117,7 +126,6 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ),
             cell: ({ row }) => {
                 const value = row.getValue("status");
-                const data = row.original;
                 return (
                     <div className="text-center font-medium">
                         {value == 1 ? (
@@ -159,9 +167,18 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
+                                onClick={() => toggleRestore(data)}
+                            >
+                                <span className="text-orange-300">
+                                    {t("common.restore")}
+                                </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
                                 onClick={() => toggleDelete(data)}
                             >
-                                {t("common.forceDelete")}
+                                <span className="text-red-500">
+                                    {t("common.forceDelete")}
+                                </span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -176,12 +193,37 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const getList = async () => {
         try {
             const response = await AdminPackageApi.trash();
-            const list = response.data.content.data;
+            const list = response.data.content;
             setList(list);
         } catch (err: any) {
             parseError(err);
         }
     };
+    /**
+     * handle restore
+     * @param id
+     */
+    const handleRestore = async (id: string) => {
+        try {
+            const response = await AdminPackageApi.restore(id);
+            const status = response.data.status;
+            const message = response.data.message;
+            const notify = {
+                title: status,
+                description: message,
+                status: "success",
+            };
+            toast(notify);
+            setModalRestore(false);
+            getList();
+        } catch (err: any) {
+            parseError(err);
+        }
+    };
+    /**
+     * handle delete
+     * @param id
+     */
     const handleDelete = async (id: string) => {
         try {
             const response = await AdminPackageApi.forceDelete(id);
@@ -203,10 +245,17 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         <React.Fragment>
             <Modal
                 title={t("common.confirm")}
+                open={modalRestore}
+                cancel={() => setModalRestore(false)}
+                action={() => handleRestore(item.id)}
+                message={t("ask.restore")}
+            ></Modal>
+            <Modal
+                title={t("common.confirm")}
                 open={modalDelete}
                 cancel={() => setModalDelete(false)}
                 action={() => handleDelete(item.id)}
-                message={t("label.forceDelete")}
+                message={t("ask.forceDelete")}
             ></Modal>
             <Card>
                 <CardContent>
@@ -217,7 +266,9 @@ const PackageTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     );
 };
 const mapStateToProps = (state: RootState) => {
-    return {};
+    return {
+        pageInfo: state.app.pageInfo,
+    };
 };
 const mapDispatchToProps = (dispatch: any) => {
     return {

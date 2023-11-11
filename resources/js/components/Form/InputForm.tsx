@@ -10,7 +10,8 @@ import React, { ReactNode } from "react";
 import { Input } from "@min98/ui";
 import classNames from "classnames";
 
-export interface InputFormProps {
+export interface InputFormProps
+    extends React.InputHTMLAttributes<HTMLInputElement> {
     control?: any;
     label?: string;
     name?: any;
@@ -52,7 +53,8 @@ const InputForm: React.FC<InputFormProps> = ({
                         {iconStart ? (
                             <button
                                 type="button"
-                                className="h-9 p-2 items-center justify-center bg-gray-100 text-dark border border-tl-gray-100 border-b-gray-300 rounded-br-none rounded-tr-none rounded-tl-md rounded-bl-md"
+                                className="h-9 p-2 items-center justify-center bg-gray-100 text-dark border border-tl-gray-100 border-b-gray-300 rounded-br-none rounded-tr-none rounded-tl-md rounded-bl-md disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={props?.disabled}
                             >
                                 {iconStart}
                             </button>
@@ -75,8 +77,9 @@ const InputForm: React.FC<InputFormProps> = ({
                         {iconEnd ? (
                             <button
                                 type="button"
-                                className="text-dark cursor-pointer h-9 p-2 items-center justify-center bg-gray-100 border border-tr-gray-100 border-b-gray-300 rounded-bl-none rounded-tl-none rounded-tr-md rounded-br-md"
+                                className="text-dark cursor-pointer h-9 p-2 items-center justify-center bg-gray-100 border border-tr-gray-100 border-b-gray-300 rounded-bl-none rounded-tl-none rounded-tr-md rounded-br-md disabled:cursor-not-allowed disabled:opacity-50"
                                 onClick={handleFunc}
+                                disabled={props?.disabled}
                             >
                                 {iconEnd}
                             </button>
