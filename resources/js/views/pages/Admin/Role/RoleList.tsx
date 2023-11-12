@@ -63,7 +63,7 @@ const RoleList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminRoleApi.get();
+            const response = await AdminRoleApi.list();
             const roles = response.data.content;
             setList(roles);
         } catch (err: any) {

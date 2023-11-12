@@ -115,8 +115,8 @@ const PermissionEdit: React.FC<PermissionEditProps> = ({ item, onClose }) => {
         <SheetCustom
             open={open}
             cancel={() => processClose()}
-            title={t("label.editPermission")}
-            description={t("label.editPermission")}
+            title={t("label.editpermission")}
+            description={t("label.editpermission")}
             className="overflow-y-auto"
         >
             <Form {...form}>

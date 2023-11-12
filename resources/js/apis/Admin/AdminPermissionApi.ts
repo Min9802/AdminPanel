@@ -1,7 +1,7 @@
 import axios from "../index";
 
 class AdminPermissionApi {
-    static get = () => {
+    static list = () => {
         return axios.get(`${base}`);
     };
     static add = (data: any) => {

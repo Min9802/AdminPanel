@@ -60,7 +60,7 @@ const AttributeList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminAttributeApi.get();
+            const response = await AdminAttributeApi.list();
             const Attributes = response.data.content;
             setList(Attributes);
         } catch (err: any) {

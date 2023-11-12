@@ -1,24 +1,27 @@
 import axios from "../index";
 class AdminProductApi {
-    static getProduct = () => {
-        return axios.get(`${base}/index`);
+    static list = () => {
+        return axios.get(`${base}`);
     };
-    static addProduct = (data: any) => {
+    static get = () => {
+        return axios.get(`${base}/get`);
+    };
+    static add = (data: any) => {
         return axios.post(`${base}/store`, data);
     };
-    static updateProduct = (id: string, data: any) => {
+    static update = (id: string, data: any) => {
         return axios.post(`${base}/update/${id}`, data);
     };
     static updateStatus = (id: string) => {
         return axios.patch(`${base}/status/${id}`);
     };
-    static deleteProduct = (id: string,) => {
+    static delete = (id: string,) => {
         return axios.delete(`${base}/destroy/${id}`);
     };
-    static getTrash = () => {
+    static trash = () => {
         return axios.get(`${base}/trash`);
     };
-    static restoreTrash = (id: string) => {
+    static restore = (id: string) => {
         return axios.get(`${base}/restore/${id}`);
     };
     static forceDelete = (id: string) => {

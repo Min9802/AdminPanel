@@ -2,7 +2,7 @@ import axios from "../index";
 
 class AdminRoleApi {
 
-    static get = () => {
+    static list = () => {
         return axios.get(`${base}`);
     };
     static add = (data: any) => {

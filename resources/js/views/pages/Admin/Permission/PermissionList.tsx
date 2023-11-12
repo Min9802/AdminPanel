@@ -56,7 +56,7 @@ const PermissionList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminPermissionApi.get();
+            const response = await AdminPermissionApi.list();
             const Permissions = response.data.content;
             // setCollection(packageCollect);
             setList(Permissions);

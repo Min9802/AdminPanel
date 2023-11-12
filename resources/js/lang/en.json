@@ -196,6 +196,7 @@
         "dashboard": "Dashboard",
         "permission": "Permissions",
         "addpermission": "Add permission",
+        "editpermission": "Edit permission",
         "role": "Roles",
         "addrole": "Add role",
         "editrole": "Edit role",

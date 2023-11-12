@@ -1,17 +1,18 @@
 import React from "react";
-import Header from "@/components/Layouts/Header";
-import Sidebar from "@/components/Layouts/Sidebar";
-import { Outlet } from "react-router-dom";
-import AdminRoutes from "@/routes/AdminRoutes";
+
 import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import * as actions from "@/store/actions";
+
+import { Outlet } from "react-router-dom";
+import { Header, Sidebar } from "./Part";
 import Notify from "@/components/Notice/Notify";
 import Breadcrumb from "@/components/Breadcrumb";
+
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { pageInfoProps } from "@/store/reducers/appReducer";
-
+import AdminRoutes from "@/routes/AdminRoutes";
 export type HelmetProps = {
     pageInfo: pageInfoProps;
 };

@@ -8,7 +8,7 @@ Route::group([
     'prefix' => 'user',
 
 ], function () {
-    Route::get('index', [UserController::class, 'index'])->middleware("can:staff-list");
+    Route::get('/', [UserController::class, 'index'])->middleware("can:user-list");
     // Route::post('store', [UserController::class, 'store'])->middleware("can:staff-add");
     // Route::patch('update/{id}', [UserController::class, 'update'])->middleware("can:staff-edit");
     // Route::delete('destroy/{id}', [UserController::class, 'destroy'])->middleware("can:staff-delete");

@@ -1,8 +1,8 @@
 import axios from "../index";
 
 class AdminUserApi {
-    static getUser = () => {
-        return axios.get(`${base}/index`);
+    static list = () => {
+        return axios.get(`${base}`);
     };
 
 }

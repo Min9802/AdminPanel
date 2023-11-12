@@ -30,9 +30,6 @@ interface DropdownMenuProps {
 interface RenderMenuProps {
     item: DropdownProps;
 }
-interface RenderSubMenuProps {
-    item: DropdownProps[];
-}
 const RenderMenu: React.FC<RenderMenuProps> = ({ item }) => {
     const redirect = useNavigate();
     /**
@@ -69,23 +66,18 @@ const RenderMenu: React.FC<RenderMenuProps> = ({ item }) => {
                         {item?.label}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                        <RenderSubMenu item={item.child} />
+                        <DropdownMenuSubContent>
+                            {item.child.map((itemChild: any, key: number) => (
+                                <DropdownMenuItem key={key}>
+                                    <RenderMenu item={itemChild} />
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
             </DropdownMenuGroup>
         );
     }
-};
-const RenderSubMenu: React.FC<RenderSubMenuProps> = ({ item }) => {
-    return (
-        <DropdownMenuSubContent>
-            {item.map((itemChild: any, key: number) => (
-                <DropdownMenuItem key={key}>
-                    <RenderMenu item={itemChild} />
-                </DropdownMenuItem>
-            ))}
-        </DropdownMenuSubContent>
-    );
 };
 const Dropdown: React.FC<DropdownMenuProps> = ({
     icon = null,

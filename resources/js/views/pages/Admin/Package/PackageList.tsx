@@ -60,7 +60,7 @@ const PackageList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminPackageApi.get();
+            const response = await AdminPackageApi.list();
             const packages = response.data.content;
             setList(packages);
         } catch (err: any) {

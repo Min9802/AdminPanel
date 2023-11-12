@@ -233,7 +233,7 @@ const UserList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminUserApi.getUser();
+            const response = await AdminUserApi.list();
             const list = response.data.content;
             setList(list);
             return response;

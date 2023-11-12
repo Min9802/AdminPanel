@@ -1,8 +1,10 @@
 import axios from "../index";
 class AdminPackageApi {
-    static get = () => {
+    static list = () => {
         return axios.get(`${base}`);
-
+    };
+    static get = () => {
+        return axios.get(`${base}/get`);
     };
     static add = (data: any) => {
         return axios.post(`${base}/store`, data);

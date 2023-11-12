@@ -18,7 +18,11 @@ interface SidebarProps {
     routers: RouteProps[];
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen, routers }: SidebarProps) => {
+const Sidebar: React.FC<SidebarProps> = ({
+    sidebarOpen,
+    setSidebarOpen,
+    routers,
+}) => {
     const { t } = useTranslation();
     const location = useLocation();
     const { pathname } = location;

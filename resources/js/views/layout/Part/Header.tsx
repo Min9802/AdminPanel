@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import Logo from "@root/assets/images/logo/Logo-sm.png";
-import DarkModeSwitcher from "../ActionChange/DarkModeSwitcher";
+import DarkModeSwitcher from "@/components/ActionChange/DarkModeSwitcher";
+import ChangeLang from "@/components/ActionChange/ChangeLang";
 import Dropdown, { DropdownProps } from "@/components/dropdown/Dropdown";
 import { Icon } from "@iconify/react";
 
-import ChangeLang from "../ActionChange/ChangeLang";
 import { useTranslation } from "react-i18next";
 const Header = (props: {
     sidebarOpen: string | boolean | undefined;

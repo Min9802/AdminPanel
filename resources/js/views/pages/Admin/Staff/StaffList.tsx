@@ -208,7 +208,7 @@ const StaffList: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminStaffApi.get();
+            const response = await AdminStaffApi.list();
             const list = response.data.content;
             setList(list);
         } catch (err: any) {
