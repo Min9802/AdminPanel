@@ -37,7 +37,8 @@ const extensionTypes: extensionType = {
     java: "bi:filetype-java",
     sh: "tabler:brand-powershell",
     swift: "tabler:brand-swift",
-
+    tsx: "bi:filetype-tsx",
+    jsx: "bi:filetype-jsx",
     // audio
     aif: "bi:file-music",
     cda: "bi:file-music",
