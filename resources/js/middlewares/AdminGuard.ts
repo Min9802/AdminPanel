@@ -2,6 +2,7 @@ import { GuardMiddleware } from "react-router-guarded-routes";
 
 import reduxStore from "@/store/reducers/redux";
 import { checkAuth } from "@/services/AuthServices";
+import { parseError } from "../Utils/systemUtil";
 
 
 
@@ -12,7 +13,6 @@ export const AdminAuth: GuardMiddleware = async (to, from, next) => {
 
         if (access_token) {
             const Authorization = await checkAuth(access_token);
-
             if (Authorization) {
                 return next();
             } else {
@@ -21,8 +21,8 @@ export const AdminAuth: GuardMiddleware = async (to, from, next) => {
         } else {
             window.location.href = "/admin/auth/signin";
         }
-    } catch (err) {
-        console.log(err);
+    } catch (err: any) {
+        parseError(err);
         throw err;
     }
 

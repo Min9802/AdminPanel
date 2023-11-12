@@ -6,11 +6,14 @@ import useChangeLang from "@/hooks/useChangeLang";
 
 // Import Redux action
 import * as actions from "@/store/actions";
-
+// const EN = lazy(() => import("@root/assets/images/icon/icon-lang-en.svg"));
+// const VI = lazy(() => import("@root/assets/images/icon/icon-lang-vi.svg"));
 import EN from "@root/assets/images/icon/icon-lang-en.svg";
 import VI from "@root/assets/images/icon/icon-lang-vi.svg";
+import { useTranslation } from "react-i18next";
 
 const ChangeLang: React.FC<PropsFromRedux & DispatchProps> = () => {
+    const { t } = useTranslation();
     const [language, setLanguage] = useChangeLang();
     // const language = props.language;
     // const handleChangeLanguage = (lang: string) => {
@@ -46,10 +49,10 @@ const ChangeLang: React.FC<PropsFromRedux & DispatchProps> = () => {
                     }`}
                 >
                     <span className="lang:hidden">
-                        <img src={EN} alt="" />
+                        <img src={EN} alt={t("label.language")} />
                     </span>
                     <span className="hidden lang:inline-block">
-                        <img src={VI} alt="" />
+                        <img src={VI} alt={t("label.language")} />
                     </span>
                 </span>
             </label>

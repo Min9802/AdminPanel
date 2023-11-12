@@ -3,7 +3,7 @@ import * as actions from "@/store/actions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import Logo from "@root/assets/images/logo/Logo-sm.png";
-import { Grid } from "@/components/Grid";
+import { Grid } from "@min98/ui";
 import {
     Card,
     CardContent,

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Persistor } from "redux-persist";
-import Loader from "@/common/Loader";
+import Loader from "@/components/Loader";
 
 import AdminRoutes from "@/routes/AdminRoutes";
 import AdminAuthRoutes from "@/routes/AdminAuthRoutes";

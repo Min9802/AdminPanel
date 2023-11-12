@@ -241,7 +241,8 @@
         "resetpass_desc": "Reset Password for user",
         "random": "Random",
         "random_desc": "Random value",
-        "invalid_type": "Invalid type"
+        "invalid_type": "Invalid type",
+        "language": "Language"
     },
 
     "tooltip": {

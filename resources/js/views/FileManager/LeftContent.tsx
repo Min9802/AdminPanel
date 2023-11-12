@@ -1,6 +1,5 @@
-import { Flex } from "@/components/Grid";
 import { Icon } from "@iconify/react";
-import { Button } from "@min98/ui";
+import { Button, Flex } from "@min98/ui";
 import React from "react";
 import FolderTree from "./FolderTree";
 import { FolderProps } from "./FileManager";

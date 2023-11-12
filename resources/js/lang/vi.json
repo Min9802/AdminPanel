@@ -242,7 +242,8 @@
         "resetpass_desc": "Đặt lại mật khẩu cho người dùng",
         "random": "Ngẫu nhiên",
         "random_desc": "Giá trị ngẫu nhiên",
-        "invalid_type": "Loại không hợp lệ"
+        "invalid_type": "Loại không hợp lệ",
+        "language": "Ngôn ngữ"
     },
     "tooltip": {
         "disk": "Lựa chọn driver lưu trữ, ví dụ: 'local'",
