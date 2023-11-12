@@ -5,7 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 import reduxStore, { persistor } from "./store/reducers/redux.js";
 
-import App from "./App";
+import App from "./App.js";
 import LangProvider from "./Utils/LangProvider.js";
 import { GuardConfigProvider } from "react-router-guarded-routes";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

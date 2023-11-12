@@ -8,8 +8,8 @@ import {
     ToastProvider,
     ToastTitle,
     ToastViewport,
-} from "../ui/toast";
-import { useToast } from "../ui/use-toast";
+} from "./toast";
+import { useToast } from "./use-toast";
 import { ReactNode } from "react";
 const RenderIcon = ({ status }: any) => {
     let icon: ReactNode = "";

@@ -5,11 +5,10 @@ import { checkAuth } from "@/services/AuthServices";
 
 
 
-export const AdminAuth: GuardMiddleware = async (to, from, next, { route }: any) => {
+export const AdminAuth: GuardMiddleware = async (to, from, next) => {
     try {
         const state = reduxStore.getState();
         const access_token = state.admin?.access_token;
-        console.log(to, from, next, route);
 
         if (access_token) {
             const Authorization = await checkAuth(access_token);
