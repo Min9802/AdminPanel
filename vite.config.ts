@@ -4,13 +4,15 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import { viteSingleFile } from 'vite-plugin-singlefile';
-// require('dotenv').config();
 import path from 'path';
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
 export default defineConfig(config => {
     const env = loadEnv(config.mode, process.cwd(), '');
     return {
         server: {
+            // hmr: {
+            //     host: env.APP_ENV == 'local' ? env.APP_URL_LOCAL : env.APP_URL,
+            // },
             watch: {
                 // Increase the polling interval to a higher value (e.g., 1000ms) for faster reloads.
                 // This is useful when working in environments where inotify doesn't work well (e.g., Docker on Windows).
