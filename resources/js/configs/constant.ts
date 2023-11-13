@@ -1,7 +1,7 @@
-import Default from "@/assets/images/files/BlankFile.png";
-import CSS from "@/assets/images/files/CssFile.png";
-import PDF from "@/assets/images/files/PdfFile.png";
-import PNG from "@/assets/images/files/PngFile.png";
+import Default from "@root/assets/images/files/BlankFile.png";
+import CSS from "@root/assets/images/files/CssFile.png";
+import PDF from "@root/assets/images/files/PdfFile.png";
+import PNG from "@root/assets/images/files/PngFile.png";
 const env = import.meta.env;
 const { VITE_APP_ENV, VITE_APP_URL, VITE_APP_URL_LOCAL } = env;
 export const API_SERVER =

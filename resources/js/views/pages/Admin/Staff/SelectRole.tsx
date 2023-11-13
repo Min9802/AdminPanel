@@ -47,7 +47,7 @@ const SelectRole: React.FC<SelectRoleProps> = ({ item, callback }) => {
      */
     const getList = async () => {
         try {
-            const response = await AdminRoleApi.get();
+            const response = await AdminRoleApi.list();
             const list = response.data.content;
             const roles = list.map((item: any) => {
                 return {

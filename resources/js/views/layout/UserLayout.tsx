@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Header from "@root/resources/js/components/Layouts/Header";
-import Sidebar from "@root/resources/js/components/Layouts/Sidebar";
+import { Header, Sidebar } from "./Part";
 import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {

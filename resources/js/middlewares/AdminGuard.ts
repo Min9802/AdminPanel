@@ -6,7 +6,7 @@ import { parseError } from "../Utils/systemUtil";
 
 
 
-export const AdminAuth: GuardMiddleware = async (to, from, next) => {
+export const AdminAuth: GuardMiddleware = async (_, __, next) => {
     try {
         const state = reduxStore.getState();
         const access_token = state.admin?.access_token;

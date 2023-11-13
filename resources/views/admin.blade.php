@@ -34,42 +34,13 @@
     <link
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet" />
-    <!-- Manifest -->
-    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}" /> --}}
-    {{-- <link rel="manifest" href="/mix-manifest.json"> --}}
-
-
+    <!-- Asset -->
     @vite(['resources/sass/app.scss', 'resources/js/main.tsx'])
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo/logo.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo/favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/favicon.ico') }}">
-
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #initial-content {
-            display: none;
-            background-color: #0000008a;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -82,28 +53,12 @@
     </noscript>
 
     <div id="initial-content" class="full-height flex-center">
-        <!--
-                Temporary content shown on page load,
-                this is a convenient way to make the visitors of the site
-                feel that they have reached the site.
-            -->
+        {{-- Temporary content shown on page load, this is a convenient way to make the visitors of the site feel that they have reached the site. --}}
     </div>
 
     <div id="root">
-        <!--
-                This is the root node that acts as the wrapper where
-                the application will render the elements
-            -->
+       {{-- This is the root node that acts as the wrapper where the application will render the elements --}}
     </div>
-
-    <!-- Scripts -->
-    {{-- <script>
-            document.getElementById('initial-content').style.display = 'block';
-        </script> --}}
-
-    {{-- <script src="{{ asset('js/vendor.js') }}" defer></script> --}}
-    {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
-    {{-- <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script> --}}
 </body>
 
 </html>

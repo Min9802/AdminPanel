@@ -33,7 +33,7 @@ const PermissionSelect: React.FC<PermissionSelectProps> = ({
      */
     const getPermission = async () => {
         try {
-            const response = await AdminPermissionApi.get();
+            const response = await AdminPermissionApi.list();
             const permissions = response.data.content;
             setPermissions(permissions);
         } catch (err: any) {

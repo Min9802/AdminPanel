@@ -48,7 +48,7 @@ export default defineConfig(config => {
                 refresh: true,
 
             }),
-            viteSingleFile(),
+            // viteSingleFile(),
             // react(),
             {
                 name: 'blade',
