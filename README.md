@@ -7,9 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Admin Panel Laravel 9 reactjs 18
+# Admin Panel Laravel 9 react typescript
 
-Admin template build with reactjs 18 & Laravel 10.0
+Admin template build with react typescript & Laravel 10.0
 
 ## Require
 
