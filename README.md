@@ -8,46 +8,62 @@
 </p>
 
 # Admin Panel Laravel 9 reactjs 18
-Admin template build with reactjs 18 & Laravel 9
-## Require 
-- PHP 8.*+
-- Composer
-- MySQL 5.5+
-- Redis
-- Laravel
+
+Admin template build with reactjs 18 & Laravel 10.0
+
+## Require
+
+-   PHP 8.\*+
+-   Composer
+-   MySQL 5.5+
+-   Redis
+-   Laravel
+
 ## PHP extension
-- redis
-- file info
-## Install 
-- install package composer
+
+-   redis
+-   file info
+
+## Install
+
+-   install package composer
+
 ```
 composer install
 ```
-- install package npm
+
+-   install package npm
+
 ```
 npm install
 ```
-- install panel
+
+-   install panel
+
 ```
 php artisan install
 ```
+
 ## URL rewrite nginx
+
 ```
 location /public {
 }
 
-location / {  
-    try_files $uri $uri/ /index.php$is_args$query_string;  
+location / {
+    try_files $uri $uri/ /index.php$is_args$query_string;
 }
 
 location ~ .*\.(js|css)?$
 {
     expires      1h;
     error_log off;
-    access_log /dev/null; 
+    access_log /dev/null;
 }
 ```
+
 ## URL rewrite Apache
+
 ```
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -65,26 +81,33 @@ location ~ .*\.(js|css)?$
 
 </IfModule>
 ```
+
 ## build and test
-- open terminal and type
-### test 
+
+-   open terminal and type
+
+### test
+
 ```
 php artisan server
 ```
+
 ```
 npm run watch
 ```
+
 ### build
+
 ```
 npm run prod
 ```
+
 ## Cron job
+
 ```
 php /**path_to_dir_web**/artisan queue:work
 ```
+
 ```
 php /**path_to_dir_web**/artisan schedule:run
 ```
-
-
-
