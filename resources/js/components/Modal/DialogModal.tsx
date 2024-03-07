@@ -18,7 +18,7 @@ interface DialogModalProps {
     desc?: string;
     size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
     children?: React.ReactNode;
-    action?: () => void;
+    action?: (data?: any) => void;
     cancel: () => void;
 }
 const DialogModal: React.FC<DialogModalProps> = ({

@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
+    Card,
+    CardContent,
     Form,
     FormMessage,
     Label,
@@ -28,6 +30,10 @@ import { AdminAttributeApi } from "@/apis/Admin";
 import Attributes from "./Attributes";
 import { FileManager } from "@/views/FileManager";
 import DialogModal from "@/components/Modal/DialogModal";
+import { bytesToHuman } from "@/views/FileManager/Utils/FileUtils";
+import { thumbnail } from "@/views/FileManager/Utils/ActionUtils";
+import { Item } from "@/views/FileManager/FileManager";
+import CkEditorCustom from "@/components/Form/CkEditorCustom";
 export type AttrProps = {
     id: number;
     type: string;
@@ -35,13 +41,20 @@ export type AttrProps = {
     add_price: number;
     error?: any;
 };
+interface ItemProp {
+    items: Item[];
+}
+type ItemUrl = {
+    url: string;
+    path: string;
+};
 const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     const { t } = useTranslation();
     const [open, setOpen] = React.useState<boolean>(false);
     const [modalImage, setModalImage] = React.useState<boolean>(false);
     const [list, setList] = React.useState<any[]>([]);
     const [attributes, setAttributes] = React.useState<AttrProps[]>([]);
-    const [images, setImages] = React.useState<any[]>([]);
+    const [images, setImages] = React.useState<Item[]>([]);
     /**
      * set page info
      */
@@ -54,10 +67,6 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         props.setPageInfo(pageInfo);
         getAttributes();
     }, []);
-    React.useEffect(() => {
-        console.log(images);
-        console.log(attributes);
-    }, [images, attributes]);
     /**
      * define form field
      */
@@ -88,6 +97,8 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             ]),
         ),
         images: z.array(z.string()),
+        attributes: z.array(z.string()),
+        detail: z.array(z.string()),
         status: z.string().nonempty("Status is required"),
     });
     const form = useForm<z.infer<typeof formSchema>>({
@@ -95,6 +106,8 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         defaultValues: {
             ...Object.fromEntries(formFields.map((field) => [field.name, ""])),
             images: [],
+            attributes: [],
+            detail: "",
             status: "0",
         },
     });
@@ -110,6 +123,7 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      */
     const processClose = () => {
         setOpen(false);
+        form.reset();
     };
     /**
      * get attributes
@@ -130,10 +144,46 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         setModalImage(!modalImage);
     };
     /**
+     * callback images
+     * @param data
+     */
+    const callbackImages = (data: any): void => {
+        const listImages = [...images];
+        const dataIndex = listImages.findIndex(
+            (item) => item.path === data.path,
+        );
+        if (dataIndex == -1) {
+            listImages.push(data);
+        }
+        setImages(listImages);
+    };
+    /**
+     * remove images from list
+     * @param file
+     */
+    const fileRemove = (file: Item) => {
+        const updatedList = [...images];
+        updatedList.splice(images.indexOf(file), 1);
+        setImages(updatedList);
+    };
+    /**
+     * Change Detail
+     * @param data
+     */
+    const ChangeDetail = (data: any) => {
+        console.log(data);
+    };
+    /**
      * on submit form
      * @param values
      */
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const imagePath = images.map((item) => ({
+            disk: item.disk,
+            path: item.path,
+        }));
+        values.images = imagePath;
+        values.attributes = attributes;
         console.log(values);
 
         // try {
@@ -153,14 +203,87 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
         //     // processClose();
         // }
     };
+    /**
+     * preview image
+     * @param param0
+     * @returns
+     */
+    const RenderPreView: React.FC<ItemProp> = ({ items }) => {
+        const [dataUrls, setUrls] = React.useState<ItemUrl[]>([]);
+        /**
+         * hook set url
+         */
+        React.useEffect(() => {
+            const fetchData = async () => {
+                const promises = items.map(async (item) => {
+                    const url = await thumbnail(item?.disk, item);
+                    return {
+                        url: url as string,
+                        path: item.path,
+                    };
+                });
+                const resolvedData = await Promise.all(promises);
+                setUrls(resolvedData);
+            };
+
+            fetchData();
+        }, [items]);
+        return (
+            <Card>
+                <CardContent>
+                    <div className="grid grid-cols-2 gap-2">
+                        {items.map((item, index) => {
+                            // Find the corresponding dataUrl based on path
+                            const imageData = dataUrls.find(
+                                (data) => data.path === item.path,
+                            );
+
+                            return (
+                                <div
+                                    className="flex flex-row items-center"
+                                    key={index}
+                                >
+                                    <div className="text-left">
+                                        <p className="text-dark text-sm break-all">
+                                            {item.filename}
+                                        </p>
+                                        <p className="text-gray-400 text-sm">
+                                            {bytesToHuman(item.size)}
+                                        </p>
+                                    </div>
+                                    {imageData && (
+                                        <img
+                                            className="mr-auto ml-auto"
+                                            src={imageData.url}
+                                            alt={item.filename}
+                                        />
+                                    )}
+                                    <div className="float-right">
+                                        <Icon
+                                            className="cursor-pointer"
+                                            icon="tabler:x"
+                                            color="red"
+                                            fontSize={25}
+                                            onClick={() => fileRemove(item)}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    };
     return (
         <React.Fragment>
             <DialogModal
                 open={modalImage}
                 size="4xl"
+                action={() => setModalImage(false)}
                 cancel={() => setModalImage(false)}
             >
-                <FileManager callback={setImages} />
+                <FileManager callback={callbackImages} />
             </DialogModal>
             <Button color="success" onClick={() => setOpen(true)}>
                 <Icon icon="mdi:plus" className="w-5 h-5" />
@@ -171,7 +294,7 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                 cancel={() => processClose()}
                 title={t("label.addproduct")}
                 description={t("label.addproduct")}
-                className="w-[400px] sm:w-[540px]"
+                className="!sm:max-w-max overflow-y-scroll"
             >
                 <Form {...form}>
                     <form
@@ -235,7 +358,19 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                             </Select>
                             <FormMessage />
                         </div>
-                        <Attributes data={list} callback={callbackAttributes} />
+                        <RenderPreView items={images} />
+                        <Attributes
+                            data={list}
+                            values={attributes}
+                            callback={callbackAttributes}
+                        />
+                        <CkEditorCustom
+                            handleChange={ChangeDetail}
+                            config={{
+                                disk: "public",
+                                path: "Product",
+                            }}
+                        />
                         <Button type="submit" color="success">
                             {t("common.save")}
                         </Button>

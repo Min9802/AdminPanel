@@ -31,7 +31,12 @@ class FileManagerAPI {
         });
     };
     static upload = (data: any) => {
-        return axios.post(`${base}/upload`, data);
+        return axios.post(`${base}/upload`, data,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
     };
     static delete = (data: any) => {
         return axios.post(`${base}/delete`, data);

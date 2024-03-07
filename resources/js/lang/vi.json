@@ -244,7 +244,9 @@
         "random": "Ngẫu nhiên",
         "random_desc": "Giá trị ngẫu nhiên",
         "invalid_type": "Loại không hợp lệ",
-        "language": "Ngôn ngữ"
+        "language": "Ngôn ngữ",
+        "browser": "Trình duyệt",
+        "or": "Hoặc"
     },
     "tooltip": {
         "disk": "Lựa chọn driver lưu trữ, ví dụ: 'local'",

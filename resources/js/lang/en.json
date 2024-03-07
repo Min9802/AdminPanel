@@ -243,7 +243,9 @@
         "random": "Random",
         "random_desc": "Random value",
         "invalid_type": "Invalid type",
-        "language": "Language"
+        "language": "Language",
+        "browser": "Browser",
+        "or": "Or"
     },
 
     "tooltip": {

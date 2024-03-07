@@ -6,9 +6,9 @@
         "skipLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@root/*": ["./*"],
-            "@/*": ["./resources/js/*"],
-            "@min98/*": ["./node_modules/@min98/ui/lib"],
+            // "@root/*": ["./resources/js/*"],
+            "@/*": ["./resources/js/*"]
+            // "@min98/*": ["./node_modules/@min98"],
         },
 
         /* Bundler mode */

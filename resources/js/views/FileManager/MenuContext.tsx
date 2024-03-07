@@ -323,6 +323,7 @@ const MenuContext: React.FC<MenuContextProps> = ({
                         toggleDataInArray(data);
                     } else {
                         row.toggleSelected();
+                        props?.handleOneClick(data);
                     }
                 } else if (view === "grid") {
                     if (isCtrlPressed) {
@@ -380,8 +381,8 @@ const MenuContext: React.FC<MenuContextProps> = ({
                             current?.path === data.path
                                 ? true
                                 : currents.includes(data)
-                                ? true
-                                : false
+                                  ? true
+                                  : false
                         }
                         handleClick={handleClick}
                         handleMultipleClick={props?.handleMultipleClick}

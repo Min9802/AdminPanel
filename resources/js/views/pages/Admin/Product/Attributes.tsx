@@ -17,10 +17,11 @@ import { Icon } from "@iconify/react";
 
 interface AttributesProps {
     data?: any[];
+    values?: any[];
     callback?: (data: AttrProps[]) => void;
 }
 
-const Attributes: React.FC<AttributesProps> = ({ data, callback }) => {
+const Attributes: React.FC<AttributesProps> = ({ data, values= [], callback }) => {
     const { t } = useTranslation();
     const [list, setList] = React.useState<any[]>([]);
     const [attributes, setAttributes] = React.useState<AttrProps[]>([]);
@@ -34,6 +35,14 @@ const Attributes: React.FC<AttributesProps> = ({ data, callback }) => {
             setList(data);
         }
     }, [data]);
+    /**
+     * init values
+     */
+    React.useEffect(() => {
+        if (values?.length > 0) {
+            setAttributes(values);
+        }
+    }, [values]);
     /**
      * callback hook
      */

@@ -125,7 +125,9 @@ const ModalUpload: React.FC<ModalUploadProps> = ({
                                 <span className="font-medium text-gray-600">
                                     {t("label.drag-drop")}
                                     <span className="text-blue-600 underline">
-                                        {", or browse"}
+                                        {","}
+                                        {t("label.or")}
+                                        {t("label.browser")}
                                     </span>
                                 </span>
                             </span>

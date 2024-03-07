@@ -62,6 +62,7 @@ export type Item = {
     extension: string;
     filename: string;
     size: number;
+    disk: string;
 };
 export type FolderProps = {
     type: string;
@@ -185,16 +186,31 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
      * callbacks for parent
      */
     React.useEffect(() => {
-        currentItem && currentItem.type == "file" && getInfo(currentItem);
+        if (currentItem && currentItem.type == "file") {
+            getInfo(currentItem);
+        }
+        if (selectedList) {
+            getInfo(selectedList);
+        }
     }, [currentItem]);
     /**
      * info file
      * @param item
      */
     const getInfo = async (item: any) => {
-        const infoFile = await info(selectDisk, item.path);
-        if (infoFile) {
-            callback?.(infoFile);
+        if (item.length > 0) {
+            let infoFiles = [];
+            for (let i = 0; i < item.length; i++) {
+                const infoFile = await info(selectDisk, item[i].path);
+                if (infoFile) {
+                    infoFiles.push(infoFile);
+                }
+            }
+        } else {
+            const infoFile = await info(selectDisk, item.path);
+            if (infoFile) {
+                callback?.(infoFile);
+            }
         }
     };
     /**
@@ -572,8 +588,8 @@ const FileManager: React.FC<FileManagerProps> = ({ callback }) => {
                         selectedList.length > 0
                             ? true
                             : currentItem
-                            ? true
-                            : false
+                              ? true
+                              : false
                     }
                     clipboard={clipboard ? true : false}
                     setView={setView}

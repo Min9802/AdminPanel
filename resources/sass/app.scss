@@ -1,8 +1,7 @@
 // Fonts
-
 @import "@root/assets/css/index.css";
 @import '@root//assets/css/satoshi.css';
-
+@import 'react-resizable/css/styles.css';
 // @import url('https://fonts.googleapis.com/css?family=Roboto');
 // @import "bootstrap/scss/bootstrap";
 // @import 'react-toastify/dist/ReactToastify.css';
@@ -17,19 +16,22 @@
 // @import "./component/index.scss";
 // @import "./pages/index.scss";
 // @import "./main.scss";
+:is(.lang .lang\:block) {
+    display: block;
+}
 
-:is(.lang .lang\:block){
-  display: block;
+:is(.lang .lang\:inline-block) {
+    display: inline-block;
 }
-:is(.lang .lang\:inline-block){
-  display: inline-block;
-}
-:is(.lang .lang\:hidden){
-  display: none;
-}
-.card-hidden{
+
+:is(.lang .lang\:hidden) {
     display: none;
 }
-.card-remove{
+
+.card-hidden {
+    display: none;
+}
+
+.card-remove {
     display: none;
 }

@@ -4,13 +4,13 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
 use Illuminate\Support\Carbon;
 use Laravel\Passport\AuthCode;
 use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PersonalAccessClient;
 use Laravel\Passport\Token;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //
     ];
 
     /**
@@ -27,8 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerPolicies();
-        config(['auth.defaults.guard' => 'admin']);
+        // config(['auth.defaults.guard' => 'api']);
 
         Passport::enableImplicitGrant();
         Passport::useTokenModel(Token::class);
@@ -37,9 +36,11 @@ class AuthServiceProvider extends ServiceProvider
         Passport::usePersonalAccessClientModel(PersonalAccessClient::class);
         Passport::withoutCookieSerialization();
 
-        Passport::tokensExpireIn(Carbon::now()->addMonth(1));
+        Passport::tokensExpireIn(Carbon::now()->addDay(1));
 
-        Passport::refreshTokensExpireIn(Carbon::now()->addYear(1));
+        Passport::refreshTokensExpireIn(Carbon::now()->addMonth(1));
+
+        Passport::personalAccessTokensExpireIn(Carbon::now()->addDay(1));
 
         Passport::ignoreCsrfToken(true);
     }

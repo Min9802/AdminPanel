@@ -1,10 +1,11 @@
+import { ResizeBox } from "../../components/Resize/Resize";
 const Test = () => {
     return (
-        <div className="outlined">
-            <button className="outlined outlined:bg-white outlined:text-black">
-                aaa
-            </button>
-        </div>
+        <>
+            <ResizeBox axis="x">
+                <p>Test</p>
+            </ResizeBox>
+        </>
     );
 };
 
