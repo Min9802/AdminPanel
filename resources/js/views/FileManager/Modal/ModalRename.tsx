@@ -1,14 +1,11 @@
-import Modal from "@/components/Modal/Modal";
 import { Icon } from "@iconify/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Form } from "@min98/ui";
-import { InputForm } from "@/components/Form";
+import { Button, Form, Modal, InputForm, InputFormProps } from "@min98/ui";
 import { FileProps, FolderProps } from "../FileManager";
-import { InputFormProps } from "@/components/Form/InputForm";
 
 interface ModalRenameProps {
     open: boolean;

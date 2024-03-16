@@ -3,7 +3,7 @@ import * as actions from "@/store/actions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "@/store/reducers/rootReducer";
 import Logo from "@root/assets/images/logo/Logo-sm.png";
-import { Grid } from "@min98/ui";
+import { Grid, InputFormProps } from "@min98/ui";
 import {
     Card,
     CardContent,
@@ -26,12 +26,12 @@ import {
     FormLabel,
     FormDescription,
     toast,
+    InputForm,
 } from "@min98/ui";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icon } from "@iconify/react";
-import { InputForm } from "@/components/Form";
 import { getConfig, parseError } from "@/Utils/systemUtil";
 import ReCAPTCHA from "react-google-recaptcha";
 import OauthApi from "@/apis/Global/OauthApi";
@@ -104,7 +104,7 @@ const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define input fields
      */
-    const formFields = [
+    const formFields: InputFormProps[] = [
         {
             name: "username",
             label: t("label.username"),
@@ -182,8 +182,6 @@ const Auth: React.FC<PropsFromRedux & DispatchProps> = (props) => {
             const response = await OauthApi.Token(data);
             return setAdmin(response);
         } catch (err: any) {
-            console.log(err);
-
             parseError(err);
         }
     };

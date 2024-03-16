@@ -8,7 +8,7 @@ import {
     LanguageName,
 } from "@uiw/codemirror-extensions-langs";
 import { FileProps } from "../FileManager";
-import DialogModal from "@/components/Modal/DialogModal";
+import { DialogModal } from "@min98/ui";
 import { getType } from "../Utils/FileUtils";
 import { download } from "../Utils/ActionUtils";
 import { ConnectedProps, connect } from "react-redux";

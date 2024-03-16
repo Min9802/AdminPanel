@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { PreviewProps } from "../FileManager";
 import ReactPlayer from "react-player";
-import DialogModal from "@/components/Modal/DialogModal";
+import { DialogModal } from "@min98/ui";
 import { Label } from "@min98/ui";
 interface ModalPreviewProps {
     open: boolean;

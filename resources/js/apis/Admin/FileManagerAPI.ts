@@ -90,6 +90,9 @@ class FileManagerAPI {
     static checkExist = (data: any) => {
         return axios.post(`${base}/check-exist`, data);
     };
+    static directoryExists = (data: any) => {
+        return axios.post(`${base}/directoryExists`, data);
+    }
     static createDirectory = (data: any) => {
         return axios.post(`${base}/create-directory`, data);
     };

@@ -15,12 +15,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     toast,
+    Modal,
+    DataTable,
 } from "@min98/ui";
 import AdminAttributeApi from "@/apis/Admin/AdminAttributeApi";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/DataTable";
-import Modal from "@/components/Modal/Modal";
 import AttributeEdit from "./AttributeEdit";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";

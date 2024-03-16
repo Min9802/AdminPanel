@@ -8,23 +8,23 @@ import {
     Card,
     CardContent,
     Checkbox,
+    DataTable,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+    Modal,
     toast,
 } from "@min98/ui";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { DataTable } from "@/components/Table/DataTable";
 import { useTranslation } from "react-i18next";
 import { parseError } from "@/Utils/systemUtil";
 import AdminStaffApi from "@/apis/Admin/AdminStaffApi";
 import { Role } from "../Role/RoleList";
 import StaffEdit from "./StaffEdit";
-import Modal from "@/components/Modal/Modal";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
 export type Staff = {

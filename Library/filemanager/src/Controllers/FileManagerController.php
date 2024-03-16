@@ -271,7 +271,7 @@ class FileManagerController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function info (Request $request): JsonResponse
+    public function info(Request $request): JsonResponse
     {
         return response()->json(
             $this->fm->info(
@@ -299,16 +299,16 @@ class FileManagerController extends Controller
     {
         $path = $request->input('path');
         $file = FileSystem::where('path', $path)->with('shares')->first();
-        if($file){
+        if ($file) {
             return response()->json([
                 'status' => 'success',
                 'content' => $file
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 'error',
                 'message' => trans('res.notfound'),
-            ],404);
+            ], 404);
         }
     }
     /**
@@ -332,9 +332,8 @@ class FileManagerController extends Controller
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
             return response()->json([
                 'message' => false,
-            ],500);
+            ], 500);
         }
-
     }
     /**
      * un-share file nextcloud
@@ -343,28 +342,27 @@ class FileManagerController extends Controller
      */
     public function unShare(Request $request)
     {
-         try {
+        try {
             $id = $request->input('id');
             $status = $this->share->deleteShare($id);
-            if($status){
+            if ($status) {
                 return response()->json([
                     'status' => 'success',
                     'message' => trans('res.delete.success')
                 ]);
-            }else{
+            } else {
                 return response()->json([
                     'status' => 'error',
                     'message' => trans('res.delete.fail')
-                ],500);
+                ], 500);
             }
         } catch (\Exception $e) {
             Log::error('Message :' . $e->getMessage() . '--line: ' . $e->getLine());
             return response()->json([
                 'status' => 'error',
                 'message' => trans('res.delete.fail'),
-            ],500);
+            ], 500);
         }
-
     }
     /**
      * Create new directory
@@ -388,6 +386,21 @@ class FileManagerController extends Controller
         }
 
         return response()->json($createDirectoryResponse);
+    }
+    /**
+     * Check if a directory exists
+     *
+     * @param  RequestValidator  $request
+     *
+     * @return JsonResponse
+     */
+    public function directoryExists(RequestValidator $request): JsonResponse
+    {
+        $directoryExists = $this->fm->directoryExists(
+            $request->input('disk'),
+            $request->input('path'),
+        );
+        return response()->json($directoryExists);
     }
 
     /**

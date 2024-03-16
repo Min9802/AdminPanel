@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Logo from "@root/assets/images/logo/Logo-sm.png";
 import DarkModeSwitcher from "@/components/ActionChange/DarkModeSwitcher";
 import ChangeLang from "@/components/ActionChange/ChangeLang";
-import Dropdown, { DropdownProps } from "@/components/dropdown/Dropdown";
+import { DropdownProps, Dropdown } from "@min98/ui";
 import { Icon } from "@iconify/react";
 
 import { useTranslation } from "react-i18next";

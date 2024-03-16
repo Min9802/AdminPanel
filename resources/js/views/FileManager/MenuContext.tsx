@@ -8,7 +8,6 @@ import {
     getType,
     splitFileName,
 } from "./Utils/FileUtils";
-import { ContextMenu } from "@/components/Form";
 import classNames from "classnames";
 import { ClipboardProps, thumbnail } from "./Utils/ActionUtils";
 import { delay } from "@/Utils/systemUtil";
@@ -19,6 +18,7 @@ import {
     TooltipTrigger,
     TooltipArrow,
     TooltipPortal,
+    ContextMenu,
 } from "@min98/ui";
 
 type ViewListProps = {

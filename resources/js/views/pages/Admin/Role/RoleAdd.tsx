@@ -3,7 +3,6 @@ import { RootState } from "@/store/reducers/rootReducer";
 import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
     Form,
@@ -17,12 +16,13 @@ import {
     SelectTrigger,
     SelectValue,
     toast,
+    SheetCustom,
+    InputForm,
 } from "@min98/ui";
 import { Icon } from "@iconify/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputForm } from "@/components/Form";
 import { parseError } from "@/Utils/systemUtil";
 import { AdminRoleApi } from "@/apis/Admin";
 import PermissionSelect from "./PermissionSelect";

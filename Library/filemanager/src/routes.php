@@ -59,23 +59,25 @@ Route::group([
         ->name('fm.url');
 
     Route::get('info', [FileManagerController::class, 'info'])
-    ->name('fm.info');
-
+        ->name('fm.info');
 
     Route::post('getshare', [FileManagerController::class, 'getshare'])
-    ->name('fm.getshare');
+        ->name('fm.getshare');
 
     Route::post('listshare', [FileManagerController::class, 'listshare'])
-    ->name('fm.listshare');
+        ->name('fm.listshare');
 
     Route::post('share', [FileManagerController::class, 'share'])
-    ->name('fm.share');
+        ->name('fm.share');
 
     Route::post('unshare', [FileManagerController::class, 'unShare'])
-    ->name('fm.unshare');
+        ->name('fm.unshare');
 
     Route::post('create-directory', [FileManagerController::class, 'createDirectory'])
         ->name('fm.create-directory');
+
+    Route::post('directoryExists', [FileManagerController::class, 'directoryExists'])
+        ->name('fm.directoryExists');
 
     Route::post('create-file', [FileManagerController::class, 'createFile'])
         ->name('fm.create-file');
@@ -92,7 +94,8 @@ Route::group([
     Route::post('unzip', [FileManagerController::class, 'unzip'])
         ->name('fm.unzip');
 
-    // Route::get('properties', 'FileManagerController@properties');
+    // Route::get('properties', [FileManagerController::class, 'properties'])
+    //     ->name('fm.properties');
 
     // Integration with editors
     Route::get('ckeditor', [FileManagerController::class, 'ckeditor'])

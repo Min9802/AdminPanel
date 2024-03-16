@@ -3,7 +3,6 @@ import { RootState } from "@/store/reducers/rootReducer";
 import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
     Checkbox,
@@ -22,12 +21,14 @@ import {
     SelectTrigger,
     SelectValue,
     toast,
+    SheetCustom,
+    InputForm,
+    InputFormProps,
 } from "@min98/ui";
 import { Icon } from "@iconify/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputForm } from "@/components/Form";
 import { parseError } from "@/Utils/systemUtil";
 import { AdminPermissionApi } from "@/apis/Admin";
 import { pageInfoProps } from "@/store/reducers/appReducer";
@@ -49,7 +50,7 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define form field
      */
-    const formFields = [
+    const formFields: InputFormProps[] = [
         {
             name: "name",
             label: t("label.name"),
@@ -178,7 +179,7 @@ const PermissionAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                                                 <FormControl>
                                                     <Checkbox
                                                         checked={field.value.some(
-                                                            (item) =>
+                                                            (item: any) =>
                                                                 Actions.includes(
                                                                     item,
                                                                 ),

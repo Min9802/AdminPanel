@@ -1,8 +1,6 @@
-import { ButtonGroup } from "@/components/Button";
-
-import { Icon } from "@iconify/react";
-import { Button, Col, Flex, Grid } from "@min98/ui";
 import React from "react";
+import { Icon } from "@iconify/react";
+import { Button, Col, Flex, Grid, ButtonGroup } from "@min98/ui";
 import { useTranslation } from "react-i18next";
 
 interface HeaderProps {

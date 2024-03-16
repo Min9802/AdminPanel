@@ -1,12 +1,17 @@
 import React from "react";
 
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Form, toast } from "@min98/ui";
-import { InputForm } from "@/components/Form";
+import {
+    Button,
+    Form,
+    toast,
+    SheetCustom,
+    InputForm,
+    InputFormProps,
+} from "@min98/ui";
 import { Icon } from "@iconify/react";
 import AdminAttributeApi from "@/apis/Admin/AdminAttributeApi";
 import { parseError } from "@/Utils/systemUtil";
@@ -20,7 +25,7 @@ const AttributeEdit: React.FC<AttributeEditProps> = ({ item, onClose }) => {
     /**
      * define form properties
      */
-    const formFields = [
+    const formFields: InputFormProps[] = [
         {
             name: "name",
             label: t("label.name"),

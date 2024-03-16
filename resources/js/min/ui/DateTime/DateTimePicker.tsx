@@ -10,16 +10,20 @@ import { Button } from "../button";
 import { Calendar } from "../calendar";
 import { Icon } from "@iconify/react";
 
-interface DateTimePickerProps {
-    date: Date;
+export interface DateTimePickerProps {
+    date?: Date;
     setDate: (date: Date) => void;
 }
 
 export const DateTimePicker = ({ date, setDate }: DateTimePickerProps) => {
     const [selectedDateTime, setSelectedDateTime] = React.useState<DateTime>(
-        DateTime.fromJSDate(date),
+        DateTime.fromJSDate(date ?? new Date()),
     );
 
+    /**
+     * handle selected date
+     * @param selected
+     */
     const handleSelect: SelectSingleEventHandler = (selected: any) => {
         const selectedDay = DateTime.fromJSDate(selected);
         const modifiedDay = selectedDay.set({
@@ -30,7 +34,10 @@ export const DateTimePicker = ({ date, setDate }: DateTimePickerProps) => {
         setSelectedDateTime(modifiedDay);
         setDate(modifiedDay.toJSDate());
     };
-
+    /**
+     * handle selected time
+     * @param e
+     */
     const handleTimeChange: React.ChangeEventHandler<HTMLInputElement> = (
         e,
     ) => {

@@ -111,7 +111,7 @@ const bytesToHuman = (bytes: number) => {
  */
 const timestampToDate = (timestamp: number) => {
     const state = reduxStore.getState();
-    const language = state.app?.language;
+    const language = state.app?.language ?? "en";
     if (timestamp === undefined || timestamp === null) return "-";
     const date = new Date(timestamp * 1000);
     return date.toLocaleString(language == "vi" ? "vn" : "en");

@@ -3,7 +3,6 @@ import { RootState } from "@/store/reducers/rootReducer";
 import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
     Card,
@@ -18,22 +17,24 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
+    SheetCustom,
+    InputForm,
+    InputFormProps,
+    DialogModal,
+    CkEditorCustom,
 } from "@min98/ui";
 import { Icon } from "@iconify/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldProps, InputForm } from "@/components/Form";
 import { parseError } from "@/Utils/systemUtil";
 import { pageInfoProps } from "@/store/reducers/appReducer";
-import { AdminAttributeApi } from "@/apis/Admin";
+import { AdminAttributeApi, FileManagerAPI } from "@/apis/Admin";
 import Attributes from "./Attributes";
 import { FileManager } from "@/views/FileManager";
-import DialogModal from "@/components/Modal/DialogModal";
 import { bytesToHuman } from "@/views/FileManager/Utils/FileUtils";
 import { thumbnail } from "@/views/FileManager/Utils/ActionUtils";
 import { Item } from "@/views/FileManager/FileManager";
-import CkEditorCustom from "@/components/Form/CkEditorCustom";
 export type AttrProps = {
     id: number;
     type: string;
@@ -70,7 +71,7 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define form field
      */
-    const formFields: FieldProps[] = [
+    const formFields: InputFormProps[] = [
         {
             name: "name",
             label: t("label.name"),
@@ -170,8 +171,9 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
      * Change Detail
      * @param data
      */
-    const ChangeDetail = (data: any) => {
-        console.log(data);
+    const ChangeDetail = (event: any, data: any) => {
+        console.log("event", event);
+        console.log("data", data.getData());
     };
     /**
      * on submit form
@@ -365,10 +367,13 @@ const ProductAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
                             callback={callbackAttributes}
                         />
                         <CkEditorCustom
-                            handleChange={ChangeDetail}
+                            onChange={ChangeDetail}
                             config={{
-                                disk: "public",
-                                path: "Product",
+                                location: {
+                                    disk: "public",
+                                    path: "Product",
+                                },
+                                api: FileManagerAPI,
                             }}
                         />
                         <Button type="submit" color="success">

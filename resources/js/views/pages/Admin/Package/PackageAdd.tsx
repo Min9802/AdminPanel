@@ -3,7 +3,6 @@ import { RootState } from "@/store/reducers/rootReducer";
 import { ConnectedProps, connect } from "react-redux";
 import * as actions from "@/store/actions";
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import {
     Button,
     Form,
@@ -17,12 +16,14 @@ import {
     SelectTrigger,
     SelectValue,
     toast,
+    SheetCustom,
+    InputFormProps,
+    InputForm,
 } from "@min98/ui";
 import { Icon } from "@iconify/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldProps, InputForm } from "@/components/Form";
 import AdminPackageApi from "@/apis/Admin/AdminPackageApi";
 import { parseError } from "@/Utils/systemUtil";
 import { pageInfoProps } from "@/store/reducers/appReducer";
@@ -44,7 +45,7 @@ const PackageAdd: React.FC<PropsFromRedux & DispatchProps> = (props) => {
     /**
      * define form field
      */
-    const formFields: FieldProps[] = [
+    const formFields: InputFormProps[] = [
         {
             name: "name",
             label: t("label.name"),

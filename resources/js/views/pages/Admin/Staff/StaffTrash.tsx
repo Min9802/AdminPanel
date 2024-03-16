@@ -12,18 +12,18 @@ import {
     Card,
     CardContent,
     Checkbox,
+    DataTable,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+    Modal,
     toast,
 } from "@min98/ui";
-import { DataTable } from "@/components/Table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import Modal from "@/components/Modal/Modal";
 import { pageInfoProps } from "@/store/reducers/appReducer";
 
 const StaffTrash: React.FC<PropsFromRedux & DispatchProps> = (props) => {

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useTranslation } from "react-i18next";
-import SheetCustom from "@/components/Sheet/SheetCustom";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,10 +12,11 @@ import {
     FormDescription,
     FormItem,
     FormLabel,
+    InputForm,
+    SheetCustom,
     ToastAction,
     toast,
 } from "@min98/ui";
-import { InputForm } from "@/components/Form";
 import { Icon } from "@iconify/react";
 import { Copy, Random, parseError } from "@/Utils/systemUtil";
 import { AdminStaffApi } from "@/apis/Admin";

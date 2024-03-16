@@ -39,7 +39,10 @@ const Calendar = ({
                 cell: cn(
                     "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-gray-100",
                     props.mode === "range"
-                        ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
+                        ? [
+                              "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md ",
+                              "first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md",
+                          ]
                         : "[&:has([aria-selected])]:rounded-md",
                 ),
                 day: cn(
@@ -49,7 +52,7 @@ const Calendar = ({
                 day_range_start: "day-range-start",
                 day_range_end: "day-range-end",
                 day_selected:
-                    "bg-dark text-white hover:bg-primary-light hover:text-primary-light focus:bg-primary focus:text-primary-light",
+                    "text-gray-500 hover:!text-dark hover:bg-purple-200 focus:bg-purple-400 focus:text-dark",
                 day_today: "bg-gray-50 text-gray-100",
                 day_outside: "text-gray-300 opacity-50",
                 day_disabled: "text-gray-300 opacity-50",

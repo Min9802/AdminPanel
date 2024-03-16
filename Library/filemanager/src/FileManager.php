@@ -461,7 +461,14 @@ class FileManager
             'tree'      => [$tree],
         ];
     }
-
+    public function directoryExists($disk, $directoryName)
+    {
+        if (Storage::disk($disk)->exists($directoryName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * Create new file
      *

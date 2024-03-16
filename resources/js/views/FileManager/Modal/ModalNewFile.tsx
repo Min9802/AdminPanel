@@ -1,8 +1,5 @@
-import { InputForm } from "@/components/Form";
-import { InputFormProps } from "@/components/Form/InputForm";
-import Modal from "@/components/Modal/Modal";
 import { Icon } from "@iconify/react";
-import { Button, Form } from "@min98/ui";
+import { Button, Form, InputForm, InputFormProps, Modal } from "@min98/ui";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

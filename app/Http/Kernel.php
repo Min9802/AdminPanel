@@ -70,7 +70,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
         'recaptcha' => \App\Http\Middleware\RecaptchaMiddleware::class,
-        'client' => CheckClientCredentials::class,
+        'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,

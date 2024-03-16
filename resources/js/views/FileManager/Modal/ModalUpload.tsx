@@ -1,7 +1,6 @@
-import DialogModal from "@/components/Modal/DialogModal";
 import { ImageConfig } from "@/configs/constant";
 import { Icon } from "@iconify/react";
-import { Card, CardContent } from "@min98/ui";
+import { Card, CardContent, DialogModal } from "@min98/ui";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { bytesToHuman } from "../Utils/FileUtils";

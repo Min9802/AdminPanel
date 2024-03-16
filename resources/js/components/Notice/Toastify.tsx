@@ -5,13 +5,18 @@ import React, {
     useRef,
     useState,
 } from "react";
-import { Alert, AlertDescription, AlertTitle, alertVariants } from "@min98/ui";
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+    alertVariants,
+    CloseButton,
+} from "@min98/ui";
 import { Icon } from "@iconify/react";
 import { useForkedRef } from "@/hooks/useForkedRef";
 import { animated, useSpring } from "@react-spring/web";
 import classNames from "classnames";
 import { VariantProps } from "class-variance-authority";
-import { CloseButton } from "../Button";
 
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     /**
@@ -121,8 +126,8 @@ const Toastify = React.forwardRef<
                 outline
                     ? [`text-${variant}${light ? "-dark" : ""}`]
                     : light
-                    ? `text-${variant}${light ? "-dark" : ""}`
-                    : "text-white",
+                      ? `text-${variant}${light ? "-dark" : ""}`
+                      : "text-white",
             );
             switch (status) {
                 case "primary":

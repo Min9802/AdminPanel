@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { animated, useSpring } from "@react-spring/web";
 
-import CloseButton from "../../Button/CloseButton";
+import { CloseButton } from "@min98/ui";
 
 import { useForkedRef } from "../../../hooks/useForkedRef";
 import { colorPropType } from "../../props";
@@ -143,8 +143,8 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
                 solid
                     ? [`text-${variant}${light ? "-dark" : ""}`]
                     : light
-                    ? `text-${variant}${light ? "-dark" : ""}`
-                    : "text-white",
+                      ? `text-${variant}${light ? "-dark" : ""}`
+                      : "text-white",
             );
             switch (status) {
                 case "primary":

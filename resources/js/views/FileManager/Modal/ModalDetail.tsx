@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal/Modal";
+import { Modal } from "@min98/ui";
 import { Icon } from "@iconify/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
